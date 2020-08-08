@@ -13,6 +13,8 @@ export const server = new ApolloServer({
   schema: schema,
   context: createContext,
   playground: true,
+  introspection: true,
+
   //  tracing: isDev(),
   // introspection: true,
   // debug: isDev(),
