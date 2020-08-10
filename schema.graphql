@@ -74,8 +74,10 @@ input NullableStringFilter {
 }
 
 type Query {
+  futureWorkouts: [Workout!]!
   getAvailableWorkouts: [Workout!]!
   me: User!
+  pastWorkouts: [Workout!]!
   workout(where: WorkoutWhereUniqueInput!): Workout
   workouts(skip: Int, where: WorkoutWhereInput): [Workout!]!
   workoutsBooked: [Workout!]!
