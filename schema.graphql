@@ -237,6 +237,7 @@ input UserWhereUniqueInput {
 }
 
 type Workout {
+  date: DateTime!
   description: String
   id: Int!
   location: String
@@ -248,6 +249,7 @@ type Workout {
 
 input WorkoutCreateInput {
   createdAt: DateTime
+  date: DateTime!
   description: String
   location: String
   partecipants: UserCreateManyWithoutWorkoutsInput
@@ -268,6 +270,7 @@ input WorkoutCreateManyWithoutTrainerInput {
 
 input WorkoutCreateWithoutPartecipantsInput {
   createdAt: DateTime
+  date: DateTime!
   description: String
   location: String
   spots: Int
@@ -277,6 +280,7 @@ input WorkoutCreateWithoutPartecipantsInput {
 
 input WorkoutCreateWithoutTrainerInput {
   createdAt: DateTime
+  date: DateTime!
   description: String
   location: String
   partecipants: UserCreateManyWithoutWorkoutsInput
@@ -293,6 +297,7 @@ input WorkoutFilter {
 input WorkoutScalarWhereInput {
   AND: [WorkoutScalarWhereInput!]
   createdAt: DateTimeFilter
+  date: DateTimeFilter
   description: NullableStringFilter
   id: IntFilter
   location: NullableStringFilter
@@ -306,6 +311,7 @@ input WorkoutScalarWhereInput {
 
 input WorkoutUpdateInput {
   createdAt: DateTime
+  date: DateTime
   description: String
   location: String
   partecipants: UserUpdateManyWithoutWorkoutsInput
@@ -316,6 +322,7 @@ input WorkoutUpdateInput {
 
 input WorkoutUpdateManyDataInput {
   createdAt: DateTime
+  date: DateTime
   description: String
   location: String
   spots: Int
@@ -353,6 +360,7 @@ input WorkoutUpdateManyWithWhereNestedInput {
 
 input WorkoutUpdateWithoutPartecipantsDataInput {
   createdAt: DateTime
+  date: DateTime
   description: String
   location: String
   spots: Int
@@ -362,6 +370,7 @@ input WorkoutUpdateWithoutPartecipantsDataInput {
 
 input WorkoutUpdateWithoutTrainerDataInput {
   createdAt: DateTime
+  date: DateTime
   description: String
   location: String
   partecipants: UserUpdateManyWithoutWorkoutsInput
@@ -394,6 +403,7 @@ input WorkoutUpsertWithWhereUniqueWithoutTrainerInput {
 input WorkoutWhereInput {
   AND: [WorkoutWhereInput!]
   createdAt: DateTimeFilter
+  date: DateTimeFilter
   description: NullableStringFilter
   id: IntFilter
   location: NullableStringFilter

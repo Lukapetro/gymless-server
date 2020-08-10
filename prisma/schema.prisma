@@ -40,9 +40,9 @@ model Workout {
   description String?
   location    String?
   spots       Int      @default(25)
-
-  trainerId Int
-  trainer   User @relation("Train", fields: [trainerId], references: [id])
+  date        DateTime
+  trainerId   Int
+  trainer     User     @relation("Train", fields: [trainerId], references: [id])
 
   partecipants User[] @relation(references: [id])
 
