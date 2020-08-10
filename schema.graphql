@@ -7,6 +7,9 @@ type AuthPayload {
   user: User!
 }
 
+"""
+A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+"""
 scalar DateTime
 
 input DateTimeFilter {
@@ -34,7 +37,7 @@ input IntFilter {
 type Mutation {
   bookWorkout(id: ID): Workout!
   createOneWorkout(data: WorkoutCreateInput!): Workout!
-  createWorkout(description: String, location: String, title: String!): Workout!
+  createWorkout(date: DateTime, description: String, location: String, spots: Int, title: String): Workout!
   deleteBooking(id: ID): Workout!
   deleteOneWorkout(where: WorkoutWhereUniqueInput!): Workout
   facebookLogin(fbToken: String!): AuthPayload!
@@ -43,6 +46,17 @@ type Mutation {
   signup(email: String!, name: String, password: String!): AuthPayload!
   trainerLogin(email: String!, password: String!): AuthPayload!
   updateOneWorkout(data: WorkoutUpdateInput!, where: WorkoutWhereUniqueInput!): Workout
+}
+
+input NullableDateTimeFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: DateTime
+  notIn: [DateTime!]
 }
 
 input NullableStringFilter {
@@ -237,7 +251,7 @@ input UserWhereUniqueInput {
 }
 
 type Workout {
-  date: DateTime!
+  date: DateTime
   description: String
   id: Int!
   location: String
@@ -249,7 +263,7 @@ type Workout {
 
 input WorkoutCreateInput {
   createdAt: DateTime
-  date: DateTime!
+  date: DateTime
   description: String
   location: String
   partecipants: UserCreateManyWithoutWorkoutsInput
@@ -270,7 +284,7 @@ input WorkoutCreateManyWithoutTrainerInput {
 
 input WorkoutCreateWithoutPartecipantsInput {
   createdAt: DateTime
-  date: DateTime!
+  date: DateTime
   description: String
   location: String
   spots: Int
@@ -280,7 +294,7 @@ input WorkoutCreateWithoutPartecipantsInput {
 
 input WorkoutCreateWithoutTrainerInput {
   createdAt: DateTime
-  date: DateTime!
+  date: DateTime
   description: String
   location: String
   partecipants: UserCreateManyWithoutWorkoutsInput
@@ -297,7 +311,7 @@ input WorkoutFilter {
 input WorkoutScalarWhereInput {
   AND: [WorkoutScalarWhereInput!]
   createdAt: DateTimeFilter
-  date: DateTimeFilter
+  date: NullableDateTimeFilter
   description: NullableStringFilter
   id: IntFilter
   location: NullableStringFilter
@@ -403,7 +417,7 @@ input WorkoutUpsertWithWhereUniqueWithoutTrainerInput {
 input WorkoutWhereInput {
   AND: [WorkoutWhereInput!]
   createdAt: DateTimeFilter
-  date: DateTimeFilter
+  date: NullableDateTimeFilter
   description: NullableStringFilter
   id: IntFilter
   location: NullableStringFilter

@@ -4,6 +4,9 @@ import { schema } from 'nexus'
 import { idArg } from '@nexus/schema'
 import { stripe } from '../stripe'
 import { authenticateFacebook } from '../utils/facebookAuth'
+import { GraphQLDateTime } from 'graphql-iso-date'
+
+export const DateTime = GraphQLDateTime
 
 export const Mutation = schema.mutationType({
   definition(t) {
@@ -14,11 +17,17 @@ export const Mutation = schema.mutationType({
     t.field('createWorkout', {
       type: 'Workout',
       args: {
-        title: schema.stringArg({ nullable: false }),
+        title: schema.stringArg(),
         description: schema.stringArg(),
         location: schema.stringArg(),
+        spots: schema.intArg(),
+        date: DateTime,
       },
-      resolve: async (parent, { title, description, location }, ctx) => {
+      resolve: async (
+        _,
+        { title, description, location, spots, date },
+        ctx,
+      ) => {
         const user = await ctx.prisma.user.findOne({
           where: {
             id: ctx.userId,
@@ -26,7 +35,7 @@ export const Mutation = schema.mutationType({
         })
 
         if (user.role !== 'trainer') {
-          throw new Error(`Utente non abilitato`)
+          throw new Error('Utente non abilitato')
         }
 
         return ctx.prisma.workout.create({
@@ -34,6 +43,8 @@ export const Mutation = schema.mutationType({
             title,
             description,
             location,
+            spots,
+            date,
             trainer: {
               connect: {
                 id: ctx.userId,
