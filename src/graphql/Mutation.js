@@ -10,9 +10,16 @@ export const DateTime = GraphQLDateTime
 
 export const Mutation = schema.mutationType({
   definition(t) {
+    //WORKOUT
     t.crud.createOneWorkout()
     t.crud.updateOneWorkout()
     t.crud.deleteOneWorkout()
+
+    //CORDINATE
+    t.crud.createOneCordinates()
+    t.crud.deleteOneCordinates()
+
+    t.crud.updateOneUser()
 
     t.field('createWorkout', {
       type: 'Workout',
@@ -21,11 +28,12 @@ export const Mutation = schema.mutationType({
         description: schema.stringArg(),
         location: schema.stringArg(),
         spots: schema.intArg(),
+        cordinatesId: schema.intArg(),
         date: DateTime,
       },
       resolve: async (
         _,
-        { title, description, location, spots, date },
+        { title, description, location, spots, date, cordinatesId },
         ctx,
       ) => {
         const user = await ctx.prisma.user.findOne({
@@ -48,6 +56,11 @@ export const Mutation = schema.mutationType({
             trainer: {
               connect: {
                 id: ctx.userId,
+              },
+            },
+            cordinates: {
+              connect: {
+                id: cordinatesId,
               },
             },
           },

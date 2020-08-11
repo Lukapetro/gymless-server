@@ -11,5 +11,6 @@ export const Workout = schema.objectType({
     t.model.date()
     t.model.trainer()
     t.model.partecipants()
+    t.model.cordinates()
   },
 })

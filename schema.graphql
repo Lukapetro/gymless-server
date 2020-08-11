@@ -7,6 +7,70 @@ type AuthPayload {
   user: User!
 }
 
+type Cordinates {
+  address: String
+  city: String
+  id: Int!
+  latitude: Float
+  longitude: Float
+  workout(skip: Int): [Workout!]!
+}
+
+input CordinatesCreateInput {
+  address: String
+  city: String
+  latitude: Float
+  longitude: Float
+  workout: WorkoutCreateManyWithoutCordinatesInput
+}
+
+input CordinatesCreateOneWithoutWorkoutInput {
+  connect: CordinatesWhereUniqueInput
+  create: CordinatesCreateWithoutWorkoutInput
+}
+
+input CordinatesCreateWithoutWorkoutInput {
+  address: String
+  city: String
+  latitude: Float
+  longitude: Float
+}
+
+input CordinatesUpdateOneRequiredWithoutWorkoutInput {
+  connect: CordinatesWhereUniqueInput
+  create: CordinatesCreateWithoutWorkoutInput
+  update: CordinatesUpdateWithoutWorkoutDataInput
+  upsert: CordinatesUpsertWithoutWorkoutInput
+}
+
+input CordinatesUpdateWithoutWorkoutDataInput {
+  address: String
+  city: String
+  latitude: Float
+  longitude: Float
+}
+
+input CordinatesUpsertWithoutWorkoutInput {
+  create: CordinatesCreateWithoutWorkoutInput!
+  update: CordinatesUpdateWithoutWorkoutDataInput!
+}
+
+input CordinatesWhereInput {
+  address: NullableStringFilter
+  AND: [CordinatesWhereInput!]
+  city: NullableStringFilter
+  id: IntFilter
+  latitude: NullableFloatFilter
+  longitude: NullableFloatFilter
+  NOT: [CordinatesWhereInput!]
+  OR: [CordinatesWhereInput!]
+  workout: WorkoutFilter
+}
+
+input CordinatesWhereUniqueInput {
+  id: Int
+}
+
 """
 A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
 """
@@ -36,15 +100,18 @@ input IntFilter {
 
 type Mutation {
   bookWorkout(id: ID): Workout!
+  createOneCordinates(data: CordinatesCreateInput!): Cordinates!
   createOneWorkout(data: WorkoutCreateInput!): Workout!
-  createWorkout(date: DateTime, description: String, location: String, spots: Int, title: String): Workout!
+  createWorkout(cordinatesId: Int, date: DateTime, description: String, location: String, spots: Int, title: String): Workout!
   deleteBooking(id: ID): Workout!
+  deleteOneCordinates(where: CordinatesWhereUniqueInput!): Cordinates
   deleteOneWorkout(where: WorkoutWhereUniqueInput!): Workout
   facebookLogin(fbToken: String!): AuthPayload!
   login(email: String!, password: String!): AuthPayload!
   paymentIntent: String!
   signup(email: String!, name: String, password: String!): AuthPayload!
   trainerLogin(email: String!, password: String!): AuthPayload!
+  updateOneUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateOneWorkout(data: WorkoutUpdateInput!, where: WorkoutWhereUniqueInput!): Workout
 }
 
@@ -57,6 +124,17 @@ input NullableDateTimeFilter {
   lte: DateTime
   not: DateTime
   notIn: [DateTime!]
+}
+
+input NullableFloatFilter {
+  equals: Float
+  gt: Float
+  gte: Float
+  in: [Float!]
+  lt: Float
+  lte: Float
+  not: Float
+  notIn: [Float!]
 }
 
 input NullableStringFilter {
@@ -74,6 +152,7 @@ input NullableStringFilter {
 }
 
 type Query {
+  cordinates(skip: Int): [Cordinates!]!
   futureWorkouts: [Workout!]!
   getAvailableWorkouts: [Workout!]!
   me: User!
@@ -161,6 +240,17 @@ input UserScalarWhereInput {
   stripeId: NullableStringFilter
   train: WorkoutFilter
   workouts: WorkoutFilter
+}
+
+input UserUpdateInput {
+  email: String
+  facebookId: String
+  name: String
+  password: String
+  role: Role
+  stripeId: String
+  train: WorkoutUpdateManyWithoutTrainerInput
+  workouts: WorkoutUpdateManyWithoutPartecipantsInput
 }
 
 input UserUpdateManyDataInput {
@@ -253,6 +343,7 @@ input UserWhereUniqueInput {
 }
 
 type Workout {
+  cordinates: Cordinates!
   date: DateTime
   description: String
   id: Int!
@@ -264,6 +355,7 @@ type Workout {
 }
 
 input WorkoutCreateInput {
+  cordinates: CordinatesCreateOneWithoutWorkoutInput!
   createdAt: DateTime
   date: DateTime
   description: String
@@ -272,6 +364,11 @@ input WorkoutCreateInput {
   spots: Int
   title: String!
   trainer: UserCreateOneWithoutTrainInput!
+}
+
+input WorkoutCreateManyWithoutCordinatesInput {
+  connect: [WorkoutWhereUniqueInput!]
+  create: [WorkoutCreateWithoutCordinatesInput!]
 }
 
 input WorkoutCreateManyWithoutPartecipantsInput {
@@ -284,7 +381,19 @@ input WorkoutCreateManyWithoutTrainerInput {
   create: [WorkoutCreateWithoutTrainerInput!]
 }
 
+input WorkoutCreateWithoutCordinatesInput {
+  createdAt: DateTime
+  date: DateTime
+  description: String
+  location: String
+  partecipants: UserCreateManyWithoutWorkoutsInput
+  spots: Int
+  title: String!
+  trainer: UserCreateOneWithoutTrainInput!
+}
+
 input WorkoutCreateWithoutPartecipantsInput {
+  cordinates: CordinatesCreateOneWithoutWorkoutInput!
   createdAt: DateTime
   date: DateTime
   description: String
@@ -295,6 +404,7 @@ input WorkoutCreateWithoutPartecipantsInput {
 }
 
 input WorkoutCreateWithoutTrainerInput {
+  cordinates: CordinatesCreateOneWithoutWorkoutInput!
   createdAt: DateTime
   date: DateTime
   description: String
@@ -312,6 +422,7 @@ input WorkoutFilter {
 
 input WorkoutScalarWhereInput {
   AND: [WorkoutScalarWhereInput!]
+  cordinatesId: IntFilter
   createdAt: DateTimeFilter
   date: NullableDateTimeFilter
   description: NullableStringFilter
@@ -326,6 +437,7 @@ input WorkoutScalarWhereInput {
 }
 
 input WorkoutUpdateInput {
+  cordinates: CordinatesUpdateOneRequiredWithoutWorkoutInput
   createdAt: DateTime
   date: DateTime
   description: String
@@ -375,6 +487,7 @@ input WorkoutUpdateManyWithWhereNestedInput {
 }
 
 input WorkoutUpdateWithoutPartecipantsDataInput {
+  cordinates: CordinatesUpdateOneRequiredWithoutWorkoutInput
   createdAt: DateTime
   date: DateTime
   description: String
@@ -385,6 +498,7 @@ input WorkoutUpdateWithoutPartecipantsDataInput {
 }
 
 input WorkoutUpdateWithoutTrainerDataInput {
+  cordinates: CordinatesUpdateOneRequiredWithoutWorkoutInput
   createdAt: DateTime
   date: DateTime
   description: String
@@ -418,6 +532,8 @@ input WorkoutUpsertWithWhereUniqueWithoutTrainerInput {
 
 input WorkoutWhereInput {
   AND: [WorkoutWhereInput!]
+  cordinates: CordinatesWhereInput
+  cordinatesId: IntFilter
   createdAt: DateTimeFilter
   date: NullableDateTimeFilter
   description: NullableStringFilter

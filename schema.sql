@@ -41,3 +41,14 @@ int4_ops);
 
 CREATE TYPE role AS ENUM
 ('user', 'trainer', 'admin');
+
+
+CREATE TABLE "Cordinates" (
+    id SERIAL PRIMARY KEY,
+    "workoutId" INTEGER NOT NULL UNIQUE,
+	city VARCHAR(255),
+	address VARCHAR(255),
+	latitude FLOAT,
+	longitude FLOAT,
+    FOREIGN KEY ("workoutId") REFERENCES "Workout"(id)
+);

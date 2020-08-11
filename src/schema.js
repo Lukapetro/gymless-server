@@ -5,9 +5,10 @@ import { Mutation } from './graphql/Mutation'
 import { User } from './graphql/models/User'
 import { AuthPayload } from './graphql/models/AuthPayload'
 import { Workout } from './graphql/models/Workout'
+import { Cordinates } from './graphql/models/Cordinates'
 
 const schema = makeSchema({
-  types: [Query, Mutation, AuthPayload, User, Workout],
+  types: [Query, Mutation, AuthPayload, User, Workout, Cordinates],
   plugins: [nexusPrismaPlugin()],
   outputs: {
     schema: __dirname + '/../schema.graphql',

@@ -4,6 +4,8 @@ import { getToday } from '../utils'
 export const Query = schema.queryType({
   definition(t) {
     t.crud.workout()
+    t.crud.cordinates()
+
     t.crud.workouts({
       args: { id: schema.stringArg({ required: true }) },
       filtering: true,
