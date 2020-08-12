@@ -17,6 +17,7 @@ export const Mutation = schema.mutationType({
 
     //CORDINATE
     t.crud.createOneCordinates()
+    t.crud.updateOneCordinates()
     t.crud.deleteOneCordinates()
 
     t.crud.updateOneUser()

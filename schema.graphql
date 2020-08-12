@@ -36,6 +36,14 @@ input CordinatesCreateWithoutWorkoutInput {
   longitude: Float
 }
 
+input CordinatesUpdateInput {
+  address: String
+  city: String
+  latitude: Float
+  longitude: Float
+  workout: WorkoutUpdateManyWithoutCordinatesInput
+}
+
 input CordinatesUpdateOneRequiredWithoutWorkoutInput {
   connect: CordinatesWhereUniqueInput
   create: CordinatesCreateWithoutWorkoutInput
@@ -111,6 +119,7 @@ type Mutation {
   paymentIntent: String!
   signup(email: String!, name: String, password: String!): AuthPayload!
   trainerLogin(email: String!, password: String!): AuthPayload!
+  updateOneCordinates(data: CordinatesUpdateInput!, where: CordinatesWhereUniqueInput!): Cordinates
   updateOneUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateOneWorkout(data: WorkoutUpdateInput!, where: WorkoutWhereUniqueInput!): Workout
 }
@@ -457,6 +466,18 @@ input WorkoutUpdateManyDataInput {
   title: String
 }
 
+input WorkoutUpdateManyWithoutCordinatesInput {
+  connect: [WorkoutWhereUniqueInput!]
+  create: [WorkoutCreateWithoutCordinatesInput!]
+  delete: [WorkoutWhereUniqueInput!]
+  deleteMany: [WorkoutScalarWhereInput!]
+  disconnect: [WorkoutWhereUniqueInput!]
+  set: [WorkoutWhereUniqueInput!]
+  update: [WorkoutUpdateWithWhereUniqueWithoutCordinatesInput!]
+  updateMany: [WorkoutUpdateManyWithWhereNestedInput!]
+  upsert: [WorkoutUpsertWithWhereUniqueWithoutCordinatesInput!]
+}
+
 input WorkoutUpdateManyWithoutPartecipantsInput {
   connect: [WorkoutWhereUniqueInput!]
   create: [WorkoutCreateWithoutPartecipantsInput!]
@@ -486,6 +507,17 @@ input WorkoutUpdateManyWithWhereNestedInput {
   where: WorkoutScalarWhereInput!
 }
 
+input WorkoutUpdateWithoutCordinatesDataInput {
+  createdAt: DateTime
+  date: DateTime
+  description: String
+  location: String
+  partecipants: UserUpdateManyWithoutWorkoutsInput
+  spots: Int
+  title: String
+  trainer: UserUpdateOneRequiredWithoutTrainInput
+}
+
 input WorkoutUpdateWithoutPartecipantsDataInput {
   cordinates: CordinatesUpdateOneRequiredWithoutWorkoutInput
   createdAt: DateTime
@@ -508,6 +540,11 @@ input WorkoutUpdateWithoutTrainerDataInput {
   title: String
 }
 
+input WorkoutUpdateWithWhereUniqueWithoutCordinatesInput {
+  data: WorkoutUpdateWithoutCordinatesDataInput!
+  where: WorkoutWhereUniqueInput!
+}
+
 input WorkoutUpdateWithWhereUniqueWithoutPartecipantsInput {
   data: WorkoutUpdateWithoutPartecipantsDataInput!
   where: WorkoutWhereUniqueInput!
@@ -515,6 +552,12 @@ input WorkoutUpdateWithWhereUniqueWithoutPartecipantsInput {
 
 input WorkoutUpdateWithWhereUniqueWithoutTrainerInput {
   data: WorkoutUpdateWithoutTrainerDataInput!
+  where: WorkoutWhereUniqueInput!
+}
+
+input WorkoutUpsertWithWhereUniqueWithoutCordinatesInput {
+  create: WorkoutCreateWithoutCordinatesInput!
+  update: WorkoutUpdateWithoutCordinatesDataInput!
   where: WorkoutWhereUniqueInput!
 }
 
