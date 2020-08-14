@@ -1,12 +1,19 @@
 import { compare, hash } from 'bcryptjs'
 import { sign } from 'jsonwebtoken'
 import { schema } from 'nexus'
-import { idArg } from '@nexus/schema'
+import { idArg, arg, inputObjectType, stringArg } from '@nexus/schema'
 import { stripe } from '../stripe'
 import { authenticateFacebook } from '../utils/facebookAuth'
 import { GraphQLDateTime } from 'graphql-iso-date'
 
 export const DateTime = GraphQLDateTime
+
+const ImageInput = inputObjectType({
+  name: 'ImageInput',
+  definition(t) {
+    t.string('path', { required: true })
+  },
+})
 
 export const Mutation = schema.mutationType({
   definition(t) {
@@ -21,6 +28,27 @@ export const Mutation = schema.mutationType({
     t.crud.deleteOneCordinates()
 
     t.crud.updateOneUser()
+
+    t.field('updateAvatar', {
+      type: 'User',
+      args: {
+        avatarId: stringArg(),
+      },
+      resolve: async (parent, { avatarId }, ctx) => {
+        if (!ctx.userId) {
+          throw new Error('Not athenticated')
+        }
+
+        return ctx.prisma.user.update({
+          data: {
+            avatarId: avatarId,
+          },
+          where: {
+            id: ctx.userId,
+          },
+        })
+      },
+    })
 
     t.field('createWorkout', {
       type: 'Workout',

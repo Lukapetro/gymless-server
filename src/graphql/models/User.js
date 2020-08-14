@@ -9,5 +9,6 @@ export const User = schema.objectType({
     t.model.stripeId()
     t.model.workouts()
     t.model.role()
+    t.model.avatarId()
   },
 })

@@ -23,6 +23,7 @@ model User {
   train      Workout[] @relation("Train")
   workouts   Workout[]
   role       Role      @default(user)
+  avatarId   String?
 }
 
 model Workout {

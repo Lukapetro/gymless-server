@@ -119,6 +119,7 @@ type Mutation {
   paymentIntent: String!
   signup(email: String!, name: String, password: String!): AuthPayload!
   trainerLogin(email: String!, password: String!): AuthPayload!
+  updateAvatar(avatarId: String): User!
   updateOneCordinates(data: CordinatesUpdateInput!, where: CordinatesWhereUniqueInput!): Cordinates
   updateOneUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateOneWorkout(data: WorkoutUpdateInput!, where: WorkoutWhereUniqueInput!): Workout
@@ -163,9 +164,9 @@ input NullableStringFilter {
 type Query {
   cordinates(skip: Int): [Cordinates!]!
   futureWorkouts: [Workout!]!
-  getAvailableWorkouts: [Workout!]!
   me: User!
   pastWorkouts: [Workout!]!
+  userAvailableWorkouts: [Workout!]!
   workout(where: WorkoutWhereUniqueInput!): Workout
   workouts(skip: Int, where: WorkoutWhereInput): [Workout!]!
   workoutsBooked: [Workout!]!
@@ -192,6 +193,7 @@ input StringFilter {
 }
 
 type User {
+  avatarId: String
   email: String!
   id: Int!
   name: String
@@ -211,6 +213,7 @@ input UserCreateOneWithoutTrainInput {
 }
 
 input UserCreateWithoutTrainInput {
+  avatarId: String
   email: String!
   facebookId: String
   name: String
@@ -221,6 +224,7 @@ input UserCreateWithoutTrainInput {
 }
 
 input UserCreateWithoutWorkoutsInput {
+  avatarId: String
   email: String!
   facebookId: String
   name: String
@@ -238,6 +242,7 @@ input UserFilter {
 
 input UserScalarWhereInput {
   AND: [UserScalarWhereInput!]
+  avatarId: NullableStringFilter
   email: StringFilter
   facebookId: NullableStringFilter
   id: IntFilter
@@ -252,6 +257,7 @@ input UserScalarWhereInput {
 }
 
 input UserUpdateInput {
+  avatarId: String
   email: String
   facebookId: String
   name: String
@@ -263,6 +269,7 @@ input UserUpdateInput {
 }
 
 input UserUpdateManyDataInput {
+  avatarId: String
   email: String
   facebookId: String
   name: String
@@ -296,6 +303,7 @@ input UserUpdateOneRequiredWithoutTrainInput {
 }
 
 input UserUpdateWithoutTrainDataInput {
+  avatarId: String
   email: String
   facebookId: String
   name: String
@@ -306,6 +314,7 @@ input UserUpdateWithoutTrainDataInput {
 }
 
 input UserUpdateWithoutWorkoutsDataInput {
+  avatarId: String
   email: String
   facebookId: String
   name: String
@@ -333,6 +342,7 @@ input UserUpsertWithWhereUniqueWithoutWorkoutsInput {
 
 input UserWhereInput {
   AND: [UserWhereInput!]
+  avatarId: NullableStringFilter
   email: StringFilter
   facebookId: NullableStringFilter
   id: IntFilter

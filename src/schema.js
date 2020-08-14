@@ -1,5 +1,5 @@
 const { nexusPrismaPlugin } = require('nexus-prisma')
-const { makeSchema, objectType } = require('@nexus/schema')
+const { makeSchema } = require('@nexus/schema')
 import { Query } from './graphql/Query'
 import { Mutation } from './graphql/Mutation'
 import { User } from './graphql/models/User'

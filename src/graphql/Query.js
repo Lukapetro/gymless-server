@@ -7,9 +7,28 @@ export const Query = schema.queryType({
     t.crud.cordinates()
 
     t.crud.workouts({
-      args: { id: schema.stringArg({ required: true }) },
       filtering: true,
       sorting: true,
+    })
+
+    t.list.field('userAvailableWorkouts', {
+      type: 'Workout',
+      resolve: async (parent, args, ctx) => {
+        return ctx.prisma.workout.findMany({
+          where: {
+            date: {
+              gt: new Date(),
+            },
+            AND: {
+              partecipants: {
+                none: {
+                  id: ctx.userId,
+                },
+              },
+            },
+          },
+        })
+      },
     })
 
     t.list.field('futureWorkouts', {
@@ -54,20 +73,7 @@ export const Query = schema.queryType({
         })
       },
     })
-    t.list.field('getAvailableWorkouts', {
-      type: 'Workout',
-      resolve: (parent, args, ctx) => {
-        return ctx.prisma.workout.findMany({
-          where: {
-            partecipants: {
-              none: {
-                id: ctx.userId,
-              },
-            },
-          },
-        })
-      },
-    })
+
     t.list.field('workoutsBooked', {
       type: 'Workout',
       resolve: (parent, args, ctx) => {
