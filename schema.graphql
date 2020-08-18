@@ -109,7 +109,6 @@ input IntFilter {
 type Mutation {
   bookWorkout(id: ID): Workout!
   createOneCordinates(data: CordinatesCreateInput!): Cordinates!
-  createOneWorkout(data: WorkoutCreateInput!): Workout!
   createWorkout(cordinatesId: Int, date: DateTime, description: String, location: String, spots: Int, title: String): Workout!
   deleteBooking(id: ID): Workout!
   deleteOneCordinates(where: CordinatesWhereUniqueInput!): Cordinates
@@ -119,9 +118,7 @@ type Mutation {
   paymentIntent: String!
   signup(email: String!, name: String, password: String!): AuthPayload!
   trainerLogin(email: String!, password: String!): AuthPayload!
-  updateAvatar(avatarId: String): User!
   updateOneCordinates(data: CordinatesUpdateInput!, where: CordinatesWhereUniqueInput!): Cordinates
-  updateOneUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateOneWorkout(data: WorkoutUpdateInput!, where: WorkoutWhereUniqueInput!): Workout
 }
 
@@ -256,18 +253,6 @@ input UserScalarWhereInput {
   workouts: WorkoutFilter
 }
 
-input UserUpdateInput {
-  avatarId: String
-  email: String
-  facebookId: String
-  name: String
-  password: String
-  role: Role
-  stripeId: String
-  train: WorkoutUpdateManyWithoutTrainerInput
-  workouts: WorkoutUpdateManyWithoutPartecipantsInput
-}
-
 input UserUpdateManyDataInput {
   avatarId: String
   email: String
@@ -371,18 +356,6 @@ type Workout {
   spots: Int!
   title: String!
   trainer: User!
-}
-
-input WorkoutCreateInput {
-  cordinates: CordinatesCreateOneWithoutWorkoutInput!
-  createdAt: DateTime
-  date: DateTime
-  description: String
-  location: String
-  partecipants: UserCreateManyWithoutWorkoutsInput
-  spots: Int
-  title: String!
-  trainer: UserCreateOneWithoutTrainInput!
 }
 
 input WorkoutCreateManyWithoutCordinatesInput {

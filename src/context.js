@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 import { sign, verify } from 'jsonwebtoken'
-import { APP_SECRET, tokens } from './utils/costants'
+import { tokens } from './utils/costants'
 
 export const handleError = (error) => {
   // add any other logging mechanism here e.g. Sentry
@@ -14,7 +14,7 @@ export const generateAccessToken = (userId) => {
       type: tokens.access.name,
       timestamp: Date.now(),
     },
-    APP_SECRET,
+    process.env.APP_SECRET,
     {
       expiresIn: tokens.access.expiry,
     },
@@ -36,7 +36,7 @@ export const createContext = (ctx) => {
       Authorization = ctx?.connection?.context?.Authorization
     }
     const token = Authorization.replace('Bearer ', '')
-    const verifiedToken = verify(token, APP_SECRET)
+    const verifiedToken = verify(token, process.env.APP_SECRET)
 
     if (!verifiedToken.userId && verifiedToken.type !== tokens.access.name)
       userId = -1
