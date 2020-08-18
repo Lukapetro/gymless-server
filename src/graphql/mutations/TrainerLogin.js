@@ -1,5 +1,6 @@
 import { mutationField } from '@nexus/schema'
 import { schema } from 'nexus'
+import { compare } from 'bcryptjs'
 
 export const trainerLogin = mutationField('trainerLogin', {
   type: 'AuthPayload',
