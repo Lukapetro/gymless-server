@@ -16,7 +16,7 @@ export const login = mutationField('login', {
       },
     })
     if (!user) {
-      throw new Error(`No user found for email: ${email}`)
+      throw new Error(`Nessun utente trovato con email: ${email}`)
     }
     const passwordValid = await compare(password, user.password)
     if (!passwordValid) {

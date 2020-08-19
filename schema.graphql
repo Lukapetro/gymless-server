@@ -113,13 +113,17 @@ type Mutation {
   deleteBooking(id: ID): Workout!
   deleteOneCordinates(where: CordinatesWhereUniqueInput!): Cordinates
   deleteOneWorkout(where: WorkoutWhereUniqueInput!): Workout
+  facebookConnect(fbToken: String!): User!
+  facebookDisconnect: User!
   facebookLogin(fbToken: String!): AuthPayload!
   login(email: String!, password: String!): AuthPayload!
   paymentIntent: String!
   signup(email: String!, name: String, password: String!): AuthPayload!
   trainerLogin(email: String!, password: String!): AuthPayload!
+  updateAvatar(avatarId: String): User!
   updateOneCordinates(data: CordinatesUpdateInput!, where: CordinatesWhereUniqueInput!): Cordinates
   updateOneWorkout(data: WorkoutUpdateInput!, where: WorkoutWhereUniqueInput!): Workout
+  updateUser(email: String, name: String): User!
 }
 
 input NullableDateTimeFilter {
@@ -192,6 +196,7 @@ input StringFilter {
 type User {
   avatarId: String
   email: String!
+  facebookId: String
   id: Int!
   name: String
   role: Role!

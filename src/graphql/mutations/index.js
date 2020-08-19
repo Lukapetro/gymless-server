@@ -7,10 +7,13 @@ import { workout } from './Workout'
 import { bookWorkout } from './BookWorkout'
 import { deleteBooking } from './DeleteBooking'
 import { paymentIntent } from './PaymentIntet'
+import { user } from './User'
+import { socialLinking } from './SocialLinking'
 
 export const Mutation = {
   signup,
   login,
+  user,
   trainerLogin,
   facebookLogin,
   cordinates,
@@ -18,4 +21,5 @@ export const Mutation = {
   bookWorkout,
   deleteBooking,
   paymentIntent,
+  socialLinking,
 }

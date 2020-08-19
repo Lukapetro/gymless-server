@@ -7,6 +7,7 @@ export const User = schema.objectType({
     t.model.name()
     t.model.email()
     t.model.stripeId()
+    t.model.facebookId()
     t.model.workouts()
     t.model.role()
     t.model.avatarId()
