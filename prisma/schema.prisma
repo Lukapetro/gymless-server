@@ -13,16 +13,25 @@ enum Role {
   admin
 }
 
+enum Sex {
+  male
+  female
+  unknown
+}
+
 model User {
   id         Int       @default(autoincrement()) @id
   name       String?
   email      String    @unique
   password   String
+  bio        String?
   stripeId   String?
   facebookId String?
   train      Workout[] @relation("Train")
   workouts   Workout[]
   role       Role      @default(user)
+  sex        Sex       @default(unknown)
+  birthDate  DateTime?
   avatarId   String?
 }
 
@@ -32,6 +41,8 @@ model Workout {
   createdAt   DateTime  @default(now())
   description String?
   location    String?
+  price       Int?
+  duration    Int?
   spots       Int       @default(25)
   date        DateTime?
   trainerId   Int

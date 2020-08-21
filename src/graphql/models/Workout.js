@@ -8,6 +8,8 @@ export const Workout = schema.objectType({
     t.model.description()
     t.model.spots()
     t.model.location()
+    t.model.price()
+    t.model.duration()
     t.model.date()
     t.model.trainer()
     t.model.partecipants()

@@ -1,4 +1,10 @@
-import { extendType, stringArg } from '@nexus/schema'
+import { extendType, stringArg, arg, enumType } from '@nexus/schema'
+
+const SexType = enumType({
+  name: 'Sex',
+  description: 'The sex of the user',
+  members: ['male', 'female', 'unknown'],
+})
 
 export const user = extendType({
   type: 'Mutation',
@@ -8,8 +14,9 @@ export const user = extendType({
       args: {
         name: stringArg(),
         email: stringArg(),
+        sex: SexType,
       },
-      resolve: (parent, { name, email }, ctx) => {
+      resolve: (parent, { name, email, sex }, ctx) => {
         if (!ctx.userId) {
           throw new Error('Non auteticato')
         }
@@ -18,7 +25,23 @@ export const user = extendType({
           data: {
             name: name,
             email: email,
+            sex: sex,
           },
+          where: {
+            id: ctx.userId,
+          },
+        })
+      },
+    })
+
+    t.field('deleteUser', {
+      type: 'User',
+      resolve: (parent, args, ctx) => {
+        if (!ctx.userId) {
+          throw new Error('Non auteticato')
+        }
+
+        return ctx.prisma.user.delete({
           where: {
             id: ctx.userId,
           },

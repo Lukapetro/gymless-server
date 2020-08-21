@@ -7,9 +7,12 @@ export const User = schema.objectType({
     t.model.name()
     t.model.email()
     t.model.stripeId()
+    t.model.bio()
     t.model.facebookId()
     t.model.workouts()
     t.model.role()
+    t.model.sex()
+    t.model.birthDate()
     t.model.avatarId()
   },
 })

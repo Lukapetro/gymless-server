@@ -113,6 +113,7 @@ type Mutation {
   deleteBooking(id: ID): Workout!
   deleteOneCordinates(where: CordinatesWhereUniqueInput!): Cordinates
   deleteOneWorkout(where: WorkoutWhereUniqueInput!): Workout
+  deleteUser: User!
   facebookConnect(fbToken: String!): User!
   facebookDisconnect: User!
   facebookLogin(fbToken: String!): AuthPayload!
@@ -123,7 +124,7 @@ type Mutation {
   updateAvatar(avatarId: String): User!
   updateOneCordinates(data: CordinatesUpdateInput!, where: CordinatesWhereUniqueInput!): Cordinates
   updateOneWorkout(data: WorkoutUpdateInput!, where: WorkoutWhereUniqueInput!): Workout
-  updateUser(email: String, name: String): User!
+  updateUser(email: String, name: String, sex: Sex): User!
 }
 
 input NullableDateTimeFilter {
@@ -146,6 +147,17 @@ input NullableFloatFilter {
   lte: Float
   not: Float
   notIn: [Float!]
+}
+
+input NullableIntFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: Int
+  notIn: [Int!]
 }
 
 input NullableStringFilter {
@@ -179,6 +191,13 @@ enum Role {
   user
 }
 
+"""The sex of the user"""
+enum Sex {
+  female
+  male
+  unknown
+}
+
 input StringFilter {
   contains: String
   endsWith: String
@@ -195,11 +214,14 @@ input StringFilter {
 
 type User {
   avatarId: String
+  bio: String
+  birthDate: DateTime
   email: String!
   facebookId: String
   id: Int!
   name: String
   role: Role!
+  sex: Sex!
   stripeId: String
   workouts(skip: Int): [Workout!]!
 }
@@ -216,22 +238,28 @@ input UserCreateOneWithoutTrainInput {
 
 input UserCreateWithoutTrainInput {
   avatarId: String
+  bio: String
+  birthDate: DateTime
   email: String!
   facebookId: String
   name: String
   password: String!
   role: Role
+  sex: Sex
   stripeId: String
   workouts: WorkoutCreateManyWithoutPartecipantsInput
 }
 
 input UserCreateWithoutWorkoutsInput {
   avatarId: String
+  bio: String
+  birthDate: DateTime
   email: String!
   facebookId: String
   name: String
   password: String!
   role: Role
+  sex: Sex
   stripeId: String
   train: WorkoutCreateManyWithoutTrainerInput
 }
@@ -245,6 +273,8 @@ input UserFilter {
 input UserScalarWhereInput {
   AND: [UserScalarWhereInput!]
   avatarId: NullableStringFilter
+  bio: NullableStringFilter
+  birthDate: NullableDateTimeFilter
   email: StringFilter
   facebookId: NullableStringFilter
   id: IntFilter
@@ -253,6 +283,7 @@ input UserScalarWhereInput {
   OR: [UserScalarWhereInput!]
   password: StringFilter
   role: Role
+  sex: Sex
   stripeId: NullableStringFilter
   train: WorkoutFilter
   workouts: WorkoutFilter
@@ -260,11 +291,14 @@ input UserScalarWhereInput {
 
 input UserUpdateManyDataInput {
   avatarId: String
+  bio: String
+  birthDate: DateTime
   email: String
   facebookId: String
   name: String
   password: String
   role: Role
+  sex: Sex
   stripeId: String
 }
 
@@ -294,22 +328,28 @@ input UserUpdateOneRequiredWithoutTrainInput {
 
 input UserUpdateWithoutTrainDataInput {
   avatarId: String
+  bio: String
+  birthDate: DateTime
   email: String
   facebookId: String
   name: String
   password: String
   role: Role
+  sex: Sex
   stripeId: String
   workouts: WorkoutUpdateManyWithoutPartecipantsInput
 }
 
 input UserUpdateWithoutWorkoutsDataInput {
   avatarId: String
+  bio: String
+  birthDate: DateTime
   email: String
   facebookId: String
   name: String
   password: String
   role: Role
+  sex: Sex
   stripeId: String
   train: WorkoutUpdateManyWithoutTrainerInput
 }
@@ -333,6 +373,8 @@ input UserUpsertWithWhereUniqueWithoutWorkoutsInput {
 input UserWhereInput {
   AND: [UserWhereInput!]
   avatarId: NullableStringFilter
+  bio: NullableStringFilter
+  birthDate: NullableDateTimeFilter
   email: StringFilter
   facebookId: NullableStringFilter
   id: IntFilter
@@ -341,6 +383,7 @@ input UserWhereInput {
   OR: [UserWhereInput!]
   password: StringFilter
   role: Role
+  sex: Sex
   stripeId: NullableStringFilter
   train: WorkoutFilter
   workouts: WorkoutFilter
@@ -355,9 +398,11 @@ type Workout {
   cordinates: Cordinates!
   date: DateTime
   description: String
+  duration: Int
   id: Int!
   location: String
   partecipants(skip: Int): [User!]!
+  price: Int
   spots: Int!
   title: String!
   trainer: User!
@@ -382,8 +427,10 @@ input WorkoutCreateWithoutCordinatesInput {
   createdAt: DateTime
   date: DateTime
   description: String
+  duration: Int
   location: String
   partecipants: UserCreateManyWithoutWorkoutsInput
+  price: Int
   spots: Int
   title: String!
   trainer: UserCreateOneWithoutTrainInput!
@@ -394,7 +441,9 @@ input WorkoutCreateWithoutPartecipantsInput {
   createdAt: DateTime
   date: DateTime
   description: String
+  duration: Int
   location: String
+  price: Int
   spots: Int
   title: String!
   trainer: UserCreateOneWithoutTrainInput!
@@ -405,8 +454,10 @@ input WorkoutCreateWithoutTrainerInput {
   createdAt: DateTime
   date: DateTime
   description: String
+  duration: Int
   location: String
   partecipants: UserCreateManyWithoutWorkoutsInput
+  price: Int
   spots: Int
   title: String!
 }
@@ -423,11 +474,13 @@ input WorkoutScalarWhereInput {
   createdAt: DateTimeFilter
   date: NullableDateTimeFilter
   description: NullableStringFilter
+  duration: NullableIntFilter
   id: IntFilter
   location: NullableStringFilter
   NOT: [WorkoutScalarWhereInput!]
   OR: [WorkoutScalarWhereInput!]
   partecipants: UserFilter
+  price: NullableIntFilter
   spots: IntFilter
   title: StringFilter
   trainerId: IntFilter
@@ -438,8 +491,10 @@ input WorkoutUpdateInput {
   createdAt: DateTime
   date: DateTime
   description: String
+  duration: Int
   location: String
   partecipants: UserUpdateManyWithoutWorkoutsInput
+  price: Int
   spots: Int
   title: String
   trainer: UserUpdateOneRequiredWithoutTrainInput
@@ -449,7 +504,9 @@ input WorkoutUpdateManyDataInput {
   createdAt: DateTime
   date: DateTime
   description: String
+  duration: Int
   location: String
+  price: Int
   spots: Int
   title: String
 }
@@ -499,8 +556,10 @@ input WorkoutUpdateWithoutCordinatesDataInput {
   createdAt: DateTime
   date: DateTime
   description: String
+  duration: Int
   location: String
   partecipants: UserUpdateManyWithoutWorkoutsInput
+  price: Int
   spots: Int
   title: String
   trainer: UserUpdateOneRequiredWithoutTrainInput
@@ -511,7 +570,9 @@ input WorkoutUpdateWithoutPartecipantsDataInput {
   createdAt: DateTime
   date: DateTime
   description: String
+  duration: Int
   location: String
+  price: Int
   spots: Int
   title: String
   trainer: UserUpdateOneRequiredWithoutTrainInput
@@ -522,8 +583,10 @@ input WorkoutUpdateWithoutTrainerDataInput {
   createdAt: DateTime
   date: DateTime
   description: String
+  duration: Int
   location: String
   partecipants: UserUpdateManyWithoutWorkoutsInput
+  price: Int
   spots: Int
   title: String
 }
@@ -568,11 +631,13 @@ input WorkoutWhereInput {
   createdAt: DateTimeFilter
   date: NullableDateTimeFilter
   description: NullableStringFilter
+  duration: NullableIntFilter
   id: IntFilter
   location: NullableStringFilter
   NOT: [WorkoutWhereInput!]
   OR: [WorkoutWhereInput!]
   partecipants: UserFilter
+  price: NullableIntFilter
   spots: IntFilter
   title: StringFilter
   trainer: UserWhereInput
