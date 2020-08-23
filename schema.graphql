@@ -119,12 +119,14 @@ type Mutation {
   facebookLogin(fbToken: String!): AuthPayload!
   login(email: String!, password: String!): AuthPayload!
   paymentIntent: String!
+  setupIntent: String!
   signup(email: String!, name: String, password: String!): AuthPayload!
   trainerLogin(email: String!, password: String!): AuthPayload!
   updateAvatar(avatarId: String): User!
   updateOneCordinates(data: CordinatesUpdateInput!, where: CordinatesWhereUniqueInput!): Cordinates
   updateOneWorkout(data: WorkoutUpdateInput!, where: WorkoutWhereUniqueInput!): Workout
   updateUser(email: String, name: String, sex: Sex): User!
+  updateUserPassword(newPassword: String, oldPassword: String): User!
 }
 
 input NullableDateTimeFilter {
@@ -216,6 +218,7 @@ type User {
   avatarId: String
   bio: String
   birthDate: DateTime
+  customerId: String
   email: String!
   facebookId: String
   id: Int!
@@ -240,6 +243,7 @@ input UserCreateWithoutTrainInput {
   avatarId: String
   bio: String
   birthDate: DateTime
+  customerId: String
   email: String!
   facebookId: String
   name: String
@@ -254,6 +258,7 @@ input UserCreateWithoutWorkoutsInput {
   avatarId: String
   bio: String
   birthDate: DateTime
+  customerId: String
   email: String!
   facebookId: String
   name: String
@@ -275,6 +280,7 @@ input UserScalarWhereInput {
   avatarId: NullableStringFilter
   bio: NullableStringFilter
   birthDate: NullableDateTimeFilter
+  customerId: NullableStringFilter
   email: StringFilter
   facebookId: NullableStringFilter
   id: IntFilter
@@ -293,6 +299,7 @@ input UserUpdateManyDataInput {
   avatarId: String
   bio: String
   birthDate: DateTime
+  customerId: String
   email: String
   facebookId: String
   name: String
@@ -330,6 +337,7 @@ input UserUpdateWithoutTrainDataInput {
   avatarId: String
   bio: String
   birthDate: DateTime
+  customerId: String
   email: String
   facebookId: String
   name: String
@@ -344,6 +352,7 @@ input UserUpdateWithoutWorkoutsDataInput {
   avatarId: String
   bio: String
   birthDate: DateTime
+  customerId: String
   email: String
   facebookId: String
   name: String
@@ -375,6 +384,7 @@ input UserWhereInput {
   avatarId: NullableStringFilter
   bio: NullableStringFilter
   birthDate: NullableDateTimeFilter
+  customerId: NullableStringFilter
   email: StringFilter
   facebookId: NullableStringFilter
   id: IntFilter

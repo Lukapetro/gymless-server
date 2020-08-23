@@ -2,6 +2,7 @@ import { schema } from 'nexus'
 import { hash } from 'bcryptjs'
 import { sign } from 'jsonwebtoken'
 import { mutationField } from '@nexus/schema'
+import { stripe } from '../../stripe'
 
 export const signup = mutationField('signup', {
   type: 'AuthPayload',
@@ -12,10 +13,13 @@ export const signup = mutationField('signup', {
   },
   resolve: async (_parent, { name, email, password }, ctx) => {
     const hashedPassword = await hash(password, 10)
+    const customer = await stripe.customers.create()
+
     const user = await ctx.prisma.user.create({
       data: {
         name,
         email,
+        customerId: customer.id,
         password: hashedPassword,
       },
     })

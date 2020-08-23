@@ -25,6 +25,7 @@ model User {
   email      String    @unique
   password   String
   bio        String?
+  customerId String?
   stripeId   String?
   facebookId String?
   train      Workout[] @relation("Train")

@@ -1,4 +1,5 @@
-import { extendType, stringArg, arg, enumType } from '@nexus/schema'
+import { extendType, stringArg, enumType } from '@nexus/schema'
+import { compare, hash } from 'bcryptjs'
 
 const SexType = enumType({
   name: 'Sex',
@@ -26,6 +27,45 @@ export const user = extendType({
             name: name,
             email: email,
             sex: sex,
+          },
+          where: {
+            id: ctx.userId,
+          },
+        })
+      },
+    })
+
+    t.field('updateUserPassword', {
+      type: 'User',
+      args: {
+        oldPassword: stringArg(),
+        newPassword: stringArg(),
+      },
+      resolve: async (parent, { oldPassword, newPassword }, ctx) => {
+        //Pesco l'utente
+        const user = await ctx.prisma.user.findOne({
+          where: {
+            id: ctx.userId,
+          },
+        })
+
+        if (!user) {
+          throw new Error(`Non autorizzato`)
+        }
+
+        //Paragono le password
+        const passwordValid = await compare(oldPassword, user.password)
+        if (!passwordValid) {
+          throw new Error('Password attuale non valida')
+        }
+
+        //Cripto la nuova password
+        const hashedPassword = await hash(newPassword, 10)
+
+        //Aggiorno la password dell'utente
+        return ctx.prisma.user.update({
+          data: {
+            password: hashedPassword,
           },
           where: {
             id: ctx.userId,
