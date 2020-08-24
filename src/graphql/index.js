@@ -4,6 +4,7 @@ import { User } from './models/User'
 import { AuthPayload } from './models/AuthPayload'
 import { Cordinates } from './models/Cordinates'
 import { Workout } from './models/Workout'
+import { PaymentMethods } from './models/PaymentMethods'
 
 export const resolvers = [
   Query,
@@ -11,5 +12,6 @@ export const resolvers = [
   User,
   AuthPayload,
   Cordinates,
+  PaymentMethods,
   Workout,
 ]

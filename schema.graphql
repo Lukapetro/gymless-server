@@ -7,6 +7,10 @@ type AuthPayload {
   user: User!
 }
 
+type Card {
+  brand: String!
+}
+
 type Cordinates {
   address: String
   city: String
@@ -106,6 +110,8 @@ input IntFilter {
   notIn: [Int!]
 }
 
+scalar JSON
+
 type Mutation {
   bookWorkout(id: ID): Workout!
   createOneCordinates(data: CordinatesCreateInput!): Cordinates!
@@ -176,11 +182,16 @@ input NullableStringFilter {
   startsWith: String
 }
 
+type PaymentMethods {
+  data: [Card!]!
+}
+
 type Query {
   cordinates(skip: Int): [Cordinates!]!
   futureWorkouts: [Workout!]!
   me: User!
   pastWorkouts: [Workout!]!
+  paymentMethods: JSON!
   userAvailableWorkouts: [Workout!]!
   workout(where: WorkoutWhereUniqueInput!): Workout
   workouts(skip: Int, where: WorkoutWhereInput): [Workout!]!

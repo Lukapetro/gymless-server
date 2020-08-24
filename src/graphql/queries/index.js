@@ -4,6 +4,7 @@ import { cordinates } from './Cordinates'
 import { trainerWorkout } from './trainer/Workout'
 import { bookedWorkouts } from './user/BookedWorkouts'
 import { availableWorkouts } from './user/AvailableWorkouts'
+import { paymentMethods } from './payments/PaymentMethods'
 
 export const Query = {
   me,
@@ -12,4 +13,5 @@ export const Query = {
   trainerWorkout,
   bookedWorkouts,
   availableWorkouts,
+  paymentMethods,
 }
