@@ -7,9 +7,9 @@ import { workout } from './Workout'
 import { bookWorkout } from './BookWorkout'
 import { deleteBooking } from './DeleteBooking'
 import { paymentIntent } from './PaymentIntet'
-import { setupIntent } from './setupIntent'
 import { user } from './User'
 import { socialLinking } from './SocialLinking'
+import { setupIntent } from './SetupIntent'
 
 export const Mutation = {
   signup,
