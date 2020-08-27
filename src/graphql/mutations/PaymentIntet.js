@@ -2,7 +2,7 @@ import { mutationField, intArg, stringArg } from '@nexus/schema'
 import { stripe } from '../../stripe'
 
 export const paymentIntent = mutationField('paymentIntent', {
-  type: 'User',
+  type: 'Workout',
   args: {
     id: intArg({ required: true }),
     amount: intArg({ required: true }),
