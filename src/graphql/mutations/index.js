@@ -10,6 +10,7 @@ import { paymentIntent } from './PaymentIntet'
 import { user } from './User'
 import { socialLinking } from './SocialLinking'
 import { setupIntent } from './SetupIntent'
+import { detachPaymentMethod } from './payments/DetachPaymentMethod'
 
 export const Mutation = {
   signup,
@@ -24,4 +25,5 @@ export const Mutation = {
   paymentIntent,
   socialLinking,
   setupIntent,
+  detachPaymentMethod,
 }

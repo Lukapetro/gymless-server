@@ -27,8 +27,6 @@ export const paymentIntent = mutationField('paymentIntent', {
       confirm: true,
     })
 
-    console.log('intent: ', paymentIntent)
-
     if (paymentIntent.status === 'succeeded') {
       return ctx.prisma.workout.update({
         data: {

@@ -34,8 +34,6 @@ export const socialLinking = extendType({
           access_token: fbToken,
         }
 
-        console.log('userId', userId)
-
         try {
           const { data, info } = await authenticateFacebook(req, res)
 

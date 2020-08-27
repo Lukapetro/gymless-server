@@ -120,6 +120,7 @@ type Mutation {
   deleteOneCordinates(where: CordinatesWhereUniqueInput!): Cordinates
   deleteOneWorkout(where: WorkoutWhereUniqueInput!): Workout
   deleteUser: User!
+  detachPaymentMethod(id: String!): JSON!
   facebookConnect(fbToken: String!): User!
   facebookDisconnect: User!
   facebookLogin(fbToken: String!): AuthPayload!

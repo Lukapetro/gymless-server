@@ -30,8 +30,6 @@ export const paymentMethods = extendType({
           type: 'card',
         })
 
-        console.log('paymentMethods: ', paymentMethods)
-
         return paymentMethods
       },
     })
