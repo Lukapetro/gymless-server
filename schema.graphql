@@ -115,7 +115,7 @@ scalar JSON
 type Mutation {
   bookWorkout(id: ID): Workout!
   createOneCordinates(data: CordinatesCreateInput!): Cordinates!
-  createWorkout(cordinatesId: Int, date: DateTime, description: String, location: String, spots: Int, title: String): Workout!
+  createWorkout(cordinatesId: Int, date: DateTime, description: String, duration: Int!, price: Int!, spots: Int!, title: String!): Workout!
   deleteBooking(id: ID): Workout!
   deleteOneCordinates(where: CordinatesWhereUniqueInput!): Cordinates
   deleteOneWorkout(where: WorkoutWhereUniqueInput!): Workout
@@ -156,17 +156,6 @@ input NullableFloatFilter {
   lte: Float
   not: Float
   notIn: [Float!]
-}
-
-input NullableIntFilter {
-  equals: Int
-  gt: Int
-  gte: Int
-  in: [Int!]
-  lt: Int
-  lte: Int
-  not: Int
-  notIn: [Int!]
 }
 
 input NullableStringFilter {
@@ -420,11 +409,10 @@ type Workout {
   cordinates: Cordinates!
   date: DateTime
   description: String
-  duration: Int
+  duration: Int!
   id: Int!
-  location: String
   partecipants(skip: Int): [User!]!
-  price: Int
+  price: Int!
   spots: Int!
   title: String!
   trainer: User!
@@ -449,10 +437,9 @@ input WorkoutCreateWithoutCordinatesInput {
   createdAt: DateTime
   date: DateTime
   description: String
-  duration: Int
-  location: String
+  duration: Int!
   partecipants: UserCreateManyWithoutWorkoutsInput
-  price: Int
+  price: Int!
   spots: Int
   title: String!
   trainer: UserCreateOneWithoutTrainInput!
@@ -463,9 +450,8 @@ input WorkoutCreateWithoutPartecipantsInput {
   createdAt: DateTime
   date: DateTime
   description: String
-  duration: Int
-  location: String
-  price: Int
+  duration: Int!
+  price: Int!
   spots: Int
   title: String!
   trainer: UserCreateOneWithoutTrainInput!
@@ -476,10 +462,9 @@ input WorkoutCreateWithoutTrainerInput {
   createdAt: DateTime
   date: DateTime
   description: String
-  duration: Int
-  location: String
+  duration: Int!
   partecipants: UserCreateManyWithoutWorkoutsInput
-  price: Int
+  price: Int!
   spots: Int
   title: String!
 }
@@ -496,13 +481,12 @@ input WorkoutScalarWhereInput {
   createdAt: DateTimeFilter
   date: NullableDateTimeFilter
   description: NullableStringFilter
-  duration: NullableIntFilter
+  duration: IntFilter
   id: IntFilter
-  location: NullableStringFilter
   NOT: [WorkoutScalarWhereInput!]
   OR: [WorkoutScalarWhereInput!]
   partecipants: UserFilter
-  price: NullableIntFilter
+  price: IntFilter
   spots: IntFilter
   title: StringFilter
   trainerId: IntFilter
@@ -514,7 +498,6 @@ input WorkoutUpdateInput {
   date: DateTime
   description: String
   duration: Int
-  location: String
   partecipants: UserUpdateManyWithoutWorkoutsInput
   price: Int
   spots: Int
@@ -527,7 +510,6 @@ input WorkoutUpdateManyDataInput {
   date: DateTime
   description: String
   duration: Int
-  location: String
   price: Int
   spots: Int
   title: String
@@ -579,7 +561,6 @@ input WorkoutUpdateWithoutCordinatesDataInput {
   date: DateTime
   description: String
   duration: Int
-  location: String
   partecipants: UserUpdateManyWithoutWorkoutsInput
   price: Int
   spots: Int
@@ -593,7 +574,6 @@ input WorkoutUpdateWithoutPartecipantsDataInput {
   date: DateTime
   description: String
   duration: Int
-  location: String
   price: Int
   spots: Int
   title: String
@@ -606,7 +586,6 @@ input WorkoutUpdateWithoutTrainerDataInput {
   date: DateTime
   description: String
   duration: Int
-  location: String
   partecipants: UserUpdateManyWithoutWorkoutsInput
   price: Int
   spots: Int
@@ -653,13 +632,12 @@ input WorkoutWhereInput {
   createdAt: DateTimeFilter
   date: NullableDateTimeFilter
   description: NullableStringFilter
-  duration: NullableIntFilter
+  duration: IntFilter
   id: IntFilter
-  location: NullableStringFilter
   NOT: [WorkoutWhereInput!]
   OR: [WorkoutWhereInput!]
   partecipants: UserFilter
-  price: NullableIntFilter
+  price: IntFilter
   spots: IntFilter
   title: StringFilter
   trainer: UserWhereInput

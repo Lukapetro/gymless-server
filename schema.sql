@@ -14,7 +14,6 @@ CREATE TABLE "public"."Workout"
     title VARCHAR(255) NOT NULL,
     "createdAt" TIMESTAMP NOT NULL DEFAULT now(),
     description TEXT,
-    location VARCHAR(255),
     spots INTEGER,
     "trainerId" INTEGER NOT NULL,
     FOREIGN KEY ("trainerId") REFERENCES "public"."Trainer"(id)
@@ -43,12 +42,13 @@ CREATE TYPE role AS ENUM
 ('user', 'trainer', 'admin');
 
 
-CREATE TABLE "Cordinates" (
+CREATE TABLE "Cordinates"
+(
     id SERIAL PRIMARY KEY,
     "workoutId" INTEGER NOT NULL UNIQUE,
-	city VARCHAR(255),
-	address VARCHAR(255),
-	latitude FLOAT,
-	longitude FLOAT,
+    city VARCHAR(255),
+    address VARCHAR(255),
+    latitude FLOAT,
+    longitude FLOAT,
     FOREIGN KEY ("workoutId") REFERENCES "Workout"(id)
 );

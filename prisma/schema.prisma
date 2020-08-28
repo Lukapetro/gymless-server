@@ -41,9 +41,8 @@ model Workout {
   title       String
   createdAt   DateTime  @default(now())
   description String?
-  location    String?
-  price       Int?
-  duration    Int?
+  price       Int
+  duration    Int
   spots       Int       @default(25)
   date        DateTime?
   trainerId   Int
