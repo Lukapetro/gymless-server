@@ -34,6 +34,7 @@ model User {
   sex        Sex       @default(unknown)
   birthDate  DateTime?
   avatarId   String?
+  classes    Int       @default(0)
 }
 
 model Workout {

@@ -84,6 +84,11 @@ input CordinatesWhereUniqueInput {
 }
 
 """
+A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+"""
+scalar Date
+
+"""
 A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
 """
 scalar DateTime
@@ -132,7 +137,7 @@ type Mutation {
   updateAvatar(avatarId: String): User!
   updateOneCordinates(data: CordinatesUpdateInput!, where: CordinatesWhereUniqueInput!): Cordinates
   updateOneWorkout(data: WorkoutUpdateInput!, where: WorkoutWhereUniqueInput!): Workout
-  updateUser(email: String, name: String, sex: Sex): User!
+  updateUser(birthDate: Date, classes: Int, email: String, name: String, sex: Sex): User!
   updateUserPassword(newPassword: String, oldPassword: String): User!
 }
 
@@ -219,6 +224,7 @@ type User {
   avatarId: String
   bio: String
   birthDate: DateTime
+  classes: Int!
   customerId: String
   email: String!
   facebookId: String
@@ -244,6 +250,7 @@ input UserCreateWithoutTrainInput {
   avatarId: String
   bio: String
   birthDate: DateTime
+  classes: Int
   customerId: String
   email: String!
   facebookId: String
@@ -259,6 +266,7 @@ input UserCreateWithoutWorkoutsInput {
   avatarId: String
   bio: String
   birthDate: DateTime
+  classes: Int
   customerId: String
   email: String!
   facebookId: String
@@ -281,6 +289,7 @@ input UserScalarWhereInput {
   avatarId: NullableStringFilter
   bio: NullableStringFilter
   birthDate: NullableDateTimeFilter
+  classes: IntFilter
   customerId: NullableStringFilter
   email: StringFilter
   facebookId: NullableStringFilter
@@ -300,6 +309,7 @@ input UserUpdateManyDataInput {
   avatarId: String
   bio: String
   birthDate: DateTime
+  classes: Int
   customerId: String
   email: String
   facebookId: String
@@ -338,6 +348,7 @@ input UserUpdateWithoutTrainDataInput {
   avatarId: String
   bio: String
   birthDate: DateTime
+  classes: Int
   customerId: String
   email: String
   facebookId: String
@@ -353,6 +364,7 @@ input UserUpdateWithoutWorkoutsDataInput {
   avatarId: String
   bio: String
   birthDate: DateTime
+  classes: Int
   customerId: String
   email: String
   facebookId: String
@@ -385,6 +397,7 @@ input UserWhereInput {
   avatarId: NullableStringFilter
   bio: NullableStringFilter
   birthDate: NullableDateTimeFilter
+  classes: IntFilter
   customerId: NullableStringFilter
   email: StringFilter
   facebookId: NullableStringFilter

@@ -1,11 +1,6 @@
-import { extendType, stringArg, enumType } from '@nexus/schema'
+import { extendType, stringArg, enumType, intArg } from '@nexus/schema'
 import { compare, hash } from 'bcryptjs'
-
-const SexType = enumType({
-  name: 'Sex',
-  description: 'The sex of the user',
-  members: ['male', 'female', 'unknown'],
-})
+import { SexType, GQLDate } from '../../utils/costants'
 
 export const user = extendType({
   type: 'Mutation',
@@ -15,9 +10,11 @@ export const user = extendType({
       args: {
         name: stringArg(),
         email: stringArg(),
+        birthDate: GQLDate,
         sex: SexType,
+        classes: intArg(),
       },
-      resolve: (parent, { name, email, sex }, ctx) => {
+      resolve: (parent, { name, email, sex, birthDate, classes }, ctx) => {
         if (!ctx.userId) {
           throw new Error('Non auteticato')
         }
@@ -27,6 +24,8 @@ export const user = extendType({
             name: name,
             email: email,
             sex: sex,
+            birthDate: birthDate,
+            classes: classes,
           },
           where: {
             id: ctx.userId,

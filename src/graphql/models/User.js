@@ -16,5 +16,6 @@ export const User = schema.objectType({
     t.model.sex()
     t.model.birthDate()
     t.model.avatarId()
+    t.model.classes()
   },
 })
