@@ -118,7 +118,7 @@ input IntFilter {
 scalar JSON
 
 type Mutation {
-  bookWorkout(id: ID): Workout!
+  bookClass(id: Int!): Workout!
   createOneCordinates(data: CordinatesCreateInput!): Cordinates!
   createWorkout(cordinatesId: Int, date: DateTime, description: String, duration: Int!, price: Int!, spots: Int!, title: String!): Workout!
   deleteBooking(id: ID): Workout!
@@ -137,7 +137,8 @@ type Mutation {
   updateAvatar(avatarId: String): User!
   updateOneCordinates(data: CordinatesUpdateInput!, where: CordinatesWhereUniqueInput!): Cordinates
   updateOneWorkout(data: WorkoutUpdateInput!, where: WorkoutWhereUniqueInput!): Workout
-  updateUser(birthDate: Date, classes: Int, email: String, name: String, sex: Sex): User!
+  updateUser(birthDate: Date, email: String, name: String, sex: Sex): User!
+  updateUserClasses(classes: Int!): User!
   updateUserPassword(newPassword: String, oldPassword: String): User!
 }
 

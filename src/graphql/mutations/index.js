@@ -4,7 +4,7 @@ import { trainerLogin } from './TrainerLogin'
 import { facebookLogin } from './FacebookLogin'
 import { cordinates } from './Cordinates'
 import { workout } from './Workout'
-import { bookWorkout } from './BookWorkout'
+import { bookClass } from './BookClass'
 import { deleteBooking } from './DeleteBooking'
 import { paymentIntent } from './PaymentIntet'
 import { user } from './User'
@@ -20,7 +20,7 @@ export const Mutation = {
   facebookLogin,
   cordinates,
   workout,
-  bookWorkout,
+  bookClass,
   deleteBooking,
   paymentIntent,
   socialLinking,

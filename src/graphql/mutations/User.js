@@ -12,9 +12,8 @@ export const user = extendType({
         email: stringArg(),
         birthDate: GQLDate,
         sex: SexType,
-        classes: intArg(),
       },
-      resolve: (parent, { name, email, sex, birthDate, classes }, ctx) => {
+      resolve: (parent, { name, email, sex, birthDate }, ctx) => {
         if (!ctx.userId) {
           throw new Error('Non auteticato')
         }
@@ -25,7 +24,6 @@ export const user = extendType({
             email: email,
             sex: sex,
             birthDate: birthDate,
-            classes: classes,
           },
           where: {
             id: ctx.userId,
@@ -65,6 +63,40 @@ export const user = extendType({
         return ctx.prisma.user.update({
           data: {
             password: hashedPassword,
+          },
+          where: {
+            id: ctx.userId,
+          },
+        })
+      },
+    })
+
+    t.field('updateUserClasses', {
+      type: 'User',
+      args: {
+        classes: intArg({ required: true }),
+      },
+      resolve: async (parent, { classes }, ctx) => {
+        //Pesco l'utente
+        const user = await ctx.prisma.user.findOne({
+          where: {
+            id: ctx.userId,
+          },
+        })
+
+        if (!user) {
+          throw new Error(`Non autorizzato`)
+        }
+
+        //Controllo se dispone di classi per prenotare
+        if (classes < 0 && user.classes === 0) {
+          throw new Error('Classi non sufficienti')
+        }
+
+        //Aggiorno le classi dell'utente
+        return ctx.prisma.user.update({
+          data: {
+            classes: user.classes + classes,
           },
           where: {
             id: ctx.userId,
