@@ -1,7 +1,7 @@
 import { mutationField, stringArg } from '@nexus/schema'
-import { stripe } from '../../../stripe'
 
-import { JSONScalar } from '../../queries/payments/PaymentMethods'
+import { stripe } from '../../../stripe'
+import { JSONScalar } from '../../../utils/costants'
 
 export const detachPaymentMethod = mutationField('detachPaymentMethod', {
   type: JSONScalar,

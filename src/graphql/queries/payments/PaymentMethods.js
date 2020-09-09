@@ -1,13 +1,7 @@
 import { extendType } from '@nexus/schema'
+
 import { stripe } from '../../../stripe'
-
-import { GraphQLScalarType } from 'graphql'
-
-export const JSONScalar = new GraphQLScalarType({
-  name: 'JSON',
-  serialize: (data) => data,
-  parseValue: (data) => data,
-})
+import { JSONScalar } from '../../../utils/costants'
 
 export const paymentMethods = extendType({
   type: 'Query',

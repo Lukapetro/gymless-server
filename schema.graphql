@@ -130,7 +130,7 @@ type Mutation {
   facebookDisconnect: User!
   facebookLogin(fbToken: String!): AuthPayload!
   login(email: String!, password: String!): AuthPayload!
-  paymentIntent(amount: Int!, id: Int!, paymentMethod: String!): Workout!
+  paymentIntent(amount: Int!): JSON!
   setupIntent: String!
   signup(email: String!, name: String, password: String!): AuthPayload!
   trainerLogin(email: String!, password: String!): AuthPayload!

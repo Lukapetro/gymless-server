@@ -1,14 +1,14 @@
 import { mutationField, intArg, stringArg } from '@nexus/schema'
+
 import { stripe } from '../../stripe'
+import { JSONScalar } from '../../utils/costants'
 
 export const paymentIntent = mutationField('paymentIntent', {
-  type: 'Workout',
+  type: JSONScalar,
   args: {
-    id: intArg({ required: true }),
     amount: intArg({ required: true }),
-    paymentMethod: stringArg({ required: true }),
   },
-  resolve: async (parent, { id, amount, paymentMethod }, ctx) => {
+  resolve: async (parent, { amount }, ctx) => {
     const user = await ctx.prisma.user.findOne({
       where: {
         id: ctx.userId,
@@ -20,29 +20,10 @@ export const paymentIntent = mutationField('paymentIntent', {
     }
 
     const paymentIntent = await stripe.paymentIntents.create({
-      amount,
+      amount: amount * 100,
       currency: 'eur',
       customer: user.customerId,
-      payment_method: paymentMethod,
-      confirm: true,
     })
-
-    if (paymentIntent.status === 'succeeded') {
-      return ctx.prisma.workout.update({
-        data: {
-          partecipants: {
-            connect: [
-              {
-                id: ctx.userId,
-              },
-            ],
-          },
-        },
-        where: {
-          id: Number(id),
-        },
-      })
-    }
 
     return paymentIntent.client_secret
   },
