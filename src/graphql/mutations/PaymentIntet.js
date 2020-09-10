@@ -23,6 +23,7 @@ export const paymentIntent = mutationField('paymentIntent', {
       amount: amount * 100,
       currency: 'eur',
       customer: user.customerId,
+      payment_method_types: ['card'],
     })
 
     return paymentIntent.client_secret
