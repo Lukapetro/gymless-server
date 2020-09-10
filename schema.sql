@@ -52,3 +52,32 @@ CREATE TABLE "Cordinates"
     longitude FLOAT,
     FOREIGN KEY ("workoutId") REFERENCES "Workout"(id)
 );
+
+CREATE TABLE "public"."Referral"
+(
+    id SERIAL PRIMARY KEY NOT NULL,
+    "createdAt" TIMESTAMP NOT NULL DEFAULT now(),
+    "updatedAt" TIMESTAMP NOT NULL DEFAULT now(),
+    completed BOOLEAN NOT NULL DEFAULT false,
+    "referrerId" INTEGER NOT NULL,
+    "referredId" INTEGER NOT NULL,
+    FOREIGN KEY ("referrerId") REFERENCES "public"."User"(id),
+    FOREIGN KEY ("referredId") REFERENCES "public"."User"(id)
+);
+
+CREATE OR REPLACE FUNCTION trigger_set_timestamp
+()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW."updatedAt" = NOW
+();
+RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER set_timestamp
+BEFORE
+UPDATE ON "Referral"
+FOR EACH ROW
+EXECUTE PROCEDURE trigger_set_timestamp
+();

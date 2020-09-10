@@ -20,21 +20,23 @@ enum Sex {
 }
 
 model User {
-  id         Int       @default(autoincrement()) @id
+  id         Int        @default(autoincrement()) @id
   name       String?
-  email      String    @unique
+  email      String     @unique
   password   String
   bio        String?
   customerId String?
   stripeId   String?
   facebookId String?
-  train      Workout[] @relation("Train")
+  train      Workout[]  @relation("Train")
   workouts   Workout[]
-  role       Role      @default(user)
-  sex        Sex       @default(unknown)
+  role       Role       @default(user)
+  sex        Sex        @default(unknown)
   birthDate  DateTime?
   avatarId   String?
-  classes    Int       @default(0)
+  classes    Int        @default(0)
+  referred   Referral[] @relation("Referred")
+  refferer   Referral[] @relation("Referrer")
 }
 
 model Workout {
@@ -61,4 +63,15 @@ model Cordinates {
   latitude  Float?
   longitude Float?
   workout   Workout[]
+}
+
+model Referral {
+  id         Int      @default(autoincrement()) @id
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now())
+  completed  Boolean  @default(false)
+  referrer   User     @relation("Referrer", fields: [referrerId], references: [id])
+  referrerId Int
+  referred   User     @relation("Referred", fields: [referredId], references: [id])
+  referredId Int
 }

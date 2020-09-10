@@ -7,6 +7,11 @@ type AuthPayload {
   user: User!
 }
 
+input BooleanFilter {
+  equals: Boolean
+  not: Boolean
+}
+
 type Card {
   brand: String!
 }
@@ -132,7 +137,7 @@ type Mutation {
   login(email: String!, password: String!): AuthPayload!
   paymentIntent(amount: Int!): JSON!
   setupIntent: String!
-  signup(email: String!, name: String, password: String!): AuthPayload!
+  signup(email: String!, name: String, password: String!, referrerId: Int): AuthPayload!
   trainerLogin(email: String!, password: String!): AuthPayload!
   updateAvatar(avatarId: String): User!
   updateOneCordinates(data: CordinatesUpdateInput!, where: CordinatesWhereUniqueInput!): Cordinates
@@ -188,10 +193,154 @@ type Query {
   me: User!
   pastWorkouts: [Workout!]!
   paymentMethods: JSON!
+  referral(where: ReferralWhereUniqueInput!): Referral
+  referrals(skip: Int): [Referral!]!
   userAvailableWorkouts: [Workout!]!
   workout(where: WorkoutWhereUniqueInput!): Workout
   workouts(skip: Int, where: WorkoutWhereInput): [Workout!]!
   workoutsBooked: [Workout!]!
+}
+
+type Referral {
+  completed: Boolean!
+  createdAt: DateTime!
+  id: Int!
+  referred: User!
+  referredId: Int!
+  referrer: User!
+  referrerId: Int!
+  updatedAt: DateTime!
+}
+
+input ReferralCreateManyWithoutReferredInput {
+  connect: [ReferralWhereUniqueInput!]
+  create: [ReferralCreateWithoutReferredInput!]
+}
+
+input ReferralCreateManyWithoutReferrerInput {
+  connect: [ReferralWhereUniqueInput!]
+  create: [ReferralCreateWithoutReferrerInput!]
+}
+
+input ReferralCreateWithoutReferredInput {
+  completed: Boolean
+  createdAt: DateTime
+  referrer: UserCreateOneWithoutReffererInput!
+  updatedAt: DateTime
+}
+
+input ReferralCreateWithoutReferrerInput {
+  completed: Boolean
+  createdAt: DateTime
+  referred: UserCreateOneWithoutReferredInput!
+  updatedAt: DateTime
+}
+
+input ReferralFilter {
+  every: ReferralWhereInput
+  none: ReferralWhereInput
+  some: ReferralWhereInput
+}
+
+input ReferralScalarWhereInput {
+  AND: [ReferralScalarWhereInput!]
+  completed: BooleanFilter
+  createdAt: DateTimeFilter
+  id: IntFilter
+  NOT: [ReferralScalarWhereInput!]
+  OR: [ReferralScalarWhereInput!]
+  referredId: IntFilter
+  referrerId: IntFilter
+  updatedAt: DateTimeFilter
+}
+
+input ReferralUpdateManyDataInput {
+  completed: Boolean
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input ReferralUpdateManyWithoutReferredInput {
+  connect: [ReferralWhereUniqueInput!]
+  create: [ReferralCreateWithoutReferredInput!]
+  delete: [ReferralWhereUniqueInput!]
+  deleteMany: [ReferralScalarWhereInput!]
+  disconnect: [ReferralWhereUniqueInput!]
+  set: [ReferralWhereUniqueInput!]
+  update: [ReferralUpdateWithWhereUniqueWithoutReferredInput!]
+  updateMany: [ReferralUpdateManyWithWhereNestedInput!]
+  upsert: [ReferralUpsertWithWhereUniqueWithoutReferredInput!]
+}
+
+input ReferralUpdateManyWithoutReferrerInput {
+  connect: [ReferralWhereUniqueInput!]
+  create: [ReferralCreateWithoutReferrerInput!]
+  delete: [ReferralWhereUniqueInput!]
+  deleteMany: [ReferralScalarWhereInput!]
+  disconnect: [ReferralWhereUniqueInput!]
+  set: [ReferralWhereUniqueInput!]
+  update: [ReferralUpdateWithWhereUniqueWithoutReferrerInput!]
+  updateMany: [ReferralUpdateManyWithWhereNestedInput!]
+  upsert: [ReferralUpsertWithWhereUniqueWithoutReferrerInput!]
+}
+
+input ReferralUpdateManyWithWhereNestedInput {
+  data: ReferralUpdateManyDataInput!
+  where: ReferralScalarWhereInput!
+}
+
+input ReferralUpdateWithoutReferredDataInput {
+  completed: Boolean
+  createdAt: DateTime
+  referrer: UserUpdateOneRequiredWithoutReffererInput
+  updatedAt: DateTime
+}
+
+input ReferralUpdateWithoutReferrerDataInput {
+  completed: Boolean
+  createdAt: DateTime
+  referred: UserUpdateOneRequiredWithoutReferredInput
+  updatedAt: DateTime
+}
+
+input ReferralUpdateWithWhereUniqueWithoutReferredInput {
+  data: ReferralUpdateWithoutReferredDataInput!
+  where: ReferralWhereUniqueInput!
+}
+
+input ReferralUpdateWithWhereUniqueWithoutReferrerInput {
+  data: ReferralUpdateWithoutReferrerDataInput!
+  where: ReferralWhereUniqueInput!
+}
+
+input ReferralUpsertWithWhereUniqueWithoutReferredInput {
+  create: ReferralCreateWithoutReferredInput!
+  update: ReferralUpdateWithoutReferredDataInput!
+  where: ReferralWhereUniqueInput!
+}
+
+input ReferralUpsertWithWhereUniqueWithoutReferrerInput {
+  create: ReferralCreateWithoutReferrerInput!
+  update: ReferralUpdateWithoutReferrerDataInput!
+  where: ReferralWhereUniqueInput!
+}
+
+input ReferralWhereInput {
+  AND: [ReferralWhereInput!]
+  completed: BooleanFilter
+  createdAt: DateTimeFilter
+  id: IntFilter
+  NOT: [ReferralWhereInput!]
+  OR: [ReferralWhereInput!]
+  referred: UserWhereInput
+  referredId: IntFilter
+  referrer: UserWhereInput
+  referrerId: IntFilter
+  updatedAt: DateTimeFilter
+}
+
+input ReferralWhereUniqueInput {
+  id: Int
 }
 
 enum Role {
@@ -242,9 +391,55 @@ input UserCreateManyWithoutWorkoutsInput {
   create: [UserCreateWithoutWorkoutsInput!]
 }
 
+input UserCreateOneWithoutReferredInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutReferredInput
+}
+
+input UserCreateOneWithoutReffererInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutReffererInput
+}
+
 input UserCreateOneWithoutTrainInput {
   connect: UserWhereUniqueInput
   create: UserCreateWithoutTrainInput
+}
+
+input UserCreateWithoutReferredInput {
+  avatarId: String
+  bio: String
+  birthDate: DateTime
+  classes: Int
+  customerId: String
+  email: String!
+  facebookId: String
+  name: String
+  password: String!
+  refferer: ReferralCreateManyWithoutReferrerInput
+  role: Role
+  sex: Sex
+  stripeId: String
+  train: WorkoutCreateManyWithoutTrainerInput
+  workouts: WorkoutCreateManyWithoutPartecipantsInput
+}
+
+input UserCreateWithoutReffererInput {
+  avatarId: String
+  bio: String
+  birthDate: DateTime
+  classes: Int
+  customerId: String
+  email: String!
+  facebookId: String
+  name: String
+  password: String!
+  referred: ReferralCreateManyWithoutReferredInput
+  role: Role
+  sex: Sex
+  stripeId: String
+  train: WorkoutCreateManyWithoutTrainerInput
+  workouts: WorkoutCreateManyWithoutPartecipantsInput
 }
 
 input UserCreateWithoutTrainInput {
@@ -257,6 +452,8 @@ input UserCreateWithoutTrainInput {
   facebookId: String
   name: String
   password: String!
+  referred: ReferralCreateManyWithoutReferredInput
+  refferer: ReferralCreateManyWithoutReferrerInput
   role: Role
   sex: Sex
   stripeId: String
@@ -273,6 +470,8 @@ input UserCreateWithoutWorkoutsInput {
   facebookId: String
   name: String
   password: String!
+  referred: ReferralCreateManyWithoutReferredInput
+  refferer: ReferralCreateManyWithoutReferrerInput
   role: Role
   sex: Sex
   stripeId: String
@@ -299,6 +498,8 @@ input UserScalarWhereInput {
   NOT: [UserScalarWhereInput!]
   OR: [UserScalarWhereInput!]
   password: StringFilter
+  referred: ReferralFilter
+  refferer: ReferralFilter
   role: Role
   sex: Sex
   stripeId: NullableStringFilter
@@ -338,11 +539,61 @@ input UserUpdateManyWithWhereNestedInput {
   where: UserScalarWhereInput!
 }
 
+input UserUpdateOneRequiredWithoutReferredInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutReferredInput
+  update: UserUpdateWithoutReferredDataInput
+  upsert: UserUpsertWithoutReferredInput
+}
+
+input UserUpdateOneRequiredWithoutReffererInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutReffererInput
+  update: UserUpdateWithoutReffererDataInput
+  upsert: UserUpsertWithoutReffererInput
+}
+
 input UserUpdateOneRequiredWithoutTrainInput {
   connect: UserWhereUniqueInput
   create: UserCreateWithoutTrainInput
   update: UserUpdateWithoutTrainDataInput
   upsert: UserUpsertWithoutTrainInput
+}
+
+input UserUpdateWithoutReferredDataInput {
+  avatarId: String
+  bio: String
+  birthDate: DateTime
+  classes: Int
+  customerId: String
+  email: String
+  facebookId: String
+  name: String
+  password: String
+  refferer: ReferralUpdateManyWithoutReferrerInput
+  role: Role
+  sex: Sex
+  stripeId: String
+  train: WorkoutUpdateManyWithoutTrainerInput
+  workouts: WorkoutUpdateManyWithoutPartecipantsInput
+}
+
+input UserUpdateWithoutReffererDataInput {
+  avatarId: String
+  bio: String
+  birthDate: DateTime
+  classes: Int
+  customerId: String
+  email: String
+  facebookId: String
+  name: String
+  password: String
+  referred: ReferralUpdateManyWithoutReferredInput
+  role: Role
+  sex: Sex
+  stripeId: String
+  train: WorkoutUpdateManyWithoutTrainerInput
+  workouts: WorkoutUpdateManyWithoutPartecipantsInput
 }
 
 input UserUpdateWithoutTrainDataInput {
@@ -355,6 +606,8 @@ input UserUpdateWithoutTrainDataInput {
   facebookId: String
   name: String
   password: String
+  referred: ReferralUpdateManyWithoutReferredInput
+  refferer: ReferralUpdateManyWithoutReferrerInput
   role: Role
   sex: Sex
   stripeId: String
@@ -371,6 +624,8 @@ input UserUpdateWithoutWorkoutsDataInput {
   facebookId: String
   name: String
   password: String
+  referred: ReferralUpdateManyWithoutReferredInput
+  refferer: ReferralUpdateManyWithoutReferrerInput
   role: Role
   sex: Sex
   stripeId: String
@@ -380,6 +635,16 @@ input UserUpdateWithoutWorkoutsDataInput {
 input UserUpdateWithWhereUniqueWithoutWorkoutsInput {
   data: UserUpdateWithoutWorkoutsDataInput!
   where: UserWhereUniqueInput!
+}
+
+input UserUpsertWithoutReferredInput {
+  create: UserCreateWithoutReferredInput!
+  update: UserUpdateWithoutReferredDataInput!
+}
+
+input UserUpsertWithoutReffererInput {
+  create: UserCreateWithoutReffererInput!
+  update: UserUpdateWithoutReffererDataInput!
 }
 
 input UserUpsertWithoutTrainInput {
@@ -407,6 +672,8 @@ input UserWhereInput {
   NOT: [UserWhereInput!]
   OR: [UserWhereInput!]
   password: StringFilter
+  referred: ReferralFilter
+  refferer: ReferralFilter
   role: Role
   sex: Sex
   stripeId: NullableStringFilter

@@ -1,5 +1,6 @@
 import { me } from './Me'
 import { workout } from './Workout'
+import { referral } from './Referral'
 import { cordinates } from './Cordinates'
 import { trainerWorkout } from './trainer/Workout'
 import { bookedWorkouts } from './user/BookedWorkouts'
@@ -14,4 +15,5 @@ export const Query = {
   bookedWorkouts,
   availableWorkouts,
   paymentMethods,
+  referral,
 }

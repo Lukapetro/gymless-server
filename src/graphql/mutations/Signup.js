@@ -10,8 +10,9 @@ export const signup = mutationField('signup', {
     name: schema.stringArg(),
     email: schema.stringArg({ nullable: false }),
     password: schema.stringArg({ nullable: false }),
+    referrerId: schema.intArg(),
   },
-  resolve: async (_parent, { name, email, password }, ctx) => {
+  resolve: async (_parent, { name, email, password, referrerId }, ctx) => {
     const hashedPassword = await hash(password, 10)
 
     const customer = await stripe.customers.create({
@@ -27,6 +28,20 @@ export const signup = mutationField('signup', {
         password: hashedPassword,
       },
     })
+
+    if (referrerId) {
+      await ctx.prisma.referral.create({
+        data: {
+          referrer: {
+            connect: { id: referrerId },
+          },
+          referred: {
+            connect: { id: user.id },
+          },
+        },
+      })
+    }
+
     return {
       token: sign({ userId: user.id }, process.env.APP_SECRET),
       user,

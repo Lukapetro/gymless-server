@@ -5,6 +5,7 @@ import { AuthPayload } from './models/AuthPayload'
 import { Cordinates } from './models/Cordinates'
 import { Workout } from './models/Workout'
 import { PaymentMethods } from './models/PaymentMethods'
+import { Referral } from './models/Referral'
 
 export const resolvers = [
   Query,
@@ -14,4 +15,5 @@ export const resolvers = [
   Cordinates,
   PaymentMethods,
   Workout,
+  Referral,
 ]
