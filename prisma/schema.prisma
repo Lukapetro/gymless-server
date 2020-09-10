@@ -35,8 +35,9 @@ model User {
   birthDate  DateTime?
   avatarId   String?
   classes    Int        @default(0)
-  referred   Referral[] @relation("Referred")
-  refferer   Referral[] @relation("Referrer")
+  //referred   Referral[] @relation("Referred")
+  referrer   Referral[] @relation("Referrer")
+  referral   Referral[] @relation("Referred")
 }
 
 model Workout {

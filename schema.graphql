@@ -225,14 +225,14 @@ input ReferralCreateManyWithoutReferrerInput {
 input ReferralCreateWithoutReferredInput {
   completed: Boolean
   createdAt: DateTime
-  referrer: UserCreateOneWithoutReffererInput!
+  referrer: UserCreateOneWithoutReferrerInput!
   updatedAt: DateTime
 }
 
 input ReferralCreateWithoutReferrerInput {
   completed: Boolean
   createdAt: DateTime
-  referred: UserCreateOneWithoutReferredInput!
+  referred: UserCreateOneWithoutReferralInput!
   updatedAt: DateTime
 }
 
@@ -292,14 +292,14 @@ input ReferralUpdateManyWithWhereNestedInput {
 input ReferralUpdateWithoutReferredDataInput {
   completed: Boolean
   createdAt: DateTime
-  referrer: UserUpdateOneRequiredWithoutReffererInput
+  referrer: UserUpdateOneRequiredWithoutReferrerInput
   updatedAt: DateTime
 }
 
 input ReferralUpdateWithoutReferrerDataInput {
   completed: Boolean
   createdAt: DateTime
-  referred: UserUpdateOneRequiredWithoutReferredInput
+  referred: UserUpdateOneRequiredWithoutReferralInput
   updatedAt: DateTime
 }
 
@@ -380,6 +380,8 @@ type User {
   facebookId: String
   id: Int!
   name: String
+  referral(skip: Int): [Referral!]!
+  referrer(skip: Int): [Referral!]!
   role: Role!
   sex: Sex!
   stripeId: String
@@ -391,14 +393,14 @@ input UserCreateManyWithoutWorkoutsInput {
   create: [UserCreateWithoutWorkoutsInput!]
 }
 
-input UserCreateOneWithoutReferredInput {
+input UserCreateOneWithoutReferralInput {
   connect: UserWhereUniqueInput
-  create: UserCreateWithoutReferredInput
+  create: UserCreateWithoutReferralInput
 }
 
-input UserCreateOneWithoutReffererInput {
+input UserCreateOneWithoutReferrerInput {
   connect: UserWhereUniqueInput
-  create: UserCreateWithoutReffererInput
+  create: UserCreateWithoutReferrerInput
 }
 
 input UserCreateOneWithoutTrainInput {
@@ -406,7 +408,7 @@ input UserCreateOneWithoutTrainInput {
   create: UserCreateWithoutTrainInput
 }
 
-input UserCreateWithoutReferredInput {
+input UserCreateWithoutReferralInput {
   avatarId: String
   bio: String
   birthDate: DateTime
@@ -416,7 +418,7 @@ input UserCreateWithoutReferredInput {
   facebookId: String
   name: String
   password: String!
-  refferer: ReferralCreateManyWithoutReferrerInput
+  referrer: ReferralCreateManyWithoutReferrerInput
   role: Role
   sex: Sex
   stripeId: String
@@ -424,7 +426,7 @@ input UserCreateWithoutReferredInput {
   workouts: WorkoutCreateManyWithoutPartecipantsInput
 }
 
-input UserCreateWithoutReffererInput {
+input UserCreateWithoutReferrerInput {
   avatarId: String
   bio: String
   birthDate: DateTime
@@ -434,7 +436,7 @@ input UserCreateWithoutReffererInput {
   facebookId: String
   name: String
   password: String!
-  referred: ReferralCreateManyWithoutReferredInput
+  referral: ReferralCreateManyWithoutReferredInput
   role: Role
   sex: Sex
   stripeId: String
@@ -452,8 +454,8 @@ input UserCreateWithoutTrainInput {
   facebookId: String
   name: String
   password: String!
-  referred: ReferralCreateManyWithoutReferredInput
-  refferer: ReferralCreateManyWithoutReferrerInput
+  referral: ReferralCreateManyWithoutReferredInput
+  referrer: ReferralCreateManyWithoutReferrerInput
   role: Role
   sex: Sex
   stripeId: String
@@ -470,8 +472,8 @@ input UserCreateWithoutWorkoutsInput {
   facebookId: String
   name: String
   password: String!
-  referred: ReferralCreateManyWithoutReferredInput
-  refferer: ReferralCreateManyWithoutReferrerInput
+  referral: ReferralCreateManyWithoutReferredInput
+  referrer: ReferralCreateManyWithoutReferrerInput
   role: Role
   sex: Sex
   stripeId: String
@@ -498,8 +500,8 @@ input UserScalarWhereInput {
   NOT: [UserScalarWhereInput!]
   OR: [UserScalarWhereInput!]
   password: StringFilter
-  referred: ReferralFilter
-  refferer: ReferralFilter
+  referral: ReferralFilter
+  referrer: ReferralFilter
   role: Role
   sex: Sex
   stripeId: NullableStringFilter
@@ -539,18 +541,18 @@ input UserUpdateManyWithWhereNestedInput {
   where: UserScalarWhereInput!
 }
 
-input UserUpdateOneRequiredWithoutReferredInput {
+input UserUpdateOneRequiredWithoutReferralInput {
   connect: UserWhereUniqueInput
-  create: UserCreateWithoutReferredInput
-  update: UserUpdateWithoutReferredDataInput
-  upsert: UserUpsertWithoutReferredInput
+  create: UserCreateWithoutReferralInput
+  update: UserUpdateWithoutReferralDataInput
+  upsert: UserUpsertWithoutReferralInput
 }
 
-input UserUpdateOneRequiredWithoutReffererInput {
+input UserUpdateOneRequiredWithoutReferrerInput {
   connect: UserWhereUniqueInput
-  create: UserCreateWithoutReffererInput
-  update: UserUpdateWithoutReffererDataInput
-  upsert: UserUpsertWithoutReffererInput
+  create: UserCreateWithoutReferrerInput
+  update: UserUpdateWithoutReferrerDataInput
+  upsert: UserUpsertWithoutReferrerInput
 }
 
 input UserUpdateOneRequiredWithoutTrainInput {
@@ -560,7 +562,7 @@ input UserUpdateOneRequiredWithoutTrainInput {
   upsert: UserUpsertWithoutTrainInput
 }
 
-input UserUpdateWithoutReferredDataInput {
+input UserUpdateWithoutReferralDataInput {
   avatarId: String
   bio: String
   birthDate: DateTime
@@ -570,7 +572,7 @@ input UserUpdateWithoutReferredDataInput {
   facebookId: String
   name: String
   password: String
-  refferer: ReferralUpdateManyWithoutReferrerInput
+  referrer: ReferralUpdateManyWithoutReferrerInput
   role: Role
   sex: Sex
   stripeId: String
@@ -578,7 +580,7 @@ input UserUpdateWithoutReferredDataInput {
   workouts: WorkoutUpdateManyWithoutPartecipantsInput
 }
 
-input UserUpdateWithoutReffererDataInput {
+input UserUpdateWithoutReferrerDataInput {
   avatarId: String
   bio: String
   birthDate: DateTime
@@ -588,7 +590,7 @@ input UserUpdateWithoutReffererDataInput {
   facebookId: String
   name: String
   password: String
-  referred: ReferralUpdateManyWithoutReferredInput
+  referral: ReferralUpdateManyWithoutReferredInput
   role: Role
   sex: Sex
   stripeId: String
@@ -606,8 +608,8 @@ input UserUpdateWithoutTrainDataInput {
   facebookId: String
   name: String
   password: String
-  referred: ReferralUpdateManyWithoutReferredInput
-  refferer: ReferralUpdateManyWithoutReferrerInput
+  referral: ReferralUpdateManyWithoutReferredInput
+  referrer: ReferralUpdateManyWithoutReferrerInput
   role: Role
   sex: Sex
   stripeId: String
@@ -624,8 +626,8 @@ input UserUpdateWithoutWorkoutsDataInput {
   facebookId: String
   name: String
   password: String
-  referred: ReferralUpdateManyWithoutReferredInput
-  refferer: ReferralUpdateManyWithoutReferrerInput
+  referral: ReferralUpdateManyWithoutReferredInput
+  referrer: ReferralUpdateManyWithoutReferrerInput
   role: Role
   sex: Sex
   stripeId: String
@@ -637,14 +639,14 @@ input UserUpdateWithWhereUniqueWithoutWorkoutsInput {
   where: UserWhereUniqueInput!
 }
 
-input UserUpsertWithoutReferredInput {
-  create: UserCreateWithoutReferredInput!
-  update: UserUpdateWithoutReferredDataInput!
+input UserUpsertWithoutReferralInput {
+  create: UserCreateWithoutReferralInput!
+  update: UserUpdateWithoutReferralDataInput!
 }
 
-input UserUpsertWithoutReffererInput {
-  create: UserCreateWithoutReffererInput!
-  update: UserUpdateWithoutReffererDataInput!
+input UserUpsertWithoutReferrerInput {
+  create: UserCreateWithoutReferrerInput!
+  update: UserUpdateWithoutReferrerDataInput!
 }
 
 input UserUpsertWithoutTrainInput {
@@ -672,8 +674,8 @@ input UserWhereInput {
   NOT: [UserWhereInput!]
   OR: [UserWhereInput!]
   password: StringFilter
-  referred: ReferralFilter
-  refferer: ReferralFilter
+  referral: ReferralFilter
+  referrer: ReferralFilter
   role: Role
   sex: Sex
   stripeId: NullableStringFilter

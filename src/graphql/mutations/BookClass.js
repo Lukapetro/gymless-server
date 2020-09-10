@@ -31,9 +31,21 @@ export const bookClass = mutationField('bookClass', {
       },
     })
 
+    //Verifico che ci sia posto disponibile nella classe
+    const workout = await ctx.prisma.workout.findOne({
+      where: {
+        id: Number(id),
+      },
+    })
+
+    if (workout.spots <= 0) {
+      throw new Error('La classe è al completo')
+    }
+
     //Iscrivo l'utente alla classe
     return ctx.prisma.workout.update({
       data: {
+        spots: workout.spots - 1,
         partecipants: {
           connect: [
             {

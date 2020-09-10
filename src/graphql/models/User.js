@@ -9,6 +9,9 @@ export const User = schema.objectType({
     t.model.stripeId()
     t.model.customerId()
 
+    t.model.referrer()
+    t.model.referral()
+
     t.model.bio()
     t.model.facebookId()
     t.model.workouts()
