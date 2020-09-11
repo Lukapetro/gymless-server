@@ -183,6 +183,11 @@ input NullableStringFilter {
   startsWith: String
 }
 
+enum OrderByArg {
+  asc
+  desc
+}
+
 type PaymentMethods {
   data: [Card!]!
 }
@@ -197,7 +202,7 @@ type Query {
   referrals(skip: Int): [Referral!]!
   userAvailableWorkouts: [Workout!]!
   workout(where: WorkoutWhereUniqueInput!): Workout
-  workouts(skip: Int, where: WorkoutWhereInput): [Workout!]!
+  workouts(orderBy: WorkoutOrderByInput, skip: Int, where: WorkoutWhereInput): [Workout!]!
   workoutsBooked: [Workout!]!
 }
 
@@ -757,6 +762,19 @@ input WorkoutFilter {
   every: WorkoutWhereInput
   none: WorkoutWhereInput
   some: WorkoutWhereInput
+}
+
+input WorkoutOrderByInput {
+  cordinatesId: OrderByArg
+  createdAt: OrderByArg
+  date: OrderByArg
+  description: OrderByArg
+  duration: OrderByArg
+  id: OrderByArg
+  price: OrderByArg
+  spots: OrderByArg
+  title: OrderByArg
+  trainerId: OrderByArg
 }
 
 input WorkoutScalarWhereInput {

@@ -6,7 +6,7 @@ export const workout = extendType({
     t.crud.workout()
     t.crud.workouts({
       filtering: true,
-      sorting: true,
+      ordering: true,
     })
   },
 })
