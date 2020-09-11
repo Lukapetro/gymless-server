@@ -81,3 +81,10 @@ UPDATE ON "Referral"
 FOR EACH ROW
 EXECUTE PROCEDURE trigger_set_timestamp
 ();
+
+CREATE TABLE "Token"
+(
+    id SERIAL PRIMARY KEY NOT NULL,
+    userID INTEGER NOT NULL references "User" (id) on delete cascade on update cascade,
+    "createdAt" timestamptz not null default current_date
+)

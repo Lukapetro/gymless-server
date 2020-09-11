@@ -25,6 +25,7 @@ model User {
   email      String     @unique
   password   String
   bio        String?
+  confirmed  Boolean    @default(false)
   customerId String?
   stripeId   String?
   facebookId String?
@@ -75,4 +76,10 @@ model Referral {
   referrerId Int
   referred   User     @relation("Referred", fields: [referredId], references: [id])
   referredId Int      @unique
+}
+
+model Token {
+  token     String   @id
+  userId    Int
+  createdAt DateTime @default(now())
 }

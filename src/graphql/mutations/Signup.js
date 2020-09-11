@@ -3,6 +3,8 @@ import { hash } from 'bcryptjs'
 import { sign } from 'jsonwebtoken'
 import { mutationField } from '@nexus/schema'
 import { stripe } from '../../stripe'
+import { sendEmail } from '../../utils/sendEmail'
+import { createConfirmationUrl } from '../../utils/createConfirmationUrl'
 
 export const signup = mutationField('signup', {
   type: 'AuthPayload',
@@ -41,6 +43,8 @@ export const signup = mutationField('signup', {
         },
       })
     }
+
+    await sendEmail(email, await createConfirmationUrl(user.id))
 
     return {
       token: sign({ userId: user.id }, process.env.APP_SECRET),

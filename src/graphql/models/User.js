@@ -8,6 +8,7 @@ export const User = schema.objectType({
     t.model.email()
     t.model.stripeId()
     t.model.customerId()
+    t.model.confirmed()
 
     t.model.referrer()
     t.model.referral()

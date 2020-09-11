@@ -3,13 +3,6 @@ import { enumType, asNexusMethod } from '@nexus/schema'
 import { GraphQLDate, GraphQLDateTime } from 'graphql-iso-date'
 import { GraphQLScalarType } from 'graphql'
 
-export const tokens = {
-  access: {
-    name: 'ACCESS_TOKEN',
-    expiry: '1d',
-  },
-}
-
 export const isDev = () => process.env.NODE_ENV === 'development'
 
 export const DateTime = GraphQLDateTime

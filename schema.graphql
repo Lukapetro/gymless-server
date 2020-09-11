@@ -124,6 +124,7 @@ scalar JSON
 
 type Mutation {
   bookClass(id: Int!): Workout!
+  confirmUser(token: String!): Boolean!
   createOneCordinates(data: CordinatesCreateInput!): Cordinates!
   createWorkout(cordinatesId: Int, date: DateTime, description: String, duration: Int!, price: Int!, spots: Int!, title: String!): Workout!
   deleteBooking(id: ID): Workout!
@@ -200,7 +201,7 @@ type Query {
   paymentMethods: JSON!
   referral(where: ReferralWhereUniqueInput!): Referral
   referrals(skip: Int): [Referral!]!
-  userAvailableWorkouts: [Workout!]!
+  userAvailableWorkouts(endDate: DateTime, startDate: DateTime): [Workout!]!
   workout(where: WorkoutWhereUniqueInput!): Workout
   workouts(orderBy: WorkoutOrderByInput, skip: Int, where: WorkoutWhereInput): [Workout!]!
   workoutsBooked: [Workout!]!
@@ -381,6 +382,7 @@ type User {
   bio: String
   birthDate: DateTime
   classes: Int!
+  confirmed: Boolean!
   customerId: String
   email: String!
   facebookId: String
@@ -419,6 +421,7 @@ input UserCreateWithoutReferralInput {
   bio: String
   birthDate: DateTime
   classes: Int
+  confirmed: Boolean
   customerId: String
   email: String!
   facebookId: String
@@ -437,6 +440,7 @@ input UserCreateWithoutReferrerInput {
   bio: String
   birthDate: DateTime
   classes: Int
+  confirmed: Boolean
   customerId: String
   email: String!
   facebookId: String
@@ -455,6 +459,7 @@ input UserCreateWithoutTrainInput {
   bio: String
   birthDate: DateTime
   classes: Int
+  confirmed: Boolean
   customerId: String
   email: String!
   facebookId: String
@@ -473,6 +478,7 @@ input UserCreateWithoutWorkoutsInput {
   bio: String
   birthDate: DateTime
   classes: Int
+  confirmed: Boolean
   customerId: String
   email: String!
   facebookId: String
@@ -498,6 +504,7 @@ input UserScalarWhereInput {
   bio: NullableStringFilter
   birthDate: NullableDateTimeFilter
   classes: IntFilter
+  confirmed: BooleanFilter
   customerId: NullableStringFilter
   email: StringFilter
   facebookId: NullableStringFilter
@@ -520,6 +527,7 @@ input UserUpdateManyDataInput {
   bio: String
   birthDate: DateTime
   classes: Int
+  confirmed: Boolean
   customerId: String
   email: String
   facebookId: String
@@ -573,6 +581,7 @@ input UserUpdateWithoutReferralDataInput {
   bio: String
   birthDate: DateTime
   classes: Int
+  confirmed: Boolean
   customerId: String
   email: String
   facebookId: String
@@ -591,6 +600,7 @@ input UserUpdateWithoutReferrerDataInput {
   bio: String
   birthDate: DateTime
   classes: Int
+  confirmed: Boolean
   customerId: String
   email: String
   facebookId: String
@@ -609,6 +619,7 @@ input UserUpdateWithoutTrainDataInput {
   bio: String
   birthDate: DateTime
   classes: Int
+  confirmed: Boolean
   customerId: String
   email: String
   facebookId: String
@@ -627,6 +638,7 @@ input UserUpdateWithoutWorkoutsDataInput {
   bio: String
   birthDate: DateTime
   classes: Int
+  confirmed: Boolean
   customerId: String
   email: String
   facebookId: String
@@ -672,6 +684,7 @@ input UserWhereInput {
   bio: NullableStringFilter
   birthDate: NullableDateTimeFilter
   classes: IntFilter
+  confirmed: BooleanFilter
   customerId: NullableStringFilter
   email: StringFilter
   facebookId: NullableStringFilter

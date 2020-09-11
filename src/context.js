@@ -1,26 +1,6 @@
 import { PrismaClient } from '@prisma/client'
-import { sign, verify } from 'jsonwebtoken'
+import { verify } from 'jsonwebtoken'
 import { tokens } from './utils/costants'
-
-export const handleError = (error) => {
-  // add any other logging mechanism here e.g. Sentry
-  throw error
-}
-
-export const generateAccessToken = (userId) => {
-  const accessToken = sign(
-    {
-      userId,
-      type: tokens.access.name,
-      timestamp: Date.now(),
-    },
-    process.env.APP_SECRET,
-    {
-      expiresIn: tokens.access.expiry,
-    },
-  )
-  return accessToken
-}
 
 export const prisma = new PrismaClient()
 
