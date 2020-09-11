@@ -74,5 +74,5 @@ model Referral {
   referrer   User     @relation("Referrer", fields: [referrerId], references: [id])
   referrerId Int
   referred   User     @relation("Referred", fields: [referredId], references: [id])
-  referredId Int
+  referredId Int      @unique
 }

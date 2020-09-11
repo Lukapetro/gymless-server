@@ -44,7 +44,7 @@ export const server = new ApolloServer({
   engine: {
     reportSchema: true,
   },
-  // plugins: [myPlugin],
+  //plugins: [myPlugin],
   //  tracing: isDev(),
   // introspection: true,
   // debug: isDev(),

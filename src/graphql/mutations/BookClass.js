@@ -42,6 +42,41 @@ export const bookClass = mutationField('bookClass', {
       throw new Error('La classe è al completo')
     }
 
+    //Prendo la tabella referral con l'id dell'utente
+    const referral = await ctx.prisma.referral.findOne({
+      where: {
+        referredId: user.id,
+      },
+    })
+
+    //Verifico se ci sono referral in stato non completato
+    if (!referral.completed) {
+      const { classes } = await ctx.prisma.user.findOne({
+        where: {
+          id: referral.referrerId,
+        },
+      })
+      //Se ci sono referral aggiorno lo stato
+      await ctx.prisma.referral.update(
+        {
+          data: {
+            completed: true,
+          },
+          where: {
+            referredId: user.id,
+          },
+        },
+        await ctx.prisma.user.update({
+          data: {
+            classes: classes + 1,
+          },
+          where: {
+            id: referral.referrerId,
+          },
+        }),
+      )
+    }
+
     //Iscrivo l'utente alla classe
     return ctx.prisma.workout.update({
       data: {

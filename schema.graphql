@@ -341,6 +341,7 @@ input ReferralWhereInput {
 
 input ReferralWhereUniqueInput {
   id: Int
+  referredId: Int
 }
 
 enum Role {
