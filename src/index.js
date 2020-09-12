@@ -36,6 +36,8 @@ const myPlugin = {
   },
 }
 
+console.log('Benvenuto in gymless')
+
 export const server = new ApolloServer({
   schema: schema,
   context: createContext,
