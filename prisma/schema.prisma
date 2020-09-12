@@ -80,6 +80,5 @@ model Referral {
 
 model Token {
   token     String   @id
-  userId    Int
   createdAt DateTime @default(now())
 }

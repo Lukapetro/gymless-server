@@ -82,9 +82,15 @@ FOR EACH ROW
 EXECUTE PROCEDURE trigger_set_timestamp
 ();
 
-CREATE TABLE "Token"
+create type token_type_enum as enum
+('confirmation', 'reset');
+
+create table
+if not exists
+"Token"
 (
-    id SERIAL PRIMARY KEY NOT NULL,
-    userID INTEGER NOT NULL references "User" (id) on delete cascade on update cascade,
-    "createdAt" timestamptz not null default current_date
-)
+  token       varchar
+(255) primary key,
+  "tokenType"  token_type_enum not null,  
+  "createdAt"  timestamptz not null default current_date
+);

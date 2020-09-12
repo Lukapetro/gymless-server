@@ -12,6 +12,8 @@ import { socialLinking } from './SocialLinking'
 import { setupIntent } from './SetupIntent'
 import { detachPaymentMethod } from './payments/DetachPaymentMethod'
 import { confirmUser } from './ConfirmUser'
+import { forgotPassword } from './ForgotPassword'
+import { changePassword } from './user/ChangePassword'
 
 export const Mutation = {
   signup,
@@ -27,5 +29,7 @@ export const Mutation = {
   socialLinking,
   setupIntent,
   detachPaymentMethod,
+  forgotPassword,
   confirmUser,
+  changePassword,
 }

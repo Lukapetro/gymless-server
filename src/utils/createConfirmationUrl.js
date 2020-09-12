@@ -1,23 +1,12 @@
-import { sign } from 'jsonwebtoken'
 import { prisma } from '../context'
+import { tokenTypeConfirmation } from './costants'
+import { generateToken } from './generateToken'
 
 export const createConfirmationUrl = async (userId) => {
-  const token = sign(
-    {
-      userId,
-      timestamp: Date.now(),
-    },
-    process.env.APP_SECRET,
-    {
-      expiresIn: 1,
-    },
-  )
-
-  console.log('token :>> ', token)
+  const token = generateToken(userId, tokenTypeConfirmation)
 
   await prisma.token.create({
     data: {
-      userId: userId,
       token: token,
     },
   })

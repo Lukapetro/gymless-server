@@ -20,3 +20,6 @@ export const JSONScalar = new GraphQLScalarType({
   serialize: (data) => data,
   parseValue: (data) => data,
 })
+
+export const tokenTypeConfirmation = 'confirmation'
+export const tokenTypeReset = 'reset'

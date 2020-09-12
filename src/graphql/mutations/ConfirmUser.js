@@ -1,4 +1,6 @@
 import { mutationField, stringArg } from '@nexus/schema'
+import { verify } from 'jsonwebtoken'
+import { tokenTypeConfirmation } from '../../utils/costants'
 
 export const confirmUser = mutationField('confirmUser', {
   type: 'Boolean',
@@ -6,23 +8,24 @@ export const confirmUser = mutationField('confirmUser', {
     token: stringArg({ required: true }),
   },
   resolve: async (parent, { token }, ctx) => {
-    //verifico la validità del token
+    //verifico il token
+    const verifiedToken = verify(token, process.env.APP_SECRET)
 
-    //pesco l'utente in base al token
-    const { userId } = await ctx.prisma.token.findOne({
-      where: {
-        token: token,
-      },
-    })
+    //Errore se non c'è o se è scaduto
+    if (
+      !verifiedToken ||
+      verifiedToken.tokenType !== tokenTypeConfirmation ||
+      !verifiedToken.userId
+    )
+      throw new Error('Token non valido')
 
-    if (!userId) return false
-
+    //Confermo l'email dell'utente e cancello il token
     await ctx.prisma.user.update({
       data: {
         confirmed: true,
       },
       where: {
-        id: userId,
+        id: verifiedToken.userId,
       },
     })
     await ctx.prisma.token.delete({
