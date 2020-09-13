@@ -19,13 +19,13 @@ export const signup = mutationField('signup', {
 
     const customer = await stripe.customers.create({
       name,
-      email,
+      email: email.toLowerCase(),
     })
 
     const user = await ctx.prisma.user.create({
       data: {
         name,
-        email,
+        email: email.toLowerCase(),
         customerId: customer.id,
         password: hashedPassword,
       },

@@ -12,7 +12,7 @@ export const trainerLogin = mutationField('trainerLogin', {
   resolve: async (_parent, { email, password }, ctx) => {
     const user = await ctx.prisma.user.findOne({
       where: {
-        email,
+        email: email.toLowerCase(),
       },
     })
 

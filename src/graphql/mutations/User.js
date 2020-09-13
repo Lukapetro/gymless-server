@@ -27,7 +27,7 @@ export const user = extendType({
         return ctx.prisma.user.update({
           data: {
             name: name,
-            email: email,
+            email: email.toLowerCase(),
             sex: sex,
             birthDate: birthDate,
           },
