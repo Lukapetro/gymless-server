@@ -46,6 +46,11 @@ export const deleteBooking = mutationField('deleteBooking', {
       throw new Error(`Errore: classe non trovata`)
     }
 
+    //Se la classe è passata non è possibile disdire
+    if (workout.date < Date.now()) {
+      throw new Error(`Operazione non consentita`)
+    }
+
     //Controllo se la startDate è < 6H
     if (workout.date < sixHourFromNow) {
       //Non restituisco la classe
