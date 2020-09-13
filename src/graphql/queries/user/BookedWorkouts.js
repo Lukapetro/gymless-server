@@ -13,6 +13,11 @@ export const bookedWorkouts = extendType({
                 id: ctx.userId,
               },
             },
+            AND: {
+              date: {
+                gt: new Date(),
+              },
+            },
           },
         })
       },

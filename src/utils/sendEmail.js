@@ -9,9 +9,6 @@ export async function sendEmail(email, url, subject, text) {
     },
   })
 
-  console.log('subject :>> ', subject)
-  console.log('text :>> ', text)
-
   const mailOptions = {
     from: '"Gymless 💪🏻" <infogymless@gmail.com>',
     to: email,
