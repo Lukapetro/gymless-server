@@ -27,6 +27,8 @@ export const forgotPassword = mutationField('forgotPassword', {
     await sendEmail(
       email,
       `${process.env.AMBIENTE}/user/change-password/${token}`,
+      'Rispristina password',
+      'Clicka sul seguente link per ripristinare la tua password',
     )
 
     return true

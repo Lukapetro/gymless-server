@@ -44,7 +44,12 @@ export const signup = mutationField('signup', {
       })
     }
 
-    await sendEmail(email, await createConfirmationUrl(user.id))
+    await sendEmail(
+      email,
+      await createConfirmationUrl(user.id),
+      'Conferma email',
+      'Clicka sul seguente link per confermare la tua email',
+    )
 
     return {
       token: sign({ userId: user.id }, process.env.APP_SECRET),
