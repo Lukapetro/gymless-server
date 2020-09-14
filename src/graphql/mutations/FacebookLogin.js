@@ -2,6 +2,7 @@ import { schema } from 'nexus'
 import { sign } from 'jsonwebtoken'
 import { mutationField } from '@nexus/schema'
 import { authenticateFacebook } from '../../utils/facebookAuth'
+import { stripe } from '../../stripe'
 
 export const facebookLogin = mutationField('facebookLogin', {
   type: 'AuthPayload',
@@ -18,6 +19,11 @@ export const facebookLogin = mutationField('facebookLogin', {
       const { data, info } = await authenticateFacebook(req, res)
 
       if (data) {
+        const customer = await stripe.customers.create({
+          name: data.profile.displayName,
+          email: data.profile._json.email.toLowerCase(),
+        })
+
         const user = await prisma.user.upsert({
           where: {
             email: data.profile._json.email,
@@ -28,6 +34,7 @@ export const facebookLogin = mutationField('facebookLogin', {
           create: {
             name: data.profile.displayName,
             email: data.profile._json.email,
+            customerId: customer.id,
             password: '',
             facebookId: data.profile.id,
           },
