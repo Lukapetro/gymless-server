@@ -15,6 +15,8 @@ export const sendHelpRequest = mutationField('sendHelpRequest', {
 
     if (!user) throw new Error('Utente non trovato')
 
+    console.log('user :>> ', user.email)
+
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -24,11 +26,13 @@ export const sendHelpRequest = mutationField('sendHelpRequest', {
     })
 
     const mailOptions = {
-      from: `"Centro Assistenza" ${user.email}`,
+      from: `"Centro assistenza ⛑️`,
       to: 'infogymless@gmail.com',
       subject: 'Centro Assistenza',
-      text: message,
-      html: `<p>${message}</p>`,
+      text: `${message}`,
+      html: `<div>
+      <p>Da: ${user.name} -  ${user.email}</p>
+      <div>Messaggio: ${message}</div></div>`,
     }
 
     await transporter.sendMail(mailOptions, function (error, info) {
