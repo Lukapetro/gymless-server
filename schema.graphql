@@ -139,6 +139,7 @@ type Mutation {
   forgotPassword(email: String!): Boolean!
   login(email: String!, password: String!): AuthPayload!
   paymentIntent(amount: Int!): JSON!
+  sendHelpRequest(message: String): Boolean!
   setupIntent: String!
   signup(email: String!, name: String, password: String!, referrerId: Int): AuthPayload!
   trainerLogin(email: String!, password: String!): AuthPayload!

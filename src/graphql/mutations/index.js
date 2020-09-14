@@ -14,6 +14,7 @@ import { detachPaymentMethod } from './payments/DetachPaymentMethod'
 import { confirmUser } from './ConfirmUser'
 import { forgotPassword } from './ForgotPassword'
 import { changePassword } from './user/ChangePassword'
+import { sendHelpRequest } from './help/sendHelpRequest'
 
 export const Mutation = {
   signup,
@@ -32,4 +33,5 @@ export const Mutation = {
   forgotPassword,
   confirmUser,
   changePassword,
+  sendHelpRequest,
 }
