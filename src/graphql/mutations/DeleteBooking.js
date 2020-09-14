@@ -12,7 +12,7 @@ export const deleteBooking = mutationField('deleteBooking', {
     function updateUser() {
       return ctx.prisma.workout.update({
         data: {
-          spots: +1,
+          spots: workout.spots + 1,
           partecipants: {
             disconnect: [
               {
