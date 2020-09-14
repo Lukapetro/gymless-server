@@ -49,6 +49,8 @@ export const bookClass = mutationField('bookClass', {
       },
     })
 
+    console.log('referral :>> ', referral)
+
     //Verifico se ci sono referral in stato non completato
     if (!referral.completed) {
       const { classes } = await ctx.prisma.user.findOne({
