@@ -24,10 +24,19 @@ export const user = extendType({
           throw new Error('Non auteticato')
         }
 
+        if (email)
+          return ctx.prisma.user.update({
+            data: {
+              email: email.toLowerCase(),
+            },
+            where: {
+              id: ctx.userId,
+            },
+          })
+
         return ctx.prisma.user.update({
           data: {
             name: name,
-            email: email.toLowerCase(),
             sex: sex,
             birthDate: birthDate,
           },
