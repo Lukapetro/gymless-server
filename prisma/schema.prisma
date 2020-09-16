@@ -13,6 +13,11 @@ enum Role {
   admin
 }
 
+enum Gymler {
+  basic
+  early
+}
+
 enum Sex {
   male
   female
@@ -39,6 +44,7 @@ model User {
   //referred   Referral[] @relation("Referred")
   referrer   Referral[] @relation("Referrer")
   referral   Referral[] @relation("Referred")
+  gymlerType Gymler     @default(basic)
 }
 
 model Workout {

@@ -110,3 +110,12 @@ CREATE TABLE "Address"
   "postalCode" VARCHAR(16)
     NOT NULL
 )
+
+CREATE TYPE public.gymler AS ENUM
+('basic', 'early');
+
+ALTER TYPE public.gymler
+    OWNER TO bunurimsibdvkf;
+
+ALTER TABLE public."User"
+add column "gymlerType" gymler default 'basic'
