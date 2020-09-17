@@ -25,6 +25,9 @@ export const availableWorkouts = extendType({
               },
             },
           },
+          orderBy: {
+            date: 'asc',
+          },
         })
       },
     })
