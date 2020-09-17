@@ -2,7 +2,7 @@
   "name": "typescript-javascript",
   "scripts": {
     "dev": "nodemon --exec babel-node src/index.js",
-    "start": "nodemon --exec babel-node src/index.js"
+    "start": " nodemon --exec babel-node src/index.js"
   },
   "dependencies": {
     "@babel/cli": "^7.10.5",

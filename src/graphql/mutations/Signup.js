@@ -28,6 +28,7 @@ export const signup = mutationField('signup', {
         email: email.toLowerCase(),
         customerId: customer.id,
         password: hashedPassword,
+        lastLoggedIn: new Date(),
       },
     })
 

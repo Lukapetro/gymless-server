@@ -22,6 +22,16 @@ export const login = mutationField('login', {
     if (!passwordValid) {
       throw new Error('Invalid password')
     }
+
+    await ctx.prisma.user.update({
+      data: {
+        lastLoggedIn: new Date(),
+      },
+      where: {
+        id: user.id,
+      },
+    })
+
     return {
       token: sign({ userId: user.id }, process.env.APP_SECRET),
       user,

@@ -396,6 +396,7 @@ type User {
   facebookId: String
   gymlerType: Gymler!
   id: Int!
+  lastLoggedIn: DateTime
   name: String
   referral(skip: Int): [Referral!]!
   referrer(skip: Int): [Referral!]!
@@ -435,6 +436,7 @@ input UserCreateWithoutReferralInput {
   email: String!
   facebookId: String
   gymlerType: Gymler
+  lastLoggedIn: DateTime
   name: String
   password: String!
   referrer: ReferralCreateManyWithoutReferrerInput
@@ -455,6 +457,7 @@ input UserCreateWithoutReferrerInput {
   email: String!
   facebookId: String
   gymlerType: Gymler
+  lastLoggedIn: DateTime
   name: String
   password: String!
   referral: ReferralCreateManyWithoutReferredInput
@@ -475,6 +478,7 @@ input UserCreateWithoutTrainInput {
   email: String!
   facebookId: String
   gymlerType: Gymler
+  lastLoggedIn: DateTime
   name: String
   password: String!
   referral: ReferralCreateManyWithoutReferredInput
@@ -495,6 +499,7 @@ input UserCreateWithoutWorkoutsInput {
   email: String!
   facebookId: String
   gymlerType: Gymler
+  lastLoggedIn: DateTime
   name: String
   password: String!
   referral: ReferralCreateManyWithoutReferredInput
@@ -523,6 +528,7 @@ input UserScalarWhereInput {
   facebookId: NullableStringFilter
   gymlerType: Gymler
   id: IntFilter
+  lastLoggedIn: NullableDateTimeFilter
   name: NullableStringFilter
   NOT: [UserScalarWhereInput!]
   OR: [UserScalarWhereInput!]
@@ -546,6 +552,7 @@ input UserUpdateManyDataInput {
   email: String
   facebookId: String
   gymlerType: Gymler
+  lastLoggedIn: DateTime
   name: String
   password: String
   role: Role
@@ -601,6 +608,7 @@ input UserUpdateWithoutReferralDataInput {
   email: String
   facebookId: String
   gymlerType: Gymler
+  lastLoggedIn: DateTime
   name: String
   password: String
   referrer: ReferralUpdateManyWithoutReferrerInput
@@ -621,6 +629,7 @@ input UserUpdateWithoutReferrerDataInput {
   email: String
   facebookId: String
   gymlerType: Gymler
+  lastLoggedIn: DateTime
   name: String
   password: String
   referral: ReferralUpdateManyWithoutReferredInput
@@ -641,6 +650,7 @@ input UserUpdateWithoutTrainDataInput {
   email: String
   facebookId: String
   gymlerType: Gymler
+  lastLoggedIn: DateTime
   name: String
   password: String
   referral: ReferralUpdateManyWithoutReferredInput
@@ -661,6 +671,7 @@ input UserUpdateWithoutWorkoutsDataInput {
   email: String
   facebookId: String
   gymlerType: Gymler
+  lastLoggedIn: DateTime
   name: String
   password: String
   referral: ReferralUpdateManyWithoutReferredInput
@@ -709,6 +720,7 @@ input UserWhereInput {
   facebookId: NullableStringFilter
   gymlerType: Gymler
   id: IntFilter
+  lastLoggedIn: NullableDateTimeFilter
   name: NullableStringFilter
   NOT: [UserWhereInput!]
   OR: [UserWhereInput!]

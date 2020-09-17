@@ -1,10 +1,4 @@
-import {
-  extendType,
-  stringArg,
-  enumType,
-  intArg,
-  booleanArg,
-} from '@nexus/schema'
+import { extendType, stringArg, intArg } from '@nexus/schema'
 import { compare, hash } from 'bcryptjs'
 import { SexType, GQLDate } from '../../utils/costants'
 

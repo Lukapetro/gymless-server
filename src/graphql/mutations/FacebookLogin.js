@@ -35,6 +35,7 @@ export const facebookLogin = mutationField('facebookLogin', {
             name: data.profile.displayName,
             email: data.profile._json.email,
             customerId: customer.id,
+            lastLoggedIn: new Date(),
             password: '',
             facebookId: data.profile.id,
           },

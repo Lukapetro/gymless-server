@@ -25,26 +25,27 @@ enum Sex {
 }
 
 model User {
-  id         Int        @default(autoincrement()) @id
-  name       String?
-  email      String     @unique
-  password   String
-  bio        String?
-  confirmed  Boolean    @default(false)
-  customerId String?
-  stripeId   String?
-  facebookId String?
-  train      Workout[]  @relation("Train")
-  workouts   Workout[]
-  role       Role       @default(user)
-  sex        Sex        @default(unknown)
-  birthDate  DateTime?
-  avatarId   String?
-  classes    Int        @default(0)
+  id           Int        @default(autoincrement()) @id
+  name         String?
+  email        String     @unique
+  password     String
+  bio          String?
+  confirmed    Boolean    @default(false)
+  customerId   String?
+  stripeId     String?
+  facebookId   String?
+  train        Workout[]  @relation("Train")
+  workouts     Workout[]
+  role         Role       @default(user)
+  sex          Sex        @default(unknown)
+  birthDate    DateTime?
+  avatarId     String?
+  lastLoggedIn DateTime?
+  classes      Int        @default(0)
   //referred   Referral[] @relation("Referred")
-  referrer   Referral[] @relation("Referrer")
-  referral   Referral[] @relation("Referred")
-  gymlerType Gymler     @default(basic)
+  referrer     Referral[] @relation("Referrer")
+  referral     Referral[] @relation("Referred")
+  gymlerType   Gymler     @default(basic)
 }
 
 model Workout {
