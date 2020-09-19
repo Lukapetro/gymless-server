@@ -9,11 +9,12 @@ export const user = extendType({
       type: 'User',
       args: {
         name: stringArg(),
+        surname: stringArg(),
         email: stringArg(),
         birthDate: GQLDate,
         sex: SexType,
       },
-      resolve: (parent, { name, email, sex, birthDate }, ctx) => {
+      resolve: (parent, { name, surname, email, sex, birthDate }, ctx) => {
         if (!ctx.userId) {
           throw new Error('Non auteticato')
         }
@@ -31,6 +32,7 @@ export const user = extendType({
         return ctx.prisma.user.update({
           data: {
             name: name,
+            surname: surname,
             sex: sex,
             birthDate: birthDate,
           },

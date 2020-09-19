@@ -146,12 +146,12 @@ type Mutation {
   paymentIntent(amount: Int!): JSON!
   sendHelpRequest(message: String): Boolean!
   setupIntent: String!
-  signup(email: String!, name: String, password: String!, referrerId: Int): AuthPayload!
+  signup(birthDate: Date, email: String!, name: String!, password: String!, referrerId: Int, surname: String!): AuthPayload!
   trainerLogin(email: String!, password: String!): AuthPayload!
   updateAvatar(avatarId: String): User!
   updateOneCordinates(data: CordinatesUpdateInput!, where: CordinatesWhereUniqueInput!): Cordinates
   updateOneWorkout(data: WorkoutUpdateInput!, where: WorkoutWhereUniqueInput!): Workout
-  updateUser(birthDate: Date, email: String, name: String, sex: Sex): User!
+  updateUser(birthDate: Date, email: String, name: String, sex: Sex, surname: String): User!
   updateUserClasses(classes: Int!): User!
   updateUserPassword(newPassword: String, oldPassword: String): User!
 }
@@ -397,12 +397,13 @@ type User {
   gymlerType: Gymler!
   id: Int!
   lastLoggedIn: DateTime
-  name: String
+  name: String!
   referral(skip: Int): [Referral!]!
   referrer(skip: Int): [Referral!]!
   role: Role!
   sex: Sex!
   stripeId: String
+  surname: String
   workouts(skip: Int): [Workout!]!
 }
 
@@ -437,12 +438,13 @@ input UserCreateWithoutReferralInput {
   facebookId: String
   gymlerType: Gymler
   lastLoggedIn: DateTime
-  name: String
+  name: String!
   password: String!
   referrer: ReferralCreateManyWithoutReferrerInput
   role: Role
   sex: Sex
   stripeId: String
+  surname: String
   train: WorkoutCreateManyWithoutTrainerInput
   workouts: WorkoutCreateManyWithoutPartecipantsInput
 }
@@ -458,12 +460,13 @@ input UserCreateWithoutReferrerInput {
   facebookId: String
   gymlerType: Gymler
   lastLoggedIn: DateTime
-  name: String
+  name: String!
   password: String!
   referral: ReferralCreateManyWithoutReferredInput
   role: Role
   sex: Sex
   stripeId: String
+  surname: String
   train: WorkoutCreateManyWithoutTrainerInput
   workouts: WorkoutCreateManyWithoutPartecipantsInput
 }
@@ -479,13 +482,14 @@ input UserCreateWithoutTrainInput {
   facebookId: String
   gymlerType: Gymler
   lastLoggedIn: DateTime
-  name: String
+  name: String!
   password: String!
   referral: ReferralCreateManyWithoutReferredInput
   referrer: ReferralCreateManyWithoutReferrerInput
   role: Role
   sex: Sex
   stripeId: String
+  surname: String
   workouts: WorkoutCreateManyWithoutPartecipantsInput
 }
 
@@ -500,13 +504,14 @@ input UserCreateWithoutWorkoutsInput {
   facebookId: String
   gymlerType: Gymler
   lastLoggedIn: DateTime
-  name: String
+  name: String!
   password: String!
   referral: ReferralCreateManyWithoutReferredInput
   referrer: ReferralCreateManyWithoutReferrerInput
   role: Role
   sex: Sex
   stripeId: String
+  surname: String
   train: WorkoutCreateManyWithoutTrainerInput
 }
 
@@ -529,7 +534,7 @@ input UserScalarWhereInput {
   gymlerType: Gymler
   id: IntFilter
   lastLoggedIn: NullableDateTimeFilter
-  name: NullableStringFilter
+  name: StringFilter
   NOT: [UserScalarWhereInput!]
   OR: [UserScalarWhereInput!]
   password: StringFilter
@@ -538,6 +543,7 @@ input UserScalarWhereInput {
   role: Role
   sex: Sex
   stripeId: NullableStringFilter
+  surname: NullableStringFilter
   train: WorkoutFilter
   workouts: WorkoutFilter
 }
@@ -558,6 +564,7 @@ input UserUpdateManyDataInput {
   role: Role
   sex: Sex
   stripeId: String
+  surname: String
 }
 
 input UserUpdateManyWithoutWorkoutsInput {
@@ -615,6 +622,7 @@ input UserUpdateWithoutReferralDataInput {
   role: Role
   sex: Sex
   stripeId: String
+  surname: String
   train: WorkoutUpdateManyWithoutTrainerInput
   workouts: WorkoutUpdateManyWithoutPartecipantsInput
 }
@@ -636,6 +644,7 @@ input UserUpdateWithoutReferrerDataInput {
   role: Role
   sex: Sex
   stripeId: String
+  surname: String
   train: WorkoutUpdateManyWithoutTrainerInput
   workouts: WorkoutUpdateManyWithoutPartecipantsInput
 }
@@ -658,6 +667,7 @@ input UserUpdateWithoutTrainDataInput {
   role: Role
   sex: Sex
   stripeId: String
+  surname: String
   workouts: WorkoutUpdateManyWithoutPartecipantsInput
 }
 
@@ -679,6 +689,7 @@ input UserUpdateWithoutWorkoutsDataInput {
   role: Role
   sex: Sex
   stripeId: String
+  surname: String
   train: WorkoutUpdateManyWithoutTrainerInput
 }
 
@@ -721,7 +732,7 @@ input UserWhereInput {
   gymlerType: Gymler
   id: IntFilter
   lastLoggedIn: NullableDateTimeFilter
-  name: NullableStringFilter
+  name: StringFilter
   NOT: [UserWhereInput!]
   OR: [UserWhereInput!]
   password: StringFilter
@@ -730,6 +741,7 @@ input UserWhereInput {
   role: Role
   sex: Sex
   stripeId: NullableStringFilter
+  surname: NullableStringFilter
   train: WorkoutFilter
   workouts: WorkoutFilter
 }

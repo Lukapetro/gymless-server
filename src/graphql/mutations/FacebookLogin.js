@@ -19,6 +19,7 @@ export const facebookLogin = mutationField('facebookLogin', {
       const { data, info } = await authenticateFacebook(req, res)
 
       if (data) {
+        console.log('data :>> ', data)
         const customer = await stripe.customers.create({
           name: data.profile.displayName,
           email: data.profile._json.email.toLowerCase(),

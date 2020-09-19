@@ -6,15 +6,24 @@ import { stripe } from '../../stripe'
 import { sendEmail } from '../../utils/sendEmail'
 import { createConfirmationUrl } from '../../utils/createConfirmationUrl'
 
+import sendTemplateEmail from '../../emails/templateM'
+import { GQLDate } from '../../utils/costants'
+
 export const signup = mutationField('signup', {
   type: 'AuthPayload',
   args: {
-    name: schema.stringArg(),
+    name: schema.stringArg({ required: true }),
+    surname: schema.stringArg({ required: true }),
+    birthDate: GQLDate,
     email: schema.stringArg({ nullable: false }),
     password: schema.stringArg({ nullable: false }),
     referrerId: schema.intArg(),
   },
-  resolve: async (_parent, { name, email, password, referrerId }, ctx) => {
+  resolve: async (
+    _parent,
+    { name, surname, birthDate, email, password, referrerId },
+    ctx,
+  ) => {
     const hashedPassword = await hash(password, 10)
 
     const customer = await stripe.customers.create({
@@ -25,12 +34,16 @@ export const signup = mutationField('signup', {
     const user = await ctx.prisma.user.create({
       data: {
         name,
+        surname,
+        birthDate,
         email: email.toLowerCase(),
         customerId: customer.id,
         password: hashedPassword,
         lastLoggedIn: new Date(),
       },
     })
+
+    if (!user) throw new Error("Errore nella creazione dell' utente")
 
     if (referrerId) {
       await ctx.prisma.referral.create({
@@ -45,6 +58,8 @@ export const signup = mutationField('signup', {
       })
     }
 
+    /* sendTemplateEmail({ name: user.name, userEmail: user.email })
+     */
     await sendEmail(
       email,
       await createConfirmationUrl(user.id),

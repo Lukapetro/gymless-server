@@ -12,6 +12,7 @@
     "apollo-server": "2.16.1",
     "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",
+    "email-templates": "^7.1.1",
     "graphql": "^15.3.0",
     "graphql-iso-date": "^3.6.1",
     "jsonwebtoken": "^8.5.1",
@@ -22,6 +23,7 @@
     "passport": "^0.4.1",
     "passport-facebook": "^3.0.0",
     "passport-facebook-token": "^4.0.0",
+    "pug": "^3.0.0",
     "stripe": "^8.81.0"
   },
   "devDependencies": {

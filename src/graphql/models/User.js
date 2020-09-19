@@ -5,6 +5,8 @@ export const User = schema.objectType({
   definition(t) {
     t.model.id()
     t.model.name()
+    t.model.surname()
+
     t.model.email()
     t.model.stripeId()
     t.model.customerId()
