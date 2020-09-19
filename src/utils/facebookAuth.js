@@ -19,7 +19,14 @@ passport.use(
     {
       clientID: process.env.FACEBOOK_APP_ID,
       clientSecret: process.env.FACEBOOK_APP_SECRET,
-      profileFields: ['id', 'displayName', 'email'],
+      profileFields: [
+        'id',
+        'displayName',
+        'email',
+        'birthday',
+        'first_name',
+        'last_name',
+      ],
     },
     FacebookTokenStrategyCallback,
   ),
