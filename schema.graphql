@@ -132,7 +132,7 @@ type Mutation {
   changePassword(password: String!, token: String!): User!
   confirmUser(token: String!): Boolean!
   createOneCordinates(data: CordinatesCreateInput!): Cordinates!
-  createWorkout(cordinatesId: Int, date: DateTime, description: String, duration: Int!, price: Int!, spots: Int!, title: String!): Workout!
+  createWorkout(cordinatesId: Int, date: DateTime, description: String, duration: Int!, spots: Int!, title: String!): Workout!
   deleteBooking(id: ID): Workout!
   deleteOneCordinates(where: CordinatesWhereUniqueInput!): Cordinates
   deleteOneWorkout(where: WorkoutWhereUniqueInput!): Workout
@@ -758,7 +758,6 @@ type Workout {
   duration: Int!
   id: Int!
   partecipants(skip: Int): [User!]!
-  price: Int!
   spots: Int!
   title: String!
   trainer: User!
@@ -785,7 +784,6 @@ input WorkoutCreateWithoutCordinatesInput {
   description: String
   duration: Int!
   partecipants: UserCreateManyWithoutWorkoutsInput
-  price: Int!
   spots: Int
   title: String!
   trainer: UserCreateOneWithoutTrainInput!
@@ -797,7 +795,6 @@ input WorkoutCreateWithoutPartecipantsInput {
   date: DateTime
   description: String
   duration: Int!
-  price: Int!
   spots: Int
   title: String!
   trainer: UserCreateOneWithoutTrainInput!
@@ -810,7 +807,6 @@ input WorkoutCreateWithoutTrainerInput {
   description: String
   duration: Int!
   partecipants: UserCreateManyWithoutWorkoutsInput
-  price: Int!
   spots: Int
   title: String!
 }
@@ -828,7 +824,6 @@ input WorkoutOrderByInput {
   description: OrderByArg
   duration: OrderByArg
   id: OrderByArg
-  price: OrderByArg
   spots: OrderByArg
   title: OrderByArg
   trainerId: OrderByArg
@@ -845,7 +840,6 @@ input WorkoutScalarWhereInput {
   NOT: [WorkoutScalarWhereInput!]
   OR: [WorkoutScalarWhereInput!]
   partecipants: UserFilter
-  price: IntFilter
   spots: IntFilter
   title: StringFilter
   trainerId: IntFilter
@@ -858,7 +852,6 @@ input WorkoutUpdateInput {
   description: String
   duration: Int
   partecipants: UserUpdateManyWithoutWorkoutsInput
-  price: Int
   spots: Int
   title: String
   trainer: UserUpdateOneRequiredWithoutTrainInput
@@ -869,7 +862,6 @@ input WorkoutUpdateManyDataInput {
   date: DateTime
   description: String
   duration: Int
-  price: Int
   spots: Int
   title: String
 }
@@ -921,7 +913,6 @@ input WorkoutUpdateWithoutCordinatesDataInput {
   description: String
   duration: Int
   partecipants: UserUpdateManyWithoutWorkoutsInput
-  price: Int
   spots: Int
   title: String
   trainer: UserUpdateOneRequiredWithoutTrainInput
@@ -933,7 +924,6 @@ input WorkoutUpdateWithoutPartecipantsDataInput {
   date: DateTime
   description: String
   duration: Int
-  price: Int
   spots: Int
   title: String
   trainer: UserUpdateOneRequiredWithoutTrainInput
@@ -946,7 +936,6 @@ input WorkoutUpdateWithoutTrainerDataInput {
   description: String
   duration: Int
   partecipants: UserUpdateManyWithoutWorkoutsInput
-  price: Int
   spots: Int
   title: String
 }
@@ -996,7 +985,6 @@ input WorkoutWhereInput {
   NOT: [WorkoutWhereInput!]
   OR: [WorkoutWhereInput!]
   partecipants: UserFilter
-  price: IntFilter
   spots: IntFilter
   title: StringFilter
   trainer: UserWhereInput

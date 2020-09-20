@@ -51,17 +51,15 @@ model User {
 }
 
 model Workout {
-  id          Int       @default(autoincrement()) @id
-  title       String
-  createdAt   DateTime  @default(now())
-  description String?
-  price       Int
-  duration    Int
-  spots       Int       @default(25)
-  date        DateTime?
-  trainerId   Int
-  trainer     User      @relation("Train", fields: [trainerId], references: [id])
-
+  id           Int        @default(autoincrement()) @id
+  title        String
+  createdAt    DateTime   @default(now())
+  description  String?
+  duration     Int
+  spots        Int        @default(25)
+  date         DateTime?
+  trainerId    Int
+  trainer      User       @relation("Train", fields: [trainerId], references: [id])
   partecipants User[]     @relation(references: [id])
   cordinates   Cordinates @relation(fields: [cordinatesId], references: [id])
   cordinatesId Int

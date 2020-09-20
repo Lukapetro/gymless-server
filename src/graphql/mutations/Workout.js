@@ -12,14 +12,13 @@ export const workout = extendType({
         title: schema.stringArg({ required: true }),
         description: schema.stringArg(),
         duration: schema.intArg({ required: true }),
-        price: schema.intArg({ required: true }),
         spots: schema.intArg({ required: true }),
         cordinatesId: schema.intArg(),
         date: DateTime,
       },
       resolve: async (
         _,
-        { title, description, spots, date, cordinatesId, duration, price },
+        { title, description, spots, date, cordinatesId, duration },
         ctx,
       ) => {
         const user = await ctx.prisma.user.findOne({
@@ -39,7 +38,6 @@ export const workout = extendType({
             duration,
             spots,
             date,
-            price,
             trainer: {
               connect: {
                 id: ctx.userId,
