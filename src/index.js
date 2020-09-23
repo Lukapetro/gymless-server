@@ -1,3 +1,4 @@
+import '@babel/polyfill'
 const { ApolloServer } = require('apollo-server')
 import 'dotenv/config'
 const { schema } = require('./schema')

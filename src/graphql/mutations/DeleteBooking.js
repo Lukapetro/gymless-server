@@ -9,17 +9,19 @@ export const deleteBooking = mutationField('deleteBooking', {
     var SIX_HOUR = 60 * 60 * 1000 * 6 /* ms */
     const sixHourFromNow = Date.now() + SIX_HOUR
 
-    function updateUser() {
+    async function updateWorkout() {
+      await ctx.prisma.usersOnWorkouts.delete({
+        where: {
+          workoutId_userId: {
+            userId: ctx.userId,
+            workoutId: Number(id),
+          },
+        },
+      })
+
       return ctx.prisma.workout.update({
         data: {
           spots: workout.spots + 1,
-          partecipants: {
-            disconnect: [
-              {
-                id: ctx.userId,
-              },
-            ],
-          },
         },
         where: {
           id: Number(id),
@@ -54,7 +56,7 @@ export const deleteBooking = mutationField('deleteBooking', {
     //Controllo se la startDate è < 6H
     if (workout.date < sixHourFromNow) {
       //Non restituisco la classe
-      return updateUser()
+      return updateWorkout()
     } else {
       //Riaggiungo la classe all'utente
       await ctx.prisma.user.update({
@@ -66,7 +68,7 @@ export const deleteBooking = mutationField('deleteBooking', {
         },
       })
 
-      return updateUser()
+      return updateWorkout()
     }
   },
 })

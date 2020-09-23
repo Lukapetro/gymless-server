@@ -10,7 +10,7 @@ export const bookedWorkouts = extendType({
           where: {
             partecipants: {
               some: {
-                id: ctx.userId,
+                userId: ctx.userId,
               },
             },
             AND: {

@@ -7,9 +7,13 @@ type AuthPayload {
   user: User!
 }
 
-input BooleanFilter {
+input BoolFieldUpdateOperationsInput {
+  set: Boolean
+}
+
+input BoolFilter {
   equals: Boolean
-  not: Boolean
+  not: NestedBoolFilter
 }
 
 type Card {
@@ -22,7 +26,7 @@ type Cordinates {
   id: Int!
   latitude: Float
   longitude: Float
-  workout(skip: Int): [Workout!]!
+  workout(after: WorkoutWhereUniqueInput, before: WorkoutWhereUniqueInput, first: Int, last: Int): [Workout!]!
 }
 
 input CordinatesCreateInput {
@@ -46,10 +50,10 @@ input CordinatesCreateWithoutWorkoutInput {
 }
 
 input CordinatesUpdateInput {
-  address: String
-  city: String
-  latitude: Float
-  longitude: Float
+  address: NullableStringFieldUpdateOperationsInput
+  city: NullableStringFieldUpdateOperationsInput
+  latitude: NullableFloatFieldUpdateOperationsInput
+  longitude: NullableFloatFieldUpdateOperationsInput
   workout: WorkoutUpdateManyWithoutCordinatesInput
 }
 
@@ -61,10 +65,10 @@ input CordinatesUpdateOneRequiredWithoutWorkoutInput {
 }
 
 input CordinatesUpdateWithoutWorkoutDataInput {
-  address: String
-  city: String
-  latitude: Float
-  longitude: Float
+  address: NullableStringFieldUpdateOperationsInput
+  city: NullableStringFieldUpdateOperationsInput
+  latitude: NullableFloatFieldUpdateOperationsInput
+  longitude: NullableFloatFieldUpdateOperationsInput
 }
 
 input CordinatesUpsertWithoutWorkoutInput {
@@ -73,15 +77,15 @@ input CordinatesUpsertWithoutWorkoutInput {
 }
 
 input CordinatesWhereInput {
-  address: NullableStringFilter
+  address: StringNullableFilter
   AND: [CordinatesWhereInput!]
-  city: NullableStringFilter
+  city: StringNullableFilter
   id: IntFilter
-  latitude: NullableFloatFilter
-  longitude: NullableFloatFilter
+  latitude: FloatNullableFilter
+  longitude: FloatNullableFilter
   NOT: [CordinatesWhereInput!]
   OR: [CordinatesWhereInput!]
-  workout: WorkoutFilter
+  workout: WorkoutListRelationFilter
 }
 
 input CordinatesWhereUniqueInput {
@@ -98,6 +102,10 @@ A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `dat
 """
 scalar DateTime
 
+input DateTimeFieldUpdateOperationsInput {
+  set: DateTime
+}
+
 input DateTimeFilter {
   equals: DateTime
   gt: DateTime
@@ -105,13 +113,39 @@ input DateTimeFilter {
   in: [DateTime!]
   lt: DateTime
   lte: DateTime
-  not: DateTime
+  not: NestedDateTimeFilter
   notIn: [DateTime!]
+}
+
+input DateTimeNullableFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: NestedDateTimeNullableFilter
+  notIn: [DateTime!]
+}
+
+input FloatNullableFilter {
+  equals: Float
+  gt: Float
+  gte: Float
+  in: [Float!]
+  lt: Float
+  lte: Float
+  not: NestedFloatNullableFilter
+  notIn: [Float!]
 }
 
 enum Gymler {
   basic
   early
+}
+
+input IntFieldUpdateOperationsInput {
+  set: Int
 }
 
 input IntFilter {
@@ -121,7 +155,7 @@ input IntFilter {
   in: [Int!]
   lt: Int
   lte: Int
-  not: Int
+  not: NestedIntFilter
   notIn: [Int!]
 }
 
@@ -144,6 +178,7 @@ type Mutation {
   forgotPassword(email: String!): Boolean!
   login(email: String!, password: String!): AuthPayload!
   paymentIntent(amount: Int!): JSON!
+  recordAttendance(userId: Int!, workoutId: Int!): Boolean!
   sendHelpRequest(message: String): Boolean!
   setupIntent: String!
   signup(birthDate: Date, email: String!, name: String!, password: String!, referrerId: Int, surname: String!): AuthPayload!
@@ -156,29 +191,56 @@ type Mutation {
   updateUserPassword(newPassword: String, oldPassword: String): User!
 }
 
-input NullableDateTimeFilter {
+input NestedBoolFilter {
+  equals: Boolean
+  not: NestedBoolFilter
+}
+
+input NestedDateTimeFilter {
   equals: DateTime
   gt: DateTime
   gte: DateTime
   in: [DateTime!]
   lt: DateTime
   lte: DateTime
-  not: DateTime
+  not: NestedDateTimeFilter
   notIn: [DateTime!]
 }
 
-input NullableFloatFilter {
+input NestedDateTimeNullableFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: NestedDateTimeNullableFilter
+  notIn: [DateTime!]
+}
+
+input NestedFloatNullableFilter {
   equals: Float
   gt: Float
   gte: Float
   in: [Float!]
   lt: Float
   lte: Float
-  not: Float
+  not: NestedFloatNullableFilter
   notIn: [Float!]
 }
 
-input NullableStringFilter {
+input NestedIntFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntFilter
+  notIn: [Int!]
+}
+
+input NestedStringFilter {
   contains: String
   endsWith: String
   equals: String
@@ -187,14 +249,35 @@ input NullableStringFilter {
   in: [String!]
   lt: String
   lte: String
-  not: String
+  not: NestedStringFilter
   notIn: [String!]
   startsWith: String
 }
 
-enum OrderByArg {
-  asc
-  desc
+input NestedStringNullableFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  not: NestedStringNullableFilter
+  notIn: [String!]
+  startsWith: String
+}
+
+input NullableDateTimeFieldUpdateOperationsInput {
+  set: DateTime
+}
+
+input NullableFloatFieldUpdateOperationsInput {
+  set: Float
+}
+
+input NullableStringFieldUpdateOperationsInput {
+  set: String
 }
 
 type PaymentMethods {
@@ -202,16 +285,17 @@ type PaymentMethods {
 }
 
 type Query {
-  cordinates(skip: Int): [Cordinates!]!
+  cordinates(after: CordinatesWhereUniqueInput, before: CordinatesWhereUniqueInput, first: Int, last: Int): [Cordinates!]!
+  demolishedGymless: Int!
   futureWorkouts: [Workout!]!
   me: User!
   pastWorkouts: [Workout!]!
   paymentMethods: JSON!
   referral(where: ReferralWhereUniqueInput!): Referral
-  referrals(skip: Int): [Referral!]!
+  referrals(after: ReferralWhereUniqueInput, before: ReferralWhereUniqueInput, first: Int, last: Int): [Referral!]!
   userAvailableWorkouts(endDate: DateTime, startDate: DateTime): [Workout!]!
   workout(where: WorkoutWhereUniqueInput!): Workout
-  workouts(orderBy: WorkoutOrderByInput, skip: Int, where: WorkoutWhereInput): [Workout!]!
+  workouts(after: WorkoutWhereUniqueInput, before: WorkoutWhereUniqueInput, first: Int, last: Int, orderBy: [WorkoutOrderByInput!], where: WorkoutWhereInput): [Workout!]!
   workoutsBooked: [Workout!]!
 }
 
@@ -250,7 +334,7 @@ input ReferralCreateWithoutReferrerInput {
   updatedAt: DateTime
 }
 
-input ReferralFilter {
+input ReferralListRelationFilter {
   every: ReferralWhereInput
   none: ReferralWhereInput
   some: ReferralWhereInput
@@ -258,7 +342,7 @@ input ReferralFilter {
 
 input ReferralScalarWhereInput {
   AND: [ReferralScalarWhereInput!]
-  completed: BooleanFilter
+  completed: BoolFilter
   createdAt: DateTimeFilter
   id: IntFilter
   NOT: [ReferralScalarWhereInput!]
@@ -269,9 +353,9 @@ input ReferralScalarWhereInput {
 }
 
 input ReferralUpdateManyDataInput {
-  completed: Boolean
-  createdAt: DateTime
-  updatedAt: DateTime
+  completed: BoolFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
 input ReferralUpdateManyWithoutReferredInput {
@@ -304,17 +388,17 @@ input ReferralUpdateManyWithWhereNestedInput {
 }
 
 input ReferralUpdateWithoutReferredDataInput {
-  completed: Boolean
-  createdAt: DateTime
+  completed: BoolFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
   referrer: UserUpdateOneRequiredWithoutReferrerInput
-  updatedAt: DateTime
+  updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
 input ReferralUpdateWithoutReferrerDataInput {
-  completed: Boolean
-  createdAt: DateTime
+  completed: BoolFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
   referred: UserUpdateOneRequiredWithoutReferralInput
-  updatedAt: DateTime
+  updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
 input ReferralUpdateWithWhereUniqueWithoutReferredInput {
@@ -341,7 +425,7 @@ input ReferralUpsertWithWhereUniqueWithoutReferrerInput {
 
 input ReferralWhereInput {
   AND: [ReferralWhereInput!]
-  completed: BooleanFilter
+  completed: BoolFilter
   createdAt: DateTimeFilter
   id: IntFilter
   NOT: [ReferralWhereInput!]
@@ -371,6 +455,15 @@ enum Sex {
   unknown
 }
 
+enum SortOrder {
+  asc
+  desc
+}
+
+input StringFieldUpdateOperationsInput {
+  set: String
+}
+
 input StringFilter {
   contains: String
   endsWith: String
@@ -380,7 +473,21 @@ input StringFilter {
   in: [String!]
   lt: String
   lte: String
-  not: String
+  not: NestedStringFilter
+  notIn: [String!]
+  startsWith: String
+}
+
+input StringNullableFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  not: NestedStringNullableFilter
   notIn: [String!]
   startsWith: String
 }
@@ -398,18 +505,13 @@ type User {
   id: Int!
   lastLoggedIn: DateTime
   name: String!
-  referral(skip: Int): [Referral!]!
-  referrer(skip: Int): [Referral!]!
+  referral(after: ReferralWhereUniqueInput, before: ReferralWhereUniqueInput, first: Int, last: Int): [Referral!]!
+  referrer(after: ReferralWhereUniqueInput, before: ReferralWhereUniqueInput, first: Int, last: Int): [Referral!]!
   role: Role!
   sex: Sex!
   stripeId: String
   surname: String
-  workouts(skip: Int): [Workout!]!
-}
-
-input UserCreateManyWithoutWorkoutsInput {
-  connect: [UserWhereUniqueInput!]
-  create: [UserCreateWithoutWorkoutsInput!]
+  workouts(after: UsersOnWorkoutsWhereUniqueInput, before: UsersOnWorkoutsWhereUniqueInput, first: Int, last: Int): [UsersOnWorkouts!]!
 }
 
 input UserCreateOneWithoutReferralInput {
@@ -425,6 +527,11 @@ input UserCreateOneWithoutReferrerInput {
 input UserCreateOneWithoutTrainInput {
   connect: UserWhereUniqueInput
   create: UserCreateWithoutTrainInput
+}
+
+input UserCreateOneWithoutWorkoutsInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutWorkoutsInput
 }
 
 input UserCreateWithoutReferralInput {
@@ -446,7 +553,7 @@ input UserCreateWithoutReferralInput {
   stripeId: String
   surname: String
   train: WorkoutCreateManyWithoutTrainerInput
-  workouts: WorkoutCreateManyWithoutPartecipantsInput
+  workouts: UsersOnWorkoutsCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutReferrerInput {
@@ -468,7 +575,7 @@ input UserCreateWithoutReferrerInput {
   stripeId: String
   surname: String
   train: WorkoutCreateManyWithoutTrainerInput
-  workouts: WorkoutCreateManyWithoutPartecipantsInput
+  workouts: UsersOnWorkoutsCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutTrainInput {
@@ -490,7 +597,7 @@ input UserCreateWithoutTrainInput {
   sex: Sex
   stripeId: String
   surname: String
-  workouts: WorkoutCreateManyWithoutPartecipantsInput
+  workouts: UsersOnWorkoutsCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutWorkoutsInput {
@@ -515,73 +622,135 @@ input UserCreateWithoutWorkoutsInput {
   train: WorkoutCreateManyWithoutTrainerInput
 }
 
-input UserFilter {
-  every: UserWhereInput
-  none: UserWhereInput
-  some: UserWhereInput
+type UsersOnWorkouts {
+  attended: Boolean!
+  createdAt: DateTime!
+  user: User!
+  userId: Int!
+  workout: Workout!
+  workoutId: Int!
 }
 
-input UserScalarWhereInput {
-  AND: [UserScalarWhereInput!]
-  avatarId: NullableStringFilter
-  bio: NullableStringFilter
-  birthDate: NullableDateTimeFilter
-  classes: IntFilter
-  confirmed: BooleanFilter
-  customerId: NullableStringFilter
-  email: StringFilter
-  facebookId: NullableStringFilter
-  gymlerType: Gymler
-  id: IntFilter
-  lastLoggedIn: NullableDateTimeFilter
-  name: StringFilter
-  NOT: [UserScalarWhereInput!]
-  OR: [UserScalarWhereInput!]
-  password: StringFilter
-  referral: ReferralFilter
-  referrer: ReferralFilter
-  role: Role
-  sex: Sex
-  stripeId: NullableStringFilter
-  surname: NullableStringFilter
-  train: WorkoutFilter
-  workouts: WorkoutFilter
+input UsersOnWorkoutsCreateManyWithoutUserInput {
+  connect: [UsersOnWorkoutsWhereUniqueInput!]
+  create: [UsersOnWorkoutsCreateWithoutUserInput!]
 }
 
-input UserUpdateManyDataInput {
-  avatarId: String
-  bio: String
-  birthDate: DateTime
-  classes: Int
-  confirmed: Boolean
-  customerId: String
-  email: String
-  facebookId: String
-  gymlerType: Gymler
-  lastLoggedIn: DateTime
-  name: String
-  password: String
-  role: Role
-  sex: Sex
-  stripeId: String
-  surname: String
+input UsersOnWorkoutsCreateManyWithoutWorkoutInput {
+  connect: [UsersOnWorkoutsWhereUniqueInput!]
+  create: [UsersOnWorkoutsCreateWithoutWorkoutInput!]
 }
 
-input UserUpdateManyWithoutWorkoutsInput {
-  connect: [UserWhereUniqueInput!]
-  create: [UserCreateWithoutWorkoutsInput!]
-  delete: [UserWhereUniqueInput!]
-  deleteMany: [UserScalarWhereInput!]
-  disconnect: [UserWhereUniqueInput!]
-  set: [UserWhereUniqueInput!]
-  update: [UserUpdateWithWhereUniqueWithoutWorkoutsInput!]
-  updateMany: [UserUpdateManyWithWhereNestedInput!]
-  upsert: [UserUpsertWithWhereUniqueWithoutWorkoutsInput!]
+input UsersOnWorkoutsCreateWithoutUserInput {
+  attended: Boolean
+  createdAt: DateTime
+  workout: WorkoutCreateOneWithoutPartecipantsInput!
 }
 
-input UserUpdateManyWithWhereNestedInput {
-  data: UserUpdateManyDataInput!
-  where: UserScalarWhereInput!
+input UsersOnWorkoutsCreateWithoutWorkoutInput {
+  attended: Boolean
+  createdAt: DateTime
+  user: UserCreateOneWithoutWorkoutsInput!
+}
+
+input UsersOnWorkoutsListRelationFilter {
+  every: UsersOnWorkoutsWhereInput
+  none: UsersOnWorkoutsWhereInput
+  some: UsersOnWorkoutsWhereInput
+}
+
+input UsersOnWorkoutsScalarWhereInput {
+  AND: [UsersOnWorkoutsScalarWhereInput!]
+  attended: BoolFilter
+  createdAt: DateTimeFilter
+  NOT: [UsersOnWorkoutsScalarWhereInput!]
+  OR: [UsersOnWorkoutsScalarWhereInput!]
+  userId: IntFilter
+  workoutId: IntFilter
+}
+
+input UsersOnWorkoutsUpdateManyDataInput {
+  attended: BoolFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+}
+
+input UsersOnWorkoutsUpdateManyWithoutUserInput {
+  connect: [UsersOnWorkoutsWhereUniqueInput!]
+  create: [UsersOnWorkoutsCreateWithoutUserInput!]
+  delete: [UsersOnWorkoutsWhereUniqueInput!]
+  deleteMany: [UsersOnWorkoutsScalarWhereInput!]
+  disconnect: [UsersOnWorkoutsWhereUniqueInput!]
+  set: [UsersOnWorkoutsWhereUniqueInput!]
+  update: [UsersOnWorkoutsUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [UsersOnWorkoutsUpdateManyWithWhereNestedInput!]
+  upsert: [UsersOnWorkoutsUpsertWithWhereUniqueWithoutUserInput!]
+}
+
+input UsersOnWorkoutsUpdateManyWithoutWorkoutInput {
+  connect: [UsersOnWorkoutsWhereUniqueInput!]
+  create: [UsersOnWorkoutsCreateWithoutWorkoutInput!]
+  delete: [UsersOnWorkoutsWhereUniqueInput!]
+  deleteMany: [UsersOnWorkoutsScalarWhereInput!]
+  disconnect: [UsersOnWorkoutsWhereUniqueInput!]
+  set: [UsersOnWorkoutsWhereUniqueInput!]
+  update: [UsersOnWorkoutsUpdateWithWhereUniqueWithoutWorkoutInput!]
+  updateMany: [UsersOnWorkoutsUpdateManyWithWhereNestedInput!]
+  upsert: [UsersOnWorkoutsUpsertWithWhereUniqueWithoutWorkoutInput!]
+}
+
+input UsersOnWorkoutsUpdateManyWithWhereNestedInput {
+  data: UsersOnWorkoutsUpdateManyDataInput!
+  where: UsersOnWorkoutsScalarWhereInput!
+}
+
+input UsersOnWorkoutsUpdateWithoutUserDataInput {
+  attended: BoolFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  workout: WorkoutUpdateOneRequiredWithoutPartecipantsInput
+}
+
+input UsersOnWorkoutsUpdateWithoutWorkoutDataInput {
+  attended: BoolFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  user: UserUpdateOneRequiredWithoutWorkoutsInput
+}
+
+input UsersOnWorkoutsUpdateWithWhereUniqueWithoutUserInput {
+  data: UsersOnWorkoutsUpdateWithoutUserDataInput!
+  where: UsersOnWorkoutsWhereUniqueInput!
+}
+
+input UsersOnWorkoutsUpdateWithWhereUniqueWithoutWorkoutInput {
+  data: UsersOnWorkoutsUpdateWithoutWorkoutDataInput!
+  where: UsersOnWorkoutsWhereUniqueInput!
+}
+
+input UsersOnWorkoutsUpsertWithWhereUniqueWithoutUserInput {
+  create: UsersOnWorkoutsCreateWithoutUserInput!
+  update: UsersOnWorkoutsUpdateWithoutUserDataInput!
+  where: UsersOnWorkoutsWhereUniqueInput!
+}
+
+input UsersOnWorkoutsUpsertWithWhereUniqueWithoutWorkoutInput {
+  create: UsersOnWorkoutsCreateWithoutWorkoutInput!
+  update: UsersOnWorkoutsUpdateWithoutWorkoutDataInput!
+  where: UsersOnWorkoutsWhereUniqueInput!
+}
+
+input UsersOnWorkoutsWhereInput {
+  AND: [UsersOnWorkoutsWhereInput!]
+  attended: BoolFilter
+  createdAt: DateTimeFilter
+  NOT: [UsersOnWorkoutsWhereInput!]
+  OR: [UsersOnWorkoutsWhereInput!]
+  user: UserWhereInput
+  userId: IntFilter
+  workout: WorkoutWhereInput
+  workoutId: IntFilter
+}
+
+input UsersOnWorkoutsWhereUniqueInput {
+  workoutId_userId: WorkoutIdUserIdCompoundUniqueInput
 }
 
 input UserUpdateOneRequiredWithoutReferralInput {
@@ -605,97 +774,99 @@ input UserUpdateOneRequiredWithoutTrainInput {
   upsert: UserUpsertWithoutTrainInput
 }
 
+input UserUpdateOneRequiredWithoutWorkoutsInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutWorkoutsInput
+  update: UserUpdateWithoutWorkoutsDataInput
+  upsert: UserUpsertWithoutWorkoutsInput
+}
+
 input UserUpdateWithoutReferralDataInput {
-  avatarId: String
-  bio: String
-  birthDate: DateTime
-  classes: Int
-  confirmed: Boolean
-  customerId: String
-  email: String
-  facebookId: String
+  avatarId: NullableStringFieldUpdateOperationsInput
+  bio: NullableStringFieldUpdateOperationsInput
+  birthDate: NullableDateTimeFieldUpdateOperationsInput
+  classes: IntFieldUpdateOperationsInput
+  confirmed: BoolFieldUpdateOperationsInput
+  customerId: NullableStringFieldUpdateOperationsInput
+  email: StringFieldUpdateOperationsInput
+  facebookId: NullableStringFieldUpdateOperationsInput
   gymlerType: Gymler
-  lastLoggedIn: DateTime
-  name: String
-  password: String
+  lastLoggedIn: NullableDateTimeFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
   referrer: ReferralUpdateManyWithoutReferrerInput
   role: Role
   sex: Sex
-  stripeId: String
-  surname: String
+  stripeId: NullableStringFieldUpdateOperationsInput
+  surname: NullableStringFieldUpdateOperationsInput
   train: WorkoutUpdateManyWithoutTrainerInput
-  workouts: WorkoutUpdateManyWithoutPartecipantsInput
+  workouts: UsersOnWorkoutsUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutReferrerDataInput {
-  avatarId: String
-  bio: String
-  birthDate: DateTime
-  classes: Int
-  confirmed: Boolean
-  customerId: String
-  email: String
-  facebookId: String
+  avatarId: NullableStringFieldUpdateOperationsInput
+  bio: NullableStringFieldUpdateOperationsInput
+  birthDate: NullableDateTimeFieldUpdateOperationsInput
+  classes: IntFieldUpdateOperationsInput
+  confirmed: BoolFieldUpdateOperationsInput
+  customerId: NullableStringFieldUpdateOperationsInput
+  email: StringFieldUpdateOperationsInput
+  facebookId: NullableStringFieldUpdateOperationsInput
   gymlerType: Gymler
-  lastLoggedIn: DateTime
-  name: String
-  password: String
+  lastLoggedIn: NullableDateTimeFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
   referral: ReferralUpdateManyWithoutReferredInput
   role: Role
   sex: Sex
-  stripeId: String
-  surname: String
+  stripeId: NullableStringFieldUpdateOperationsInput
+  surname: NullableStringFieldUpdateOperationsInput
   train: WorkoutUpdateManyWithoutTrainerInput
-  workouts: WorkoutUpdateManyWithoutPartecipantsInput
+  workouts: UsersOnWorkoutsUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutTrainDataInput {
-  avatarId: String
-  bio: String
-  birthDate: DateTime
-  classes: Int
-  confirmed: Boolean
-  customerId: String
-  email: String
-  facebookId: String
+  avatarId: NullableStringFieldUpdateOperationsInput
+  bio: NullableStringFieldUpdateOperationsInput
+  birthDate: NullableDateTimeFieldUpdateOperationsInput
+  classes: IntFieldUpdateOperationsInput
+  confirmed: BoolFieldUpdateOperationsInput
+  customerId: NullableStringFieldUpdateOperationsInput
+  email: StringFieldUpdateOperationsInput
+  facebookId: NullableStringFieldUpdateOperationsInput
   gymlerType: Gymler
-  lastLoggedIn: DateTime
-  name: String
-  password: String
+  lastLoggedIn: NullableDateTimeFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
   referral: ReferralUpdateManyWithoutReferredInput
   referrer: ReferralUpdateManyWithoutReferrerInput
   role: Role
   sex: Sex
-  stripeId: String
-  surname: String
-  workouts: WorkoutUpdateManyWithoutPartecipantsInput
+  stripeId: NullableStringFieldUpdateOperationsInput
+  surname: NullableStringFieldUpdateOperationsInput
+  workouts: UsersOnWorkoutsUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutWorkoutsDataInput {
-  avatarId: String
-  bio: String
-  birthDate: DateTime
-  classes: Int
-  confirmed: Boolean
-  customerId: String
-  email: String
-  facebookId: String
+  avatarId: NullableStringFieldUpdateOperationsInput
+  bio: NullableStringFieldUpdateOperationsInput
+  birthDate: NullableDateTimeFieldUpdateOperationsInput
+  classes: IntFieldUpdateOperationsInput
+  confirmed: BoolFieldUpdateOperationsInput
+  customerId: NullableStringFieldUpdateOperationsInput
+  email: StringFieldUpdateOperationsInput
+  facebookId: NullableStringFieldUpdateOperationsInput
   gymlerType: Gymler
-  lastLoggedIn: DateTime
-  name: String
-  password: String
+  lastLoggedIn: NullableDateTimeFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
   referral: ReferralUpdateManyWithoutReferredInput
   referrer: ReferralUpdateManyWithoutReferrerInput
   role: Role
   sex: Sex
-  stripeId: String
-  surname: String
+  stripeId: NullableStringFieldUpdateOperationsInput
+  surname: NullableStringFieldUpdateOperationsInput
   train: WorkoutUpdateManyWithoutTrainerInput
-}
-
-input UserUpdateWithWhereUniqueWithoutWorkoutsInput {
-  data: UserUpdateWithoutWorkoutsDataInput!
-  where: UserWhereUniqueInput!
 }
 
 input UserUpsertWithoutReferralInput {
@@ -713,37 +884,36 @@ input UserUpsertWithoutTrainInput {
   update: UserUpdateWithoutTrainDataInput!
 }
 
-input UserUpsertWithWhereUniqueWithoutWorkoutsInput {
+input UserUpsertWithoutWorkoutsInput {
   create: UserCreateWithoutWorkoutsInput!
   update: UserUpdateWithoutWorkoutsDataInput!
-  where: UserWhereUniqueInput!
 }
 
 input UserWhereInput {
   AND: [UserWhereInput!]
-  avatarId: NullableStringFilter
-  bio: NullableStringFilter
-  birthDate: NullableDateTimeFilter
+  avatarId: StringNullableFilter
+  bio: StringNullableFilter
+  birthDate: DateTimeNullableFilter
   classes: IntFilter
-  confirmed: BooleanFilter
-  customerId: NullableStringFilter
+  confirmed: BoolFilter
+  customerId: StringNullableFilter
   email: StringFilter
-  facebookId: NullableStringFilter
+  facebookId: StringNullableFilter
   gymlerType: Gymler
   id: IntFilter
-  lastLoggedIn: NullableDateTimeFilter
+  lastLoggedIn: DateTimeNullableFilter
   name: StringFilter
   NOT: [UserWhereInput!]
   OR: [UserWhereInput!]
   password: StringFilter
-  referral: ReferralFilter
-  referrer: ReferralFilter
+  referral: ReferralListRelationFilter
+  referrer: ReferralListRelationFilter
   role: Role
   sex: Sex
-  stripeId: NullableStringFilter
-  surname: NullableStringFilter
-  train: WorkoutFilter
-  workouts: WorkoutFilter
+  stripeId: StringNullableFilter
+  surname: StringNullableFilter
+  train: WorkoutListRelationFilter
+  workouts: UsersOnWorkoutsListRelationFilter
 }
 
 input UserWhereUniqueInput {
@@ -757,7 +927,7 @@ type Workout {
   description: String
   duration: Int!
   id: Int!
-  partecipants(skip: Int): [User!]!
+  partecipants(after: UsersOnWorkoutsWhereUniqueInput, before: UsersOnWorkoutsWhereUniqueInput, first: Int, last: Int): [UsersOnWorkouts!]!
   spots: Int!
   title: String!
   trainer: User!
@@ -768,14 +938,14 @@ input WorkoutCreateManyWithoutCordinatesInput {
   create: [WorkoutCreateWithoutCordinatesInput!]
 }
 
-input WorkoutCreateManyWithoutPartecipantsInput {
-  connect: [WorkoutWhereUniqueInput!]
-  create: [WorkoutCreateWithoutPartecipantsInput!]
-}
-
 input WorkoutCreateManyWithoutTrainerInput {
   connect: [WorkoutWhereUniqueInput!]
   create: [WorkoutCreateWithoutTrainerInput!]
+}
+
+input WorkoutCreateOneWithoutPartecipantsInput {
+  connect: WorkoutWhereUniqueInput
+  create: WorkoutCreateWithoutPartecipantsInput
 }
 
 input WorkoutCreateWithoutCordinatesInput {
@@ -783,7 +953,7 @@ input WorkoutCreateWithoutCordinatesInput {
   date: DateTime
   description: String
   duration: Int!
-  partecipants: UserCreateManyWithoutWorkoutsInput
+  partecipants: UsersOnWorkoutsCreateManyWithoutWorkoutInput
   spots: Int
   title: String!
   trainer: UserCreateOneWithoutTrainInput!
@@ -806,40 +976,44 @@ input WorkoutCreateWithoutTrainerInput {
   date: DateTime
   description: String
   duration: Int!
-  partecipants: UserCreateManyWithoutWorkoutsInput
+  partecipants: UsersOnWorkoutsCreateManyWithoutWorkoutInput
   spots: Int
   title: String!
 }
 
-input WorkoutFilter {
+input WorkoutIdUserIdCompoundUniqueInput {
+  userId: Int!
+  workoutId: Int!
+}
+
+input WorkoutListRelationFilter {
   every: WorkoutWhereInput
   none: WorkoutWhereInput
   some: WorkoutWhereInput
 }
 
 input WorkoutOrderByInput {
-  cordinatesId: OrderByArg
-  createdAt: OrderByArg
-  date: OrderByArg
-  description: OrderByArg
-  duration: OrderByArg
-  id: OrderByArg
-  spots: OrderByArg
-  title: OrderByArg
-  trainerId: OrderByArg
+  cordinatesId: SortOrder
+  createdAt: SortOrder
+  date: SortOrder
+  description: SortOrder
+  duration: SortOrder
+  id: SortOrder
+  spots: SortOrder
+  title: SortOrder
+  trainerId: SortOrder
 }
 
 input WorkoutScalarWhereInput {
   AND: [WorkoutScalarWhereInput!]
   cordinatesId: IntFilter
   createdAt: DateTimeFilter
-  date: NullableDateTimeFilter
-  description: NullableStringFilter
+  date: DateTimeNullableFilter
+  description: StringNullableFilter
   duration: IntFilter
   id: IntFilter
   NOT: [WorkoutScalarWhereInput!]
   OR: [WorkoutScalarWhereInput!]
-  partecipants: UserFilter
   spots: IntFilter
   title: StringFilter
   trainerId: IntFilter
@@ -847,23 +1021,23 @@ input WorkoutScalarWhereInput {
 
 input WorkoutUpdateInput {
   cordinates: CordinatesUpdateOneRequiredWithoutWorkoutInput
-  createdAt: DateTime
-  date: DateTime
-  description: String
-  duration: Int
-  partecipants: UserUpdateManyWithoutWorkoutsInput
-  spots: Int
-  title: String
+  createdAt: DateTimeFieldUpdateOperationsInput
+  date: NullableDateTimeFieldUpdateOperationsInput
+  description: NullableStringFieldUpdateOperationsInput
+  duration: IntFieldUpdateOperationsInput
+  partecipants: UsersOnWorkoutsUpdateManyWithoutWorkoutInput
+  spots: IntFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
   trainer: UserUpdateOneRequiredWithoutTrainInput
 }
 
 input WorkoutUpdateManyDataInput {
-  createdAt: DateTime
-  date: DateTime
-  description: String
-  duration: Int
-  spots: Int
-  title: String
+  createdAt: DateTimeFieldUpdateOperationsInput
+  date: NullableDateTimeFieldUpdateOperationsInput
+  description: NullableStringFieldUpdateOperationsInput
+  duration: IntFieldUpdateOperationsInput
+  spots: IntFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
 }
 
 input WorkoutUpdateManyWithoutCordinatesInput {
@@ -876,18 +1050,6 @@ input WorkoutUpdateManyWithoutCordinatesInput {
   update: [WorkoutUpdateWithWhereUniqueWithoutCordinatesInput!]
   updateMany: [WorkoutUpdateManyWithWhereNestedInput!]
   upsert: [WorkoutUpsertWithWhereUniqueWithoutCordinatesInput!]
-}
-
-input WorkoutUpdateManyWithoutPartecipantsInput {
-  connect: [WorkoutWhereUniqueInput!]
-  create: [WorkoutCreateWithoutPartecipantsInput!]
-  delete: [WorkoutWhereUniqueInput!]
-  deleteMany: [WorkoutScalarWhereInput!]
-  disconnect: [WorkoutWhereUniqueInput!]
-  set: [WorkoutWhereUniqueInput!]
-  update: [WorkoutUpdateWithWhereUniqueWithoutPartecipantsInput!]
-  updateMany: [WorkoutUpdateManyWithWhereNestedInput!]
-  upsert: [WorkoutUpsertWithWhereUniqueWithoutPartecipantsInput!]
 }
 
 input WorkoutUpdateManyWithoutTrainerInput {
@@ -907,46 +1069,48 @@ input WorkoutUpdateManyWithWhereNestedInput {
   where: WorkoutScalarWhereInput!
 }
 
+input WorkoutUpdateOneRequiredWithoutPartecipantsInput {
+  connect: WorkoutWhereUniqueInput
+  create: WorkoutCreateWithoutPartecipantsInput
+  update: WorkoutUpdateWithoutPartecipantsDataInput
+  upsert: WorkoutUpsertWithoutPartecipantsInput
+}
+
 input WorkoutUpdateWithoutCordinatesDataInput {
-  createdAt: DateTime
-  date: DateTime
-  description: String
-  duration: Int
-  partecipants: UserUpdateManyWithoutWorkoutsInput
-  spots: Int
-  title: String
+  createdAt: DateTimeFieldUpdateOperationsInput
+  date: NullableDateTimeFieldUpdateOperationsInput
+  description: NullableStringFieldUpdateOperationsInput
+  duration: IntFieldUpdateOperationsInput
+  partecipants: UsersOnWorkoutsUpdateManyWithoutWorkoutInput
+  spots: IntFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
   trainer: UserUpdateOneRequiredWithoutTrainInput
 }
 
 input WorkoutUpdateWithoutPartecipantsDataInput {
   cordinates: CordinatesUpdateOneRequiredWithoutWorkoutInput
-  createdAt: DateTime
-  date: DateTime
-  description: String
-  duration: Int
-  spots: Int
-  title: String
+  createdAt: DateTimeFieldUpdateOperationsInput
+  date: NullableDateTimeFieldUpdateOperationsInput
+  description: NullableStringFieldUpdateOperationsInput
+  duration: IntFieldUpdateOperationsInput
+  spots: IntFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
   trainer: UserUpdateOneRequiredWithoutTrainInput
 }
 
 input WorkoutUpdateWithoutTrainerDataInput {
   cordinates: CordinatesUpdateOneRequiredWithoutWorkoutInput
-  createdAt: DateTime
-  date: DateTime
-  description: String
-  duration: Int
-  partecipants: UserUpdateManyWithoutWorkoutsInput
-  spots: Int
-  title: String
+  createdAt: DateTimeFieldUpdateOperationsInput
+  date: NullableDateTimeFieldUpdateOperationsInput
+  description: NullableStringFieldUpdateOperationsInput
+  duration: IntFieldUpdateOperationsInput
+  partecipants: UsersOnWorkoutsUpdateManyWithoutWorkoutInput
+  spots: IntFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
 }
 
 input WorkoutUpdateWithWhereUniqueWithoutCordinatesInput {
   data: WorkoutUpdateWithoutCordinatesDataInput!
-  where: WorkoutWhereUniqueInput!
-}
-
-input WorkoutUpdateWithWhereUniqueWithoutPartecipantsInput {
-  data: WorkoutUpdateWithoutPartecipantsDataInput!
   where: WorkoutWhereUniqueInput!
 }
 
@@ -955,15 +1119,14 @@ input WorkoutUpdateWithWhereUniqueWithoutTrainerInput {
   where: WorkoutWhereUniqueInput!
 }
 
+input WorkoutUpsertWithoutPartecipantsInput {
+  create: WorkoutCreateWithoutPartecipantsInput!
+  update: WorkoutUpdateWithoutPartecipantsDataInput!
+}
+
 input WorkoutUpsertWithWhereUniqueWithoutCordinatesInput {
   create: WorkoutCreateWithoutCordinatesInput!
   update: WorkoutUpdateWithoutCordinatesDataInput!
-  where: WorkoutWhereUniqueInput!
-}
-
-input WorkoutUpsertWithWhereUniqueWithoutPartecipantsInput {
-  create: WorkoutCreateWithoutPartecipantsInput!
-  update: WorkoutUpdateWithoutPartecipantsDataInput!
   where: WorkoutWhereUniqueInput!
 }
 
@@ -978,13 +1141,13 @@ input WorkoutWhereInput {
   cordinates: CordinatesWhereInput
   cordinatesId: IntFilter
   createdAt: DateTimeFilter
-  date: NullableDateTimeFilter
-  description: NullableStringFilter
+  date: DateTimeNullableFilter
+  description: StringNullableFilter
   duration: IntFilter
   id: IntFilter
   NOT: [WorkoutWhereInput!]
   OR: [WorkoutWhereInput!]
-  partecipants: UserFilter
+  partecipants: UsersOnWorkoutsListRelationFilter
   spots: IntFilter
   title: StringFilter
   trainer: UserWhereInput

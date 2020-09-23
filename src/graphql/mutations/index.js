@@ -15,6 +15,7 @@ import { confirmUser } from './ConfirmUser'
 import { forgotPassword } from './ForgotPassword'
 import { changePassword } from './user/ChangePassword'
 import { sendHelpRequest } from './help/sendHelpRequest'
+import { recordAttendance } from './RecordAttendance'
 
 export const Mutation = {
   signup,
@@ -34,4 +35,5 @@ export const Mutation = {
   confirmUser,
   changePassword,
   sendHelpRequest,
+  recordAttendance,
 }

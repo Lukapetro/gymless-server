@@ -19,7 +19,21 @@ export const facebookLogin = mutationField('facebookLogin', {
       const { data, info } = await authenticateFacebook(req, res)
 
       if (data) {
-        console.log('data :>> ', data)
+        //Cerco l'utente in base alla mail
+
+        const userExist = await prisma.user.findOne({
+          where: {
+            email: data.profile._json.email,
+          },
+        })
+
+        if (userExist) {
+          return {
+            token: sign({ userId: userExist.id }, process.env.APP_SECRET),
+            user: userExist,
+          }
+        }
+
         const customer = await stripe.customers.create({
           name: data.profile.displayName,
           email: data.profile._json.email.toLowerCase(),

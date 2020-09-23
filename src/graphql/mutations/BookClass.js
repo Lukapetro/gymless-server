@@ -21,16 +21,6 @@ export const bookClass = mutationField('bookClass', {
       throw new Error('Classi non sufficienti')
     }
 
-    //Tolgo la classe all'utente
-    await ctx.prisma.user.update({
-      data: {
-        classes: user.classes - 1,
-      },
-      where: {
-        id: ctx.userId,
-      },
-    })
-
     //Verifico che ci sia posto disponibile nella classe
     const workout = await ctx.prisma.workout.findOne({
       where: {
@@ -42,6 +32,16 @@ export const bookClass = mutationField('bookClass', {
       throw new Error('La classe è al completo')
     }
 
+    //Tolgo la classe all'utente
+    await ctx.prisma.user.update({
+      data: {
+        classes: user.classes - 1,
+      },
+      where: {
+        id: ctx.userId,
+      },
+    })
+
     //Prendo la tabella referral con l'id dell'utente
     const referral = await ctx.prisma.referral.findOne({
       where: {
@@ -51,8 +51,6 @@ export const bookClass = mutationField('bookClass', {
 
     //Se è referenziato e non è completato
     if (referral && !referral.completed) {
-      console.log('referenziato')
-
       const { classes } = await ctx.prisma.user.findOne({
         where: {
           id: referral.referrerId,
@@ -79,17 +77,26 @@ export const bookClass = mutationField('bookClass', {
       )
     }
 
-    //Iscrivo l'utente alla classe
+    //Iscrivo l'utente alla nuova classe
+    await ctx.prisma.usersOnWorkouts.create({
+      data: {
+        user: {
+          connect: {
+            id: ctx.userId,
+          },
+        },
+        workout: {
+          connect: {
+            id: Number(id),
+          },
+        },
+      },
+    })
+
+    //Aggiorno la classe sottraendo il posto
     return ctx.prisma.workout.update({
       data: {
         spots: workout.spots - 1,
-        partecipants: {
-          connect: [
-            {
-              id: ctx.userId,
-            },
-          ],
-        },
       },
       where: {
         id: Number(id),

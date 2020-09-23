@@ -6,6 +6,7 @@ import { trainerWorkout } from './trainer/Workout'
 import { bookedWorkouts } from './user/BookedWorkouts'
 import { availableWorkouts } from './user/AvailableWorkouts'
 import { paymentMethods } from './payments/PaymentMethods'
+import { demolishedGymless } from './user/DemolishedGymless'
 
 export const Query = {
   me,
@@ -16,4 +17,5 @@ export const Query = {
   availableWorkouts,
   paymentMethods,
   referral,
+  demolishedGymless,
 }

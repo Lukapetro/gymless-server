@@ -20,7 +20,7 @@ export const availableWorkouts = extendType({
             AND: {
               partecipants: {
                 none: {
-                  id: ctx.userId,
+                  userId: ctx.userId,
                 },
               },
             },

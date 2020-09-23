@@ -25,44 +25,43 @@ enum Sex {
 }
 
 model User {
-  id      Int     @default(autoincrement()) @id
-  name    String
-  surname String?
-
-  email        String     @unique
+  id           Int               @default(autoincrement()) @id
+  name         String
+  surname      String?
+  email        String            @unique
   password     String
   bio          String?
-  confirmed    Boolean    @default(false)
+  confirmed    Boolean           @default(false)
   customerId   String?
   stripeId     String?
   facebookId   String?
-  train        Workout[]  @relation("Train")
-  workouts     Workout[]
-  role         Role       @default(user)
-  sex          Sex        @default(unknown)
+  train        Workout[]         @relation("Train")
+  role         Role              @default(user)
+  sex          Sex               @default(unknown)
   birthDate    DateTime?
   avatarId     String?
   lastLoggedIn DateTime?
-  classes      Int        @default(0)
-  //referred   Referral[] @relation("Referred")
-  referrer     Referral[] @relation("Referrer")
-  referral     Referral[] @relation("Referred")
-  gymlerType   Gymler     @default(basic)
+  classes      Int               @default(0)
+  referrer     Referral[]        @relation("Referrer")
+  referral     Referral[]        @relation("Referred")
+  gymlerType   Gymler            @default(basic)
+  workouts     UsersOnWorkouts[]
+
 }
 
 model Workout {
-  id           Int        @default(autoincrement()) @id
+  id           Int               @default(autoincrement()) @id
   title        String
-  createdAt    DateTime   @default(now())
+  createdAt    DateTime          @default(now())
   description  String?
   duration     Int
-  spots        Int        @default(25)
+  spots        Int               @default(25)
   date         DateTime?
   trainerId    Int
-  trainer      User       @relation("Train", fields: [trainerId], references: [id])
-  partecipants User[]     @relation(references: [id])
-  cordinates   Cordinates @relation(fields: [cordinatesId], references: [id])
+  trainer      User              @relation("Train", fields: [trainerId], references: [id])
+  cordinates   Cordinates        @relation(fields: [cordinatesId], references: [id])
   cordinatesId Int
+  partecipants UsersOnWorkouts[]
 }
 
 model Cordinates {
@@ -83,6 +82,16 @@ model Referral {
   referrerId Int
   referred   User     @relation("Referred", fields: [referredId], references: [id])
   referredId Int      @unique
+}
+
+model UsersOnWorkouts {
+  workout   Workout  @relation(fields: [workoutId], references: [id])
+  workoutId Int
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  createdAt DateTime @default(now())
+  attended  Boolean  @default(false)
+  @@id([workoutId, userId])
 }
 
 model Token {
