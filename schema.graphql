@@ -166,7 +166,7 @@ type Mutation {
   changePassword(password: String!, token: String!): User!
   confirmUser(token: String!): Boolean!
   createOneCordinates(data: CordinatesCreateInput!): Cordinates!
-  createWorkout(cordinatesId: Int, date: DateTime, description: String, duration: Int!, spots: Int!, title: String!): Workout!
+  createWorkout(cordinatesId: Int, date: DateTime, description: String, duration: Int!, isFree: Boolean, spots: Int!, title: String!): Workout!
   deleteBooking(id: ID, isFree: Boolean): Workout!
   deleteOneCordinates(where: CordinatesWhereUniqueInput!): Cordinates
   deleteOneWorkout(where: WorkoutWhereUniqueInput!): Workout

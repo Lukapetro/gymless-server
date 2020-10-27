@@ -14,11 +14,12 @@ export const workout = extendType({
         duration: schema.intArg({ required: true }),
         spots: schema.intArg({ required: true }),
         cordinatesId: schema.intArg(),
+        isFree: schema.booleanArg(),
         date: DateTime,
       },
       resolve: async (
         _,
-        { title, description, spots, date, cordinatesId, duration },
+        { title, description, spots, date, cordinatesId, duration, isFree },
         ctx,
       ) => {
         const user = await ctx.prisma.user.findOne({
@@ -36,6 +37,7 @@ export const workout = extendType({
             title,
             description,
             duration,
+            isFree,
             spots,
             date,
             trainer: {
