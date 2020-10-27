@@ -1,11 +1,12 @@
-import { mutationField, intArg } from '@nexus/schema'
+import { mutationField, intArg, booleanArg } from '@nexus/schema'
 
 export const bookClass = mutationField('bookClass', {
   type: 'Workout',
   args: {
     id: intArg({ required: true }),
+    isFree: booleanArg({ required: false }),
   },
-  resolve: async (parent, { id }, ctx) => {
+  resolve: async (parent, { id, isFree }, ctx) => {
     const user = await ctx.prisma.user.findOne({
       where: {
         id: ctx.userId,
@@ -14,11 +15,6 @@ export const bookClass = mutationField('bookClass', {
 
     if (!user) {
       throw new Error(`Non autorizzato`)
-    }
-
-    //Controllo se dispone di classi per prenotare
-    if (user.classes <= 0) {
-      throw new Error('Classi non sufficienti')
     }
 
     //Verifico che ci sia posto disponibile nella classe
@@ -30,6 +26,40 @@ export const bookClass = mutationField('bookClass', {
 
     if (workout.spots <= 0) {
       throw new Error('La classe è al completo')
+    }
+
+    //Controllo se è una classe gratuita
+    if (isFree) {
+      //Iscrivo l'utente alla nuova classe
+      await ctx.prisma.usersOnWorkouts.create({
+        data: {
+          user: {
+            connect: {
+              id: ctx.userId,
+            },
+          },
+          workout: {
+            connect: {
+              id: Number(id),
+            },
+          },
+        },
+      })
+
+      //Aggiorno la classe sottraendo il posto
+      return ctx.prisma.workout.update({
+        data: {
+          spots: workout.spots - 1,
+        },
+        where: {
+          id: Number(id),
+        },
+      })
+    }
+
+    //Controllo se dispone di classi per prenotare
+    if (user.classes <= 0) {
+      throw new Error('Classi non sufficienti')
     }
 
     //Tolgo la classe all'utente

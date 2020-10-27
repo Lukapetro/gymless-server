@@ -162,12 +162,12 @@ input IntFilter {
 scalar JSON
 
 type Mutation {
-  bookClass(id: Int!): Workout!
+  bookClass(id: Int!, isFree: Boolean): Workout!
   changePassword(password: String!, token: String!): User!
   confirmUser(token: String!): Boolean!
   createOneCordinates(data: CordinatesCreateInput!): Cordinates!
   createWorkout(cordinatesId: Int, date: DateTime, description: String, duration: Int!, spots: Int!, title: String!): Workout!
-  deleteBooking(id: ID): Workout!
+  deleteBooking(id: ID, isFree: Boolean): Workout!
   deleteOneCordinates(where: CordinatesWhereUniqueInput!): Cordinates
   deleteOneWorkout(where: WorkoutWhereUniqueInput!): Workout
   deleteUser: User!
@@ -927,6 +927,7 @@ type Workout {
   description: String
   duration: Int!
   id: Int!
+  isFree: Boolean!
   partecipants(after: UsersOnWorkoutsWhereUniqueInput, before: UsersOnWorkoutsWhereUniqueInput, first: Int, last: Int): [UsersOnWorkouts!]!
   spots: Int!
   title: String!
@@ -953,6 +954,7 @@ input WorkoutCreateWithoutCordinatesInput {
   date: DateTime
   description: String
   duration: Int!
+  isFree: Boolean
   partecipants: UsersOnWorkoutsCreateManyWithoutWorkoutInput
   spots: Int
   title: String!
@@ -965,6 +967,7 @@ input WorkoutCreateWithoutPartecipantsInput {
   date: DateTime
   description: String
   duration: Int!
+  isFree: Boolean
   spots: Int
   title: String!
   trainer: UserCreateOneWithoutTrainInput!
@@ -976,6 +979,7 @@ input WorkoutCreateWithoutTrainerInput {
   date: DateTime
   description: String
   duration: Int!
+  isFree: Boolean
   partecipants: UsersOnWorkoutsCreateManyWithoutWorkoutInput
   spots: Int
   title: String!
@@ -999,6 +1003,7 @@ input WorkoutOrderByInput {
   description: SortOrder
   duration: SortOrder
   id: SortOrder
+  isFree: SortOrder
   spots: SortOrder
   title: SortOrder
   trainerId: SortOrder
@@ -1012,6 +1017,7 @@ input WorkoutScalarWhereInput {
   description: StringNullableFilter
   duration: IntFilter
   id: IntFilter
+  isFree: BoolFilter
   NOT: [WorkoutScalarWhereInput!]
   OR: [WorkoutScalarWhereInput!]
   spots: IntFilter
@@ -1025,6 +1031,7 @@ input WorkoutUpdateInput {
   date: NullableDateTimeFieldUpdateOperationsInput
   description: NullableStringFieldUpdateOperationsInput
   duration: IntFieldUpdateOperationsInput
+  isFree: BoolFieldUpdateOperationsInput
   partecipants: UsersOnWorkoutsUpdateManyWithoutWorkoutInput
   spots: IntFieldUpdateOperationsInput
   title: StringFieldUpdateOperationsInput
@@ -1036,6 +1043,7 @@ input WorkoutUpdateManyDataInput {
   date: NullableDateTimeFieldUpdateOperationsInput
   description: NullableStringFieldUpdateOperationsInput
   duration: IntFieldUpdateOperationsInput
+  isFree: BoolFieldUpdateOperationsInput
   spots: IntFieldUpdateOperationsInput
   title: StringFieldUpdateOperationsInput
 }
@@ -1081,6 +1089,7 @@ input WorkoutUpdateWithoutCordinatesDataInput {
   date: NullableDateTimeFieldUpdateOperationsInput
   description: NullableStringFieldUpdateOperationsInput
   duration: IntFieldUpdateOperationsInput
+  isFree: BoolFieldUpdateOperationsInput
   partecipants: UsersOnWorkoutsUpdateManyWithoutWorkoutInput
   spots: IntFieldUpdateOperationsInput
   title: StringFieldUpdateOperationsInput
@@ -1093,6 +1102,7 @@ input WorkoutUpdateWithoutPartecipantsDataInput {
   date: NullableDateTimeFieldUpdateOperationsInput
   description: NullableStringFieldUpdateOperationsInput
   duration: IntFieldUpdateOperationsInput
+  isFree: BoolFieldUpdateOperationsInput
   spots: IntFieldUpdateOperationsInput
   title: StringFieldUpdateOperationsInput
   trainer: UserUpdateOneRequiredWithoutTrainInput
@@ -1104,6 +1114,7 @@ input WorkoutUpdateWithoutTrainerDataInput {
   date: NullableDateTimeFieldUpdateOperationsInput
   description: NullableStringFieldUpdateOperationsInput
   duration: IntFieldUpdateOperationsInput
+  isFree: BoolFieldUpdateOperationsInput
   partecipants: UsersOnWorkoutsUpdateManyWithoutWorkoutInput
   spots: IntFieldUpdateOperationsInput
   title: StringFieldUpdateOperationsInput
@@ -1145,6 +1156,7 @@ input WorkoutWhereInput {
   description: StringNullableFilter
   duration: IntFilter
   id: IntFilter
+  isFree: BoolFilter
   NOT: [WorkoutWhereInput!]
   OR: [WorkoutWhereInput!]
   partecipants: UsersOnWorkoutsListRelationFilter

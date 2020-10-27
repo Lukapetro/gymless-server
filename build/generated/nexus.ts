@@ -17,8 +17,8 @@ declare global {
 }
 declare global {
   interface NexusGenCustomOutputProperties<TypeName extends string> {
+    crud: NexusPrisma<TypeName, 'crud'>
     model: NexusPrisma<TypeName, 'model'>
-    crud: any
   }
 }
 
@@ -27,20 +27,888 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  BoolFieldUpdateOperationsInput: { // input type
+    set?: boolean | null; // Boolean
+  }
+  BoolFilter: { // input type
+    equals?: boolean | null; // Boolean
+    not?: NexusGenInputs['NestedBoolFilter'] | null; // NestedBoolFilter
+  }
+  CordinatesCreateInput: { // input type
+    address?: string | null; // String
+    city?: string | null; // String
+    latitude?: number | null; // Float
+    longitude?: number | null; // Float
+    workout?: NexusGenInputs['WorkoutCreateManyWithoutCordinatesInput'] | null; // WorkoutCreateManyWithoutCordinatesInput
+  }
+  CordinatesCreateOneWithoutWorkoutInput: { // input type
+    connect?: NexusGenInputs['CordinatesWhereUniqueInput'] | null; // CordinatesWhereUniqueInput
+    create?: NexusGenInputs['CordinatesCreateWithoutWorkoutInput'] | null; // CordinatesCreateWithoutWorkoutInput
+  }
+  CordinatesCreateWithoutWorkoutInput: { // input type
+    address?: string | null; // String
+    city?: string | null; // String
+    latitude?: number | null; // Float
+    longitude?: number | null; // Float
+  }
+  CordinatesUpdateInput: { // input type
+    address?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    city?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    latitude?: NexusGenInputs['NullableFloatFieldUpdateOperationsInput'] | null; // NullableFloatFieldUpdateOperationsInput
+    longitude?: NexusGenInputs['NullableFloatFieldUpdateOperationsInput'] | null; // NullableFloatFieldUpdateOperationsInput
+    workout?: NexusGenInputs['WorkoutUpdateManyWithoutCordinatesInput'] | null; // WorkoutUpdateManyWithoutCordinatesInput
+  }
+  CordinatesUpdateOneRequiredWithoutWorkoutInput: { // input type
+    connect?: NexusGenInputs['CordinatesWhereUniqueInput'] | null; // CordinatesWhereUniqueInput
+    create?: NexusGenInputs['CordinatesCreateWithoutWorkoutInput'] | null; // CordinatesCreateWithoutWorkoutInput
+    update?: NexusGenInputs['CordinatesUpdateWithoutWorkoutDataInput'] | null; // CordinatesUpdateWithoutWorkoutDataInput
+    upsert?: NexusGenInputs['CordinatesUpsertWithoutWorkoutInput'] | null; // CordinatesUpsertWithoutWorkoutInput
+  }
+  CordinatesUpdateWithoutWorkoutDataInput: { // input type
+    address?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    city?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    latitude?: NexusGenInputs['NullableFloatFieldUpdateOperationsInput'] | null; // NullableFloatFieldUpdateOperationsInput
+    longitude?: NexusGenInputs['NullableFloatFieldUpdateOperationsInput'] | null; // NullableFloatFieldUpdateOperationsInput
+  }
+  CordinatesUpsertWithoutWorkoutInput: { // input type
+    create: NexusGenInputs['CordinatesCreateWithoutWorkoutInput']; // CordinatesCreateWithoutWorkoutInput!
+    update: NexusGenInputs['CordinatesUpdateWithoutWorkoutDataInput']; // CordinatesUpdateWithoutWorkoutDataInput!
+  }
+  CordinatesWhereInput: { // input type
+    address?: NexusGenInputs['StringNullableFilter'] | null; // StringNullableFilter
+    AND?: NexusGenInputs['CordinatesWhereInput'][] | null; // [CordinatesWhereInput!]
+    city?: NexusGenInputs['StringNullableFilter'] | null; // StringNullableFilter
+    id?: NexusGenInputs['IntFilter'] | null; // IntFilter
+    latitude?: NexusGenInputs['FloatNullableFilter'] | null; // FloatNullableFilter
+    longitude?: NexusGenInputs['FloatNullableFilter'] | null; // FloatNullableFilter
+    NOT?: NexusGenInputs['CordinatesWhereInput'][] | null; // [CordinatesWhereInput!]
+    OR?: NexusGenInputs['CordinatesWhereInput'][] | null; // [CordinatesWhereInput!]
+    workout?: NexusGenInputs['WorkoutListRelationFilter'] | null; // WorkoutListRelationFilter
+  }
+  CordinatesWhereUniqueInput: { // input type
+    id?: number | null; // Int
+  }
+  DateTimeFieldUpdateOperationsInput: { // input type
+    set?: any | null; // DateTime
+  }
+  DateTimeFilter: { // input type
+    equals?: any | null; // DateTime
+    gt?: any | null; // DateTime
+    gte?: any | null; // DateTime
+    in?: any[] | null; // [DateTime!]
+    lt?: any | null; // DateTime
+    lte?: any | null; // DateTime
+    not?: NexusGenInputs['NestedDateTimeFilter'] | null; // NestedDateTimeFilter
+    notIn?: any[] | null; // [DateTime!]
+  }
+  DateTimeNullableFilter: { // input type
+    equals?: any | null; // DateTime
+    gt?: any | null; // DateTime
+    gte?: any | null; // DateTime
+    in?: any[] | null; // [DateTime!]
+    lt?: any | null; // DateTime
+    lte?: any | null; // DateTime
+    not?: NexusGenInputs['NestedDateTimeNullableFilter'] | null; // NestedDateTimeNullableFilter
+    notIn?: any[] | null; // [DateTime!]
+  }
+  FloatNullableFilter: { // input type
+    equals?: number | null; // Float
+    gt?: number | null; // Float
+    gte?: number | null; // Float
+    in?: number[] | null; // [Float!]
+    lt?: number | null; // Float
+    lte?: number | null; // Float
+    not?: NexusGenInputs['NestedFloatNullableFilter'] | null; // NestedFloatNullableFilter
+    notIn?: number[] | null; // [Float!]
+  }
+  IntFieldUpdateOperationsInput: { // input type
+    set?: number | null; // Int
+  }
+  IntFilter: { // input type
+    equals?: number | null; // Int
+    gt?: number | null; // Int
+    gte?: number | null; // Int
+    in?: number[] | null; // [Int!]
+    lt?: number | null; // Int
+    lte?: number | null; // Int
+    not?: NexusGenInputs['NestedIntFilter'] | null; // NestedIntFilter
+    notIn?: number[] | null; // [Int!]
+  }
+  NestedBoolFilter: { // input type
+    equals?: boolean | null; // Boolean
+    not?: NexusGenInputs['NestedBoolFilter'] | null; // NestedBoolFilter
+  }
+  NestedDateTimeFilter: { // input type
+    equals?: any | null; // DateTime
+    gt?: any | null; // DateTime
+    gte?: any | null; // DateTime
+    in?: any[] | null; // [DateTime!]
+    lt?: any | null; // DateTime
+    lte?: any | null; // DateTime
+    not?: NexusGenInputs['NestedDateTimeFilter'] | null; // NestedDateTimeFilter
+    notIn?: any[] | null; // [DateTime!]
+  }
+  NestedDateTimeNullableFilter: { // input type
+    equals?: any | null; // DateTime
+    gt?: any | null; // DateTime
+    gte?: any | null; // DateTime
+    in?: any[] | null; // [DateTime!]
+    lt?: any | null; // DateTime
+    lte?: any | null; // DateTime
+    not?: NexusGenInputs['NestedDateTimeNullableFilter'] | null; // NestedDateTimeNullableFilter
+    notIn?: any[] | null; // [DateTime!]
+  }
+  NestedFloatNullableFilter: { // input type
+    equals?: number | null; // Float
+    gt?: number | null; // Float
+    gte?: number | null; // Float
+    in?: number[] | null; // [Float!]
+    lt?: number | null; // Float
+    lte?: number | null; // Float
+    not?: NexusGenInputs['NestedFloatNullableFilter'] | null; // NestedFloatNullableFilter
+    notIn?: number[] | null; // [Float!]
+  }
+  NestedIntFilter: { // input type
+    equals?: number | null; // Int
+    gt?: number | null; // Int
+    gte?: number | null; // Int
+    in?: number[] | null; // [Int!]
+    lt?: number | null; // Int
+    lte?: number | null; // Int
+    not?: NexusGenInputs['NestedIntFilter'] | null; // NestedIntFilter
+    notIn?: number[] | null; // [Int!]
+  }
+  NestedStringFilter: { // input type
+    contains?: string | null; // String
+    endsWith?: string | null; // String
+    equals?: string | null; // String
+    gt?: string | null; // String
+    gte?: string | null; // String
+    in?: string[] | null; // [String!]
+    lt?: string | null; // String
+    lte?: string | null; // String
+    not?: NexusGenInputs['NestedStringFilter'] | null; // NestedStringFilter
+    notIn?: string[] | null; // [String!]
+    startsWith?: string | null; // String
+  }
+  NestedStringNullableFilter: { // input type
+    contains?: string | null; // String
+    endsWith?: string | null; // String
+    equals?: string | null; // String
+    gt?: string | null; // String
+    gte?: string | null; // String
+    in?: string[] | null; // [String!]
+    lt?: string | null; // String
+    lte?: string | null; // String
+    not?: NexusGenInputs['NestedStringNullableFilter'] | null; // NestedStringNullableFilter
+    notIn?: string[] | null; // [String!]
+    startsWith?: string | null; // String
+  }
+  NullableDateTimeFieldUpdateOperationsInput: { // input type
+    set?: any | null; // DateTime
+  }
+  NullableFloatFieldUpdateOperationsInput: { // input type
+    set?: number | null; // Float
+  }
+  NullableStringFieldUpdateOperationsInput: { // input type
+    set?: string | null; // String
+  }
+  ReferralCreateManyWithoutReferredInput: { // input type
+    connect?: NexusGenInputs['ReferralWhereUniqueInput'][] | null; // [ReferralWhereUniqueInput!]
+    create?: NexusGenInputs['ReferralCreateWithoutReferredInput'][] | null; // [ReferralCreateWithoutReferredInput!]
+  }
+  ReferralCreateManyWithoutReferrerInput: { // input type
+    connect?: NexusGenInputs['ReferralWhereUniqueInput'][] | null; // [ReferralWhereUniqueInput!]
+    create?: NexusGenInputs['ReferralCreateWithoutReferrerInput'][] | null; // [ReferralCreateWithoutReferrerInput!]
+  }
+  ReferralCreateWithoutReferredInput: { // input type
+    completed?: boolean | null; // Boolean
+    createdAt?: any | null; // DateTime
+    referrer: NexusGenInputs['UserCreateOneWithoutReferrerInput']; // UserCreateOneWithoutReferrerInput!
+    updatedAt?: any | null; // DateTime
+  }
+  ReferralCreateWithoutReferrerInput: { // input type
+    completed?: boolean | null; // Boolean
+    createdAt?: any | null; // DateTime
+    referred: NexusGenInputs['UserCreateOneWithoutReferralInput']; // UserCreateOneWithoutReferralInput!
+    updatedAt?: any | null; // DateTime
+  }
+  ReferralListRelationFilter: { // input type
+    every?: NexusGenInputs['ReferralWhereInput'] | null; // ReferralWhereInput
+    none?: NexusGenInputs['ReferralWhereInput'] | null; // ReferralWhereInput
+    some?: NexusGenInputs['ReferralWhereInput'] | null; // ReferralWhereInput
+  }
+  ReferralScalarWhereInput: { // input type
+    AND?: NexusGenInputs['ReferralScalarWhereInput'][] | null; // [ReferralScalarWhereInput!]
+    completed?: NexusGenInputs['BoolFilter'] | null; // BoolFilter
+    createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    id?: NexusGenInputs['IntFilter'] | null; // IntFilter
+    NOT?: NexusGenInputs['ReferralScalarWhereInput'][] | null; // [ReferralScalarWhereInput!]
+    OR?: NexusGenInputs['ReferralScalarWhereInput'][] | null; // [ReferralScalarWhereInput!]
+    referredId?: NexusGenInputs['IntFilter'] | null; // IntFilter
+    referrerId?: NexusGenInputs['IntFilter'] | null; // IntFilter
+    updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+  }
+  ReferralUpdateManyDataInput: { // input type
+    completed?: NexusGenInputs['BoolFieldUpdateOperationsInput'] | null; // BoolFieldUpdateOperationsInput
+    createdAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+    updatedAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+  }
+  ReferralUpdateManyWithWhereNestedInput: { // input type
+    data: NexusGenInputs['ReferralUpdateManyDataInput']; // ReferralUpdateManyDataInput!
+    where: NexusGenInputs['ReferralScalarWhereInput']; // ReferralScalarWhereInput!
+  }
+  ReferralUpdateManyWithoutReferredInput: { // input type
+    connect?: NexusGenInputs['ReferralWhereUniqueInput'][] | null; // [ReferralWhereUniqueInput!]
+    create?: NexusGenInputs['ReferralCreateWithoutReferredInput'][] | null; // [ReferralCreateWithoutReferredInput!]
+    delete?: NexusGenInputs['ReferralWhereUniqueInput'][] | null; // [ReferralWhereUniqueInput!]
+    deleteMany?: NexusGenInputs['ReferralScalarWhereInput'][] | null; // [ReferralScalarWhereInput!]
+    disconnect?: NexusGenInputs['ReferralWhereUniqueInput'][] | null; // [ReferralWhereUniqueInput!]
+    set?: NexusGenInputs['ReferralWhereUniqueInput'][] | null; // [ReferralWhereUniqueInput!]
+    update?: NexusGenInputs['ReferralUpdateWithWhereUniqueWithoutReferredInput'][] | null; // [ReferralUpdateWithWhereUniqueWithoutReferredInput!]
+    updateMany?: NexusGenInputs['ReferralUpdateManyWithWhereNestedInput'][] | null; // [ReferralUpdateManyWithWhereNestedInput!]
+    upsert?: NexusGenInputs['ReferralUpsertWithWhereUniqueWithoutReferredInput'][] | null; // [ReferralUpsertWithWhereUniqueWithoutReferredInput!]
+  }
+  ReferralUpdateManyWithoutReferrerInput: { // input type
+    connect?: NexusGenInputs['ReferralWhereUniqueInput'][] | null; // [ReferralWhereUniqueInput!]
+    create?: NexusGenInputs['ReferralCreateWithoutReferrerInput'][] | null; // [ReferralCreateWithoutReferrerInput!]
+    delete?: NexusGenInputs['ReferralWhereUniqueInput'][] | null; // [ReferralWhereUniqueInput!]
+    deleteMany?: NexusGenInputs['ReferralScalarWhereInput'][] | null; // [ReferralScalarWhereInput!]
+    disconnect?: NexusGenInputs['ReferralWhereUniqueInput'][] | null; // [ReferralWhereUniqueInput!]
+    set?: NexusGenInputs['ReferralWhereUniqueInput'][] | null; // [ReferralWhereUniqueInput!]
+    update?: NexusGenInputs['ReferralUpdateWithWhereUniqueWithoutReferrerInput'][] | null; // [ReferralUpdateWithWhereUniqueWithoutReferrerInput!]
+    updateMany?: NexusGenInputs['ReferralUpdateManyWithWhereNestedInput'][] | null; // [ReferralUpdateManyWithWhereNestedInput!]
+    upsert?: NexusGenInputs['ReferralUpsertWithWhereUniqueWithoutReferrerInput'][] | null; // [ReferralUpsertWithWhereUniqueWithoutReferrerInput!]
+  }
+  ReferralUpdateWithWhereUniqueWithoutReferredInput: { // input type
+    data: NexusGenInputs['ReferralUpdateWithoutReferredDataInput']; // ReferralUpdateWithoutReferredDataInput!
+    where: NexusGenInputs['ReferralWhereUniqueInput']; // ReferralWhereUniqueInput!
+  }
+  ReferralUpdateWithWhereUniqueWithoutReferrerInput: { // input type
+    data: NexusGenInputs['ReferralUpdateWithoutReferrerDataInput']; // ReferralUpdateWithoutReferrerDataInput!
+    where: NexusGenInputs['ReferralWhereUniqueInput']; // ReferralWhereUniqueInput!
+  }
+  ReferralUpdateWithoutReferredDataInput: { // input type
+    completed?: NexusGenInputs['BoolFieldUpdateOperationsInput'] | null; // BoolFieldUpdateOperationsInput
+    createdAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+    referrer?: NexusGenInputs['UserUpdateOneRequiredWithoutReferrerInput'] | null; // UserUpdateOneRequiredWithoutReferrerInput
+    updatedAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+  }
+  ReferralUpdateWithoutReferrerDataInput: { // input type
+    completed?: NexusGenInputs['BoolFieldUpdateOperationsInput'] | null; // BoolFieldUpdateOperationsInput
+    createdAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+    referred?: NexusGenInputs['UserUpdateOneRequiredWithoutReferralInput'] | null; // UserUpdateOneRequiredWithoutReferralInput
+    updatedAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+  }
+  ReferralUpsertWithWhereUniqueWithoutReferredInput: { // input type
+    create: NexusGenInputs['ReferralCreateWithoutReferredInput']; // ReferralCreateWithoutReferredInput!
+    update: NexusGenInputs['ReferralUpdateWithoutReferredDataInput']; // ReferralUpdateWithoutReferredDataInput!
+    where: NexusGenInputs['ReferralWhereUniqueInput']; // ReferralWhereUniqueInput!
+  }
+  ReferralUpsertWithWhereUniqueWithoutReferrerInput: { // input type
+    create: NexusGenInputs['ReferralCreateWithoutReferrerInput']; // ReferralCreateWithoutReferrerInput!
+    update: NexusGenInputs['ReferralUpdateWithoutReferrerDataInput']; // ReferralUpdateWithoutReferrerDataInput!
+    where: NexusGenInputs['ReferralWhereUniqueInput']; // ReferralWhereUniqueInput!
+  }
+  ReferralWhereInput: { // input type
+    AND?: NexusGenInputs['ReferralWhereInput'][] | null; // [ReferralWhereInput!]
+    completed?: NexusGenInputs['BoolFilter'] | null; // BoolFilter
+    createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    id?: NexusGenInputs['IntFilter'] | null; // IntFilter
+    NOT?: NexusGenInputs['ReferralWhereInput'][] | null; // [ReferralWhereInput!]
+    OR?: NexusGenInputs['ReferralWhereInput'][] | null; // [ReferralWhereInput!]
+    referred?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
+    referredId?: NexusGenInputs['IntFilter'] | null; // IntFilter
+    referrer?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
+    referrerId?: NexusGenInputs['IntFilter'] | null; // IntFilter
+    updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+  }
   ReferralWhereUniqueInput: { // input type
     id?: number | null; // Int
     referredId?: number | null; // Int
+  }
+  StringFieldUpdateOperationsInput: { // input type
+    set?: string | null; // String
+  }
+  StringFilter: { // input type
+    contains?: string | null; // String
+    endsWith?: string | null; // String
+    equals?: string | null; // String
+    gt?: string | null; // String
+    gte?: string | null; // String
+    in?: string[] | null; // [String!]
+    lt?: string | null; // String
+    lte?: string | null; // String
+    not?: NexusGenInputs['NestedStringFilter'] | null; // NestedStringFilter
+    notIn?: string[] | null; // [String!]
+    startsWith?: string | null; // String
+  }
+  StringNullableFilter: { // input type
+    contains?: string | null; // String
+    endsWith?: string | null; // String
+    equals?: string | null; // String
+    gt?: string | null; // String
+    gte?: string | null; // String
+    in?: string[] | null; // [String!]
+    lt?: string | null; // String
+    lte?: string | null; // String
+    not?: NexusGenInputs['NestedStringNullableFilter'] | null; // NestedStringNullableFilter
+    notIn?: string[] | null; // [String!]
+    startsWith?: string | null; // String
+  }
+  UserCreateOneWithoutReferralInput: { // input type
+    connect?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
+    create?: NexusGenInputs['UserCreateWithoutReferralInput'] | null; // UserCreateWithoutReferralInput
+  }
+  UserCreateOneWithoutReferrerInput: { // input type
+    connect?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
+    create?: NexusGenInputs['UserCreateWithoutReferrerInput'] | null; // UserCreateWithoutReferrerInput
+  }
+  UserCreateOneWithoutTrainInput: { // input type
+    connect?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
+    create?: NexusGenInputs['UserCreateWithoutTrainInput'] | null; // UserCreateWithoutTrainInput
+  }
+  UserCreateOneWithoutWorkoutsInput: { // input type
+    connect?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
+    create?: NexusGenInputs['UserCreateWithoutWorkoutsInput'] | null; // UserCreateWithoutWorkoutsInput
+  }
+  UserCreateWithoutReferralInput: { // input type
+    avatarId?: string | null; // String
+    bio?: string | null; // String
+    birthDate?: any | null; // DateTime
+    classes?: number | null; // Int
+    confirmed?: boolean | null; // Boolean
+    customerId?: string | null; // String
+    email: string; // String!
+    facebookId?: string | null; // String
+    gymlerType?: NexusGenEnums['Gymler'] | null; // Gymler
+    lastLoggedIn?: any | null; // DateTime
+    name: string; // String!
+    password: string; // String!
+    referrer?: NexusGenInputs['ReferralCreateManyWithoutReferrerInput'] | null; // ReferralCreateManyWithoutReferrerInput
+    role?: NexusGenEnums['Role'] | null; // Role
+    sex?: NexusGenEnums['Sex'] | null; // Sex
+    stripeId?: string | null; // String
+    surname?: string | null; // String
+    train?: NexusGenInputs['WorkoutCreateManyWithoutTrainerInput'] | null; // WorkoutCreateManyWithoutTrainerInput
+    workouts?: NexusGenInputs['UsersOnWorkoutsCreateManyWithoutUserInput'] | null; // UsersOnWorkoutsCreateManyWithoutUserInput
+  }
+  UserCreateWithoutReferrerInput: { // input type
+    avatarId?: string | null; // String
+    bio?: string | null; // String
+    birthDate?: any | null; // DateTime
+    classes?: number | null; // Int
+    confirmed?: boolean | null; // Boolean
+    customerId?: string | null; // String
+    email: string; // String!
+    facebookId?: string | null; // String
+    gymlerType?: NexusGenEnums['Gymler'] | null; // Gymler
+    lastLoggedIn?: any | null; // DateTime
+    name: string; // String!
+    password: string; // String!
+    referral?: NexusGenInputs['ReferralCreateManyWithoutReferredInput'] | null; // ReferralCreateManyWithoutReferredInput
+    role?: NexusGenEnums['Role'] | null; // Role
+    sex?: NexusGenEnums['Sex'] | null; // Sex
+    stripeId?: string | null; // String
+    surname?: string | null; // String
+    train?: NexusGenInputs['WorkoutCreateManyWithoutTrainerInput'] | null; // WorkoutCreateManyWithoutTrainerInput
+    workouts?: NexusGenInputs['UsersOnWorkoutsCreateManyWithoutUserInput'] | null; // UsersOnWorkoutsCreateManyWithoutUserInput
+  }
+  UserCreateWithoutTrainInput: { // input type
+    avatarId?: string | null; // String
+    bio?: string | null; // String
+    birthDate?: any | null; // DateTime
+    classes?: number | null; // Int
+    confirmed?: boolean | null; // Boolean
+    customerId?: string | null; // String
+    email: string; // String!
+    facebookId?: string | null; // String
+    gymlerType?: NexusGenEnums['Gymler'] | null; // Gymler
+    lastLoggedIn?: any | null; // DateTime
+    name: string; // String!
+    password: string; // String!
+    referral?: NexusGenInputs['ReferralCreateManyWithoutReferredInput'] | null; // ReferralCreateManyWithoutReferredInput
+    referrer?: NexusGenInputs['ReferralCreateManyWithoutReferrerInput'] | null; // ReferralCreateManyWithoutReferrerInput
+    role?: NexusGenEnums['Role'] | null; // Role
+    sex?: NexusGenEnums['Sex'] | null; // Sex
+    stripeId?: string | null; // String
+    surname?: string | null; // String
+    workouts?: NexusGenInputs['UsersOnWorkoutsCreateManyWithoutUserInput'] | null; // UsersOnWorkoutsCreateManyWithoutUserInput
+  }
+  UserCreateWithoutWorkoutsInput: { // input type
+    avatarId?: string | null; // String
+    bio?: string | null; // String
+    birthDate?: any | null; // DateTime
+    classes?: number | null; // Int
+    confirmed?: boolean | null; // Boolean
+    customerId?: string | null; // String
+    email: string; // String!
+    facebookId?: string | null; // String
+    gymlerType?: NexusGenEnums['Gymler'] | null; // Gymler
+    lastLoggedIn?: any | null; // DateTime
+    name: string; // String!
+    password: string; // String!
+    referral?: NexusGenInputs['ReferralCreateManyWithoutReferredInput'] | null; // ReferralCreateManyWithoutReferredInput
+    referrer?: NexusGenInputs['ReferralCreateManyWithoutReferrerInput'] | null; // ReferralCreateManyWithoutReferrerInput
+    role?: NexusGenEnums['Role'] | null; // Role
+    sex?: NexusGenEnums['Sex'] | null; // Sex
+    stripeId?: string | null; // String
+    surname?: string | null; // String
+    train?: NexusGenInputs['WorkoutCreateManyWithoutTrainerInput'] | null; // WorkoutCreateManyWithoutTrainerInput
+  }
+  UserUpdateOneRequiredWithoutReferralInput: { // input type
+    connect?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
+    create?: NexusGenInputs['UserCreateWithoutReferralInput'] | null; // UserCreateWithoutReferralInput
+    update?: NexusGenInputs['UserUpdateWithoutReferralDataInput'] | null; // UserUpdateWithoutReferralDataInput
+    upsert?: NexusGenInputs['UserUpsertWithoutReferralInput'] | null; // UserUpsertWithoutReferralInput
+  }
+  UserUpdateOneRequiredWithoutReferrerInput: { // input type
+    connect?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
+    create?: NexusGenInputs['UserCreateWithoutReferrerInput'] | null; // UserCreateWithoutReferrerInput
+    update?: NexusGenInputs['UserUpdateWithoutReferrerDataInput'] | null; // UserUpdateWithoutReferrerDataInput
+    upsert?: NexusGenInputs['UserUpsertWithoutReferrerInput'] | null; // UserUpsertWithoutReferrerInput
+  }
+  UserUpdateOneRequiredWithoutTrainInput: { // input type
+    connect?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
+    create?: NexusGenInputs['UserCreateWithoutTrainInput'] | null; // UserCreateWithoutTrainInput
+    update?: NexusGenInputs['UserUpdateWithoutTrainDataInput'] | null; // UserUpdateWithoutTrainDataInput
+    upsert?: NexusGenInputs['UserUpsertWithoutTrainInput'] | null; // UserUpsertWithoutTrainInput
+  }
+  UserUpdateOneRequiredWithoutWorkoutsInput: { // input type
+    connect?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
+    create?: NexusGenInputs['UserCreateWithoutWorkoutsInput'] | null; // UserCreateWithoutWorkoutsInput
+    update?: NexusGenInputs['UserUpdateWithoutWorkoutsDataInput'] | null; // UserUpdateWithoutWorkoutsDataInput
+    upsert?: NexusGenInputs['UserUpsertWithoutWorkoutsInput'] | null; // UserUpsertWithoutWorkoutsInput
+  }
+  UserUpdateWithoutReferralDataInput: { // input type
+    avatarId?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    bio?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    birthDate?: NexusGenInputs['NullableDateTimeFieldUpdateOperationsInput'] | null; // NullableDateTimeFieldUpdateOperationsInput
+    classes?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
+    confirmed?: NexusGenInputs['BoolFieldUpdateOperationsInput'] | null; // BoolFieldUpdateOperationsInput
+    customerId?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    email?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    facebookId?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    gymlerType?: NexusGenEnums['Gymler'] | null; // Gymler
+    lastLoggedIn?: NexusGenInputs['NullableDateTimeFieldUpdateOperationsInput'] | null; // NullableDateTimeFieldUpdateOperationsInput
+    name?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    password?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    referrer?: NexusGenInputs['ReferralUpdateManyWithoutReferrerInput'] | null; // ReferralUpdateManyWithoutReferrerInput
+    role?: NexusGenEnums['Role'] | null; // Role
+    sex?: NexusGenEnums['Sex'] | null; // Sex
+    stripeId?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    surname?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    train?: NexusGenInputs['WorkoutUpdateManyWithoutTrainerInput'] | null; // WorkoutUpdateManyWithoutTrainerInput
+    workouts?: NexusGenInputs['UsersOnWorkoutsUpdateManyWithoutUserInput'] | null; // UsersOnWorkoutsUpdateManyWithoutUserInput
+  }
+  UserUpdateWithoutReferrerDataInput: { // input type
+    avatarId?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    bio?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    birthDate?: NexusGenInputs['NullableDateTimeFieldUpdateOperationsInput'] | null; // NullableDateTimeFieldUpdateOperationsInput
+    classes?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
+    confirmed?: NexusGenInputs['BoolFieldUpdateOperationsInput'] | null; // BoolFieldUpdateOperationsInput
+    customerId?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    email?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    facebookId?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    gymlerType?: NexusGenEnums['Gymler'] | null; // Gymler
+    lastLoggedIn?: NexusGenInputs['NullableDateTimeFieldUpdateOperationsInput'] | null; // NullableDateTimeFieldUpdateOperationsInput
+    name?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    password?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    referral?: NexusGenInputs['ReferralUpdateManyWithoutReferredInput'] | null; // ReferralUpdateManyWithoutReferredInput
+    role?: NexusGenEnums['Role'] | null; // Role
+    sex?: NexusGenEnums['Sex'] | null; // Sex
+    stripeId?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    surname?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    train?: NexusGenInputs['WorkoutUpdateManyWithoutTrainerInput'] | null; // WorkoutUpdateManyWithoutTrainerInput
+    workouts?: NexusGenInputs['UsersOnWorkoutsUpdateManyWithoutUserInput'] | null; // UsersOnWorkoutsUpdateManyWithoutUserInput
+  }
+  UserUpdateWithoutTrainDataInput: { // input type
+    avatarId?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    bio?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    birthDate?: NexusGenInputs['NullableDateTimeFieldUpdateOperationsInput'] | null; // NullableDateTimeFieldUpdateOperationsInput
+    classes?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
+    confirmed?: NexusGenInputs['BoolFieldUpdateOperationsInput'] | null; // BoolFieldUpdateOperationsInput
+    customerId?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    email?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    facebookId?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    gymlerType?: NexusGenEnums['Gymler'] | null; // Gymler
+    lastLoggedIn?: NexusGenInputs['NullableDateTimeFieldUpdateOperationsInput'] | null; // NullableDateTimeFieldUpdateOperationsInput
+    name?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    password?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    referral?: NexusGenInputs['ReferralUpdateManyWithoutReferredInput'] | null; // ReferralUpdateManyWithoutReferredInput
+    referrer?: NexusGenInputs['ReferralUpdateManyWithoutReferrerInput'] | null; // ReferralUpdateManyWithoutReferrerInput
+    role?: NexusGenEnums['Role'] | null; // Role
+    sex?: NexusGenEnums['Sex'] | null; // Sex
+    stripeId?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    surname?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    workouts?: NexusGenInputs['UsersOnWorkoutsUpdateManyWithoutUserInput'] | null; // UsersOnWorkoutsUpdateManyWithoutUserInput
+  }
+  UserUpdateWithoutWorkoutsDataInput: { // input type
+    avatarId?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    bio?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    birthDate?: NexusGenInputs['NullableDateTimeFieldUpdateOperationsInput'] | null; // NullableDateTimeFieldUpdateOperationsInput
+    classes?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
+    confirmed?: NexusGenInputs['BoolFieldUpdateOperationsInput'] | null; // BoolFieldUpdateOperationsInput
+    customerId?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    email?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    facebookId?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    gymlerType?: NexusGenEnums['Gymler'] | null; // Gymler
+    lastLoggedIn?: NexusGenInputs['NullableDateTimeFieldUpdateOperationsInput'] | null; // NullableDateTimeFieldUpdateOperationsInput
+    name?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    password?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    referral?: NexusGenInputs['ReferralUpdateManyWithoutReferredInput'] | null; // ReferralUpdateManyWithoutReferredInput
+    referrer?: NexusGenInputs['ReferralUpdateManyWithoutReferrerInput'] | null; // ReferralUpdateManyWithoutReferrerInput
+    role?: NexusGenEnums['Role'] | null; // Role
+    sex?: NexusGenEnums['Sex'] | null; // Sex
+    stripeId?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    surname?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    train?: NexusGenInputs['WorkoutUpdateManyWithoutTrainerInput'] | null; // WorkoutUpdateManyWithoutTrainerInput
+  }
+  UserUpsertWithoutReferralInput: { // input type
+    create: NexusGenInputs['UserCreateWithoutReferralInput']; // UserCreateWithoutReferralInput!
+    update: NexusGenInputs['UserUpdateWithoutReferralDataInput']; // UserUpdateWithoutReferralDataInput!
+  }
+  UserUpsertWithoutReferrerInput: { // input type
+    create: NexusGenInputs['UserCreateWithoutReferrerInput']; // UserCreateWithoutReferrerInput!
+    update: NexusGenInputs['UserUpdateWithoutReferrerDataInput']; // UserUpdateWithoutReferrerDataInput!
+  }
+  UserUpsertWithoutTrainInput: { // input type
+    create: NexusGenInputs['UserCreateWithoutTrainInput']; // UserCreateWithoutTrainInput!
+    update: NexusGenInputs['UserUpdateWithoutTrainDataInput']; // UserUpdateWithoutTrainDataInput!
+  }
+  UserUpsertWithoutWorkoutsInput: { // input type
+    create: NexusGenInputs['UserCreateWithoutWorkoutsInput']; // UserCreateWithoutWorkoutsInput!
+    update: NexusGenInputs['UserUpdateWithoutWorkoutsDataInput']; // UserUpdateWithoutWorkoutsDataInput!
+  }
+  UserWhereInput: { // input type
+    AND?: NexusGenInputs['UserWhereInput'][] | null; // [UserWhereInput!]
+    avatarId?: NexusGenInputs['StringNullableFilter'] | null; // StringNullableFilter
+    bio?: NexusGenInputs['StringNullableFilter'] | null; // StringNullableFilter
+    birthDate?: NexusGenInputs['DateTimeNullableFilter'] | null; // DateTimeNullableFilter
+    classes?: NexusGenInputs['IntFilter'] | null; // IntFilter
+    confirmed?: NexusGenInputs['BoolFilter'] | null; // BoolFilter
+    customerId?: NexusGenInputs['StringNullableFilter'] | null; // StringNullableFilter
+    email?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    facebookId?: NexusGenInputs['StringNullableFilter'] | null; // StringNullableFilter
+    gymlerType?: NexusGenEnums['Gymler'] | null; // Gymler
+    id?: NexusGenInputs['IntFilter'] | null; // IntFilter
+    lastLoggedIn?: NexusGenInputs['DateTimeNullableFilter'] | null; // DateTimeNullableFilter
+    name?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    NOT?: NexusGenInputs['UserWhereInput'][] | null; // [UserWhereInput!]
+    OR?: NexusGenInputs['UserWhereInput'][] | null; // [UserWhereInput!]
+    password?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    referral?: NexusGenInputs['ReferralListRelationFilter'] | null; // ReferralListRelationFilter
+    referrer?: NexusGenInputs['ReferralListRelationFilter'] | null; // ReferralListRelationFilter
+    role?: NexusGenEnums['Role'] | null; // Role
+    sex?: NexusGenEnums['Sex'] | null; // Sex
+    stripeId?: NexusGenInputs['StringNullableFilter'] | null; // StringNullableFilter
+    surname?: NexusGenInputs['StringNullableFilter'] | null; // StringNullableFilter
+    train?: NexusGenInputs['WorkoutListRelationFilter'] | null; // WorkoutListRelationFilter
+    workouts?: NexusGenInputs['UsersOnWorkoutsListRelationFilter'] | null; // UsersOnWorkoutsListRelationFilter
   }
   UserWhereUniqueInput: { // input type
     email?: string | null; // String
     id?: number | null; // Int
   }
+  UsersOnWorkoutsCreateManyWithoutUserInput: { // input type
+    connect?: NexusGenInputs['UsersOnWorkoutsWhereUniqueInput'][] | null; // [UsersOnWorkoutsWhereUniqueInput!]
+    create?: NexusGenInputs['UsersOnWorkoutsCreateWithoutUserInput'][] | null; // [UsersOnWorkoutsCreateWithoutUserInput!]
+  }
+  UsersOnWorkoutsCreateManyWithoutWorkoutInput: { // input type
+    connect?: NexusGenInputs['UsersOnWorkoutsWhereUniqueInput'][] | null; // [UsersOnWorkoutsWhereUniqueInput!]
+    create?: NexusGenInputs['UsersOnWorkoutsCreateWithoutWorkoutInput'][] | null; // [UsersOnWorkoutsCreateWithoutWorkoutInput!]
+  }
+  UsersOnWorkoutsCreateWithoutUserInput: { // input type
+    attended?: boolean | null; // Boolean
+    createdAt?: any | null; // DateTime
+    workout: NexusGenInputs['WorkoutCreateOneWithoutPartecipantsInput']; // WorkoutCreateOneWithoutPartecipantsInput!
+  }
+  UsersOnWorkoutsCreateWithoutWorkoutInput: { // input type
+    attended?: boolean | null; // Boolean
+    createdAt?: any | null; // DateTime
+    user: NexusGenInputs['UserCreateOneWithoutWorkoutsInput']; // UserCreateOneWithoutWorkoutsInput!
+  }
+  UsersOnWorkoutsListRelationFilter: { // input type
+    every?: NexusGenInputs['UsersOnWorkoutsWhereInput'] | null; // UsersOnWorkoutsWhereInput
+    none?: NexusGenInputs['UsersOnWorkoutsWhereInput'] | null; // UsersOnWorkoutsWhereInput
+    some?: NexusGenInputs['UsersOnWorkoutsWhereInput'] | null; // UsersOnWorkoutsWhereInput
+  }
+  UsersOnWorkoutsScalarWhereInput: { // input type
+    AND?: NexusGenInputs['UsersOnWorkoutsScalarWhereInput'][] | null; // [UsersOnWorkoutsScalarWhereInput!]
+    attended?: NexusGenInputs['BoolFilter'] | null; // BoolFilter
+    createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    NOT?: NexusGenInputs['UsersOnWorkoutsScalarWhereInput'][] | null; // [UsersOnWorkoutsScalarWhereInput!]
+    OR?: NexusGenInputs['UsersOnWorkoutsScalarWhereInput'][] | null; // [UsersOnWorkoutsScalarWhereInput!]
+    userId?: NexusGenInputs['IntFilter'] | null; // IntFilter
+    workoutId?: NexusGenInputs['IntFilter'] | null; // IntFilter
+  }
+  UsersOnWorkoutsUpdateManyDataInput: { // input type
+    attended?: NexusGenInputs['BoolFieldUpdateOperationsInput'] | null; // BoolFieldUpdateOperationsInput
+    createdAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+  }
+  UsersOnWorkoutsUpdateManyWithWhereNestedInput: { // input type
+    data: NexusGenInputs['UsersOnWorkoutsUpdateManyDataInput']; // UsersOnWorkoutsUpdateManyDataInput!
+    where: NexusGenInputs['UsersOnWorkoutsScalarWhereInput']; // UsersOnWorkoutsScalarWhereInput!
+  }
+  UsersOnWorkoutsUpdateManyWithoutUserInput: { // input type
+    connect?: NexusGenInputs['UsersOnWorkoutsWhereUniqueInput'][] | null; // [UsersOnWorkoutsWhereUniqueInput!]
+    create?: NexusGenInputs['UsersOnWorkoutsCreateWithoutUserInput'][] | null; // [UsersOnWorkoutsCreateWithoutUserInput!]
+    delete?: NexusGenInputs['UsersOnWorkoutsWhereUniqueInput'][] | null; // [UsersOnWorkoutsWhereUniqueInput!]
+    deleteMany?: NexusGenInputs['UsersOnWorkoutsScalarWhereInput'][] | null; // [UsersOnWorkoutsScalarWhereInput!]
+    disconnect?: NexusGenInputs['UsersOnWorkoutsWhereUniqueInput'][] | null; // [UsersOnWorkoutsWhereUniqueInput!]
+    set?: NexusGenInputs['UsersOnWorkoutsWhereUniqueInput'][] | null; // [UsersOnWorkoutsWhereUniqueInput!]
+    update?: NexusGenInputs['UsersOnWorkoutsUpdateWithWhereUniqueWithoutUserInput'][] | null; // [UsersOnWorkoutsUpdateWithWhereUniqueWithoutUserInput!]
+    updateMany?: NexusGenInputs['UsersOnWorkoutsUpdateManyWithWhereNestedInput'][] | null; // [UsersOnWorkoutsUpdateManyWithWhereNestedInput!]
+    upsert?: NexusGenInputs['UsersOnWorkoutsUpsertWithWhereUniqueWithoutUserInput'][] | null; // [UsersOnWorkoutsUpsertWithWhereUniqueWithoutUserInput!]
+  }
+  UsersOnWorkoutsUpdateManyWithoutWorkoutInput: { // input type
+    connect?: NexusGenInputs['UsersOnWorkoutsWhereUniqueInput'][] | null; // [UsersOnWorkoutsWhereUniqueInput!]
+    create?: NexusGenInputs['UsersOnWorkoutsCreateWithoutWorkoutInput'][] | null; // [UsersOnWorkoutsCreateWithoutWorkoutInput!]
+    delete?: NexusGenInputs['UsersOnWorkoutsWhereUniqueInput'][] | null; // [UsersOnWorkoutsWhereUniqueInput!]
+    deleteMany?: NexusGenInputs['UsersOnWorkoutsScalarWhereInput'][] | null; // [UsersOnWorkoutsScalarWhereInput!]
+    disconnect?: NexusGenInputs['UsersOnWorkoutsWhereUniqueInput'][] | null; // [UsersOnWorkoutsWhereUniqueInput!]
+    set?: NexusGenInputs['UsersOnWorkoutsWhereUniqueInput'][] | null; // [UsersOnWorkoutsWhereUniqueInput!]
+    update?: NexusGenInputs['UsersOnWorkoutsUpdateWithWhereUniqueWithoutWorkoutInput'][] | null; // [UsersOnWorkoutsUpdateWithWhereUniqueWithoutWorkoutInput!]
+    updateMany?: NexusGenInputs['UsersOnWorkoutsUpdateManyWithWhereNestedInput'][] | null; // [UsersOnWorkoutsUpdateManyWithWhereNestedInput!]
+    upsert?: NexusGenInputs['UsersOnWorkoutsUpsertWithWhereUniqueWithoutWorkoutInput'][] | null; // [UsersOnWorkoutsUpsertWithWhereUniqueWithoutWorkoutInput!]
+  }
+  UsersOnWorkoutsUpdateWithWhereUniqueWithoutUserInput: { // input type
+    data: NexusGenInputs['UsersOnWorkoutsUpdateWithoutUserDataInput']; // UsersOnWorkoutsUpdateWithoutUserDataInput!
+    where: NexusGenInputs['UsersOnWorkoutsWhereUniqueInput']; // UsersOnWorkoutsWhereUniqueInput!
+  }
+  UsersOnWorkoutsUpdateWithWhereUniqueWithoutWorkoutInput: { // input type
+    data: NexusGenInputs['UsersOnWorkoutsUpdateWithoutWorkoutDataInput']; // UsersOnWorkoutsUpdateWithoutWorkoutDataInput!
+    where: NexusGenInputs['UsersOnWorkoutsWhereUniqueInput']; // UsersOnWorkoutsWhereUniqueInput!
+  }
+  UsersOnWorkoutsUpdateWithoutUserDataInput: { // input type
+    attended?: NexusGenInputs['BoolFieldUpdateOperationsInput'] | null; // BoolFieldUpdateOperationsInput
+    createdAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+    workout?: NexusGenInputs['WorkoutUpdateOneRequiredWithoutPartecipantsInput'] | null; // WorkoutUpdateOneRequiredWithoutPartecipantsInput
+  }
+  UsersOnWorkoutsUpdateWithoutWorkoutDataInput: { // input type
+    attended?: NexusGenInputs['BoolFieldUpdateOperationsInput'] | null; // BoolFieldUpdateOperationsInput
+    createdAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+    user?: NexusGenInputs['UserUpdateOneRequiredWithoutWorkoutsInput'] | null; // UserUpdateOneRequiredWithoutWorkoutsInput
+  }
+  UsersOnWorkoutsUpsertWithWhereUniqueWithoutUserInput: { // input type
+    create: NexusGenInputs['UsersOnWorkoutsCreateWithoutUserInput']; // UsersOnWorkoutsCreateWithoutUserInput!
+    update: NexusGenInputs['UsersOnWorkoutsUpdateWithoutUserDataInput']; // UsersOnWorkoutsUpdateWithoutUserDataInput!
+    where: NexusGenInputs['UsersOnWorkoutsWhereUniqueInput']; // UsersOnWorkoutsWhereUniqueInput!
+  }
+  UsersOnWorkoutsUpsertWithWhereUniqueWithoutWorkoutInput: { // input type
+    create: NexusGenInputs['UsersOnWorkoutsCreateWithoutWorkoutInput']; // UsersOnWorkoutsCreateWithoutWorkoutInput!
+    update: NexusGenInputs['UsersOnWorkoutsUpdateWithoutWorkoutDataInput']; // UsersOnWorkoutsUpdateWithoutWorkoutDataInput!
+    where: NexusGenInputs['UsersOnWorkoutsWhereUniqueInput']; // UsersOnWorkoutsWhereUniqueInput!
+  }
+  UsersOnWorkoutsWhereInput: { // input type
+    AND?: NexusGenInputs['UsersOnWorkoutsWhereInput'][] | null; // [UsersOnWorkoutsWhereInput!]
+    attended?: NexusGenInputs['BoolFilter'] | null; // BoolFilter
+    createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    NOT?: NexusGenInputs['UsersOnWorkoutsWhereInput'][] | null; // [UsersOnWorkoutsWhereInput!]
+    OR?: NexusGenInputs['UsersOnWorkoutsWhereInput'][] | null; // [UsersOnWorkoutsWhereInput!]
+    user?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
+    userId?: NexusGenInputs['IntFilter'] | null; // IntFilter
+    workout?: NexusGenInputs['WorkoutWhereInput'] | null; // WorkoutWhereInput
+    workoutId?: NexusGenInputs['IntFilter'] | null; // IntFilter
+  }
   UsersOnWorkoutsWhereUniqueInput: { // input type
     workoutId_userId?: NexusGenInputs['WorkoutIdUserIdCompoundUniqueInput'] | null; // WorkoutIdUserIdCompoundUniqueInput
+  }
+  WorkoutCreateManyWithoutCordinatesInput: { // input type
+    connect?: NexusGenInputs['WorkoutWhereUniqueInput'][] | null; // [WorkoutWhereUniqueInput!]
+    create?: NexusGenInputs['WorkoutCreateWithoutCordinatesInput'][] | null; // [WorkoutCreateWithoutCordinatesInput!]
+  }
+  WorkoutCreateManyWithoutTrainerInput: { // input type
+    connect?: NexusGenInputs['WorkoutWhereUniqueInput'][] | null; // [WorkoutWhereUniqueInput!]
+    create?: NexusGenInputs['WorkoutCreateWithoutTrainerInput'][] | null; // [WorkoutCreateWithoutTrainerInput!]
+  }
+  WorkoutCreateOneWithoutPartecipantsInput: { // input type
+    connect?: NexusGenInputs['WorkoutWhereUniqueInput'] | null; // WorkoutWhereUniqueInput
+    create?: NexusGenInputs['WorkoutCreateWithoutPartecipantsInput'] | null; // WorkoutCreateWithoutPartecipantsInput
+  }
+  WorkoutCreateWithoutCordinatesInput: { // input type
+    createdAt?: any | null; // DateTime
+    date?: any | null; // DateTime
+    description?: string | null; // String
+    duration: number; // Int!
+    partecipants?: NexusGenInputs['UsersOnWorkoutsCreateManyWithoutWorkoutInput'] | null; // UsersOnWorkoutsCreateManyWithoutWorkoutInput
+    spots?: number | null; // Int
+    title: string; // String!
+    trainer: NexusGenInputs['UserCreateOneWithoutTrainInput']; // UserCreateOneWithoutTrainInput!
+  }
+  WorkoutCreateWithoutPartecipantsInput: { // input type
+    cordinates: NexusGenInputs['CordinatesCreateOneWithoutWorkoutInput']; // CordinatesCreateOneWithoutWorkoutInput!
+    createdAt?: any | null; // DateTime
+    date?: any | null; // DateTime
+    description?: string | null; // String
+    duration: number; // Int!
+    spots?: number | null; // Int
+    title: string; // String!
+    trainer: NexusGenInputs['UserCreateOneWithoutTrainInput']; // UserCreateOneWithoutTrainInput!
+  }
+  WorkoutCreateWithoutTrainerInput: { // input type
+    cordinates: NexusGenInputs['CordinatesCreateOneWithoutWorkoutInput']; // CordinatesCreateOneWithoutWorkoutInput!
+    createdAt?: any | null; // DateTime
+    date?: any | null; // DateTime
+    description?: string | null; // String
+    duration: number; // Int!
+    partecipants?: NexusGenInputs['UsersOnWorkoutsCreateManyWithoutWorkoutInput'] | null; // UsersOnWorkoutsCreateManyWithoutWorkoutInput
+    spots?: number | null; // Int
+    title: string; // String!
   }
   WorkoutIdUserIdCompoundUniqueInput: { // input type
     userId: number; // Int!
     workoutId: number; // Int!
+  }
+  WorkoutListRelationFilter: { // input type
+    every?: NexusGenInputs['WorkoutWhereInput'] | null; // WorkoutWhereInput
+    none?: NexusGenInputs['WorkoutWhereInput'] | null; // WorkoutWhereInput
+    some?: NexusGenInputs['WorkoutWhereInput'] | null; // WorkoutWhereInput
+  }
+  WorkoutOrderByInput: { // input type
+    cordinatesId?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    createdAt?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    date?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    description?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    duration?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    id?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    spots?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    title?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    trainerId?: NexusGenEnums['SortOrder'] | null; // SortOrder
+  }
+  WorkoutScalarWhereInput: { // input type
+    AND?: NexusGenInputs['WorkoutScalarWhereInput'][] | null; // [WorkoutScalarWhereInput!]
+    cordinatesId?: NexusGenInputs['IntFilter'] | null; // IntFilter
+    createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    date?: NexusGenInputs['DateTimeNullableFilter'] | null; // DateTimeNullableFilter
+    description?: NexusGenInputs['StringNullableFilter'] | null; // StringNullableFilter
+    duration?: NexusGenInputs['IntFilter'] | null; // IntFilter
+    id?: NexusGenInputs['IntFilter'] | null; // IntFilter
+    NOT?: NexusGenInputs['WorkoutScalarWhereInput'][] | null; // [WorkoutScalarWhereInput!]
+    OR?: NexusGenInputs['WorkoutScalarWhereInput'][] | null; // [WorkoutScalarWhereInput!]
+    spots?: NexusGenInputs['IntFilter'] | null; // IntFilter
+    title?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    trainerId?: NexusGenInputs['IntFilter'] | null; // IntFilter
+  }
+  WorkoutUpdateInput: { // input type
+    cordinates?: NexusGenInputs['CordinatesUpdateOneRequiredWithoutWorkoutInput'] | null; // CordinatesUpdateOneRequiredWithoutWorkoutInput
+    createdAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+    date?: NexusGenInputs['NullableDateTimeFieldUpdateOperationsInput'] | null; // NullableDateTimeFieldUpdateOperationsInput
+    description?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    duration?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
+    partecipants?: NexusGenInputs['UsersOnWorkoutsUpdateManyWithoutWorkoutInput'] | null; // UsersOnWorkoutsUpdateManyWithoutWorkoutInput
+    spots?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
+    title?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    trainer?: NexusGenInputs['UserUpdateOneRequiredWithoutTrainInput'] | null; // UserUpdateOneRequiredWithoutTrainInput
+  }
+  WorkoutUpdateManyDataInput: { // input type
+    createdAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+    date?: NexusGenInputs['NullableDateTimeFieldUpdateOperationsInput'] | null; // NullableDateTimeFieldUpdateOperationsInput
+    description?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    duration?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
+    spots?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
+    title?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+  }
+  WorkoutUpdateManyWithWhereNestedInput: { // input type
+    data: NexusGenInputs['WorkoutUpdateManyDataInput']; // WorkoutUpdateManyDataInput!
+    where: NexusGenInputs['WorkoutScalarWhereInput']; // WorkoutScalarWhereInput!
+  }
+  WorkoutUpdateManyWithoutCordinatesInput: { // input type
+    connect?: NexusGenInputs['WorkoutWhereUniqueInput'][] | null; // [WorkoutWhereUniqueInput!]
+    create?: NexusGenInputs['WorkoutCreateWithoutCordinatesInput'][] | null; // [WorkoutCreateWithoutCordinatesInput!]
+    delete?: NexusGenInputs['WorkoutWhereUniqueInput'][] | null; // [WorkoutWhereUniqueInput!]
+    deleteMany?: NexusGenInputs['WorkoutScalarWhereInput'][] | null; // [WorkoutScalarWhereInput!]
+    disconnect?: NexusGenInputs['WorkoutWhereUniqueInput'][] | null; // [WorkoutWhereUniqueInput!]
+    set?: NexusGenInputs['WorkoutWhereUniqueInput'][] | null; // [WorkoutWhereUniqueInput!]
+    update?: NexusGenInputs['WorkoutUpdateWithWhereUniqueWithoutCordinatesInput'][] | null; // [WorkoutUpdateWithWhereUniqueWithoutCordinatesInput!]
+    updateMany?: NexusGenInputs['WorkoutUpdateManyWithWhereNestedInput'][] | null; // [WorkoutUpdateManyWithWhereNestedInput!]
+    upsert?: NexusGenInputs['WorkoutUpsertWithWhereUniqueWithoutCordinatesInput'][] | null; // [WorkoutUpsertWithWhereUniqueWithoutCordinatesInput!]
+  }
+  WorkoutUpdateManyWithoutTrainerInput: { // input type
+    connect?: NexusGenInputs['WorkoutWhereUniqueInput'][] | null; // [WorkoutWhereUniqueInput!]
+    create?: NexusGenInputs['WorkoutCreateWithoutTrainerInput'][] | null; // [WorkoutCreateWithoutTrainerInput!]
+    delete?: NexusGenInputs['WorkoutWhereUniqueInput'][] | null; // [WorkoutWhereUniqueInput!]
+    deleteMany?: NexusGenInputs['WorkoutScalarWhereInput'][] | null; // [WorkoutScalarWhereInput!]
+    disconnect?: NexusGenInputs['WorkoutWhereUniqueInput'][] | null; // [WorkoutWhereUniqueInput!]
+    set?: NexusGenInputs['WorkoutWhereUniqueInput'][] | null; // [WorkoutWhereUniqueInput!]
+    update?: NexusGenInputs['WorkoutUpdateWithWhereUniqueWithoutTrainerInput'][] | null; // [WorkoutUpdateWithWhereUniqueWithoutTrainerInput!]
+    updateMany?: NexusGenInputs['WorkoutUpdateManyWithWhereNestedInput'][] | null; // [WorkoutUpdateManyWithWhereNestedInput!]
+    upsert?: NexusGenInputs['WorkoutUpsertWithWhereUniqueWithoutTrainerInput'][] | null; // [WorkoutUpsertWithWhereUniqueWithoutTrainerInput!]
+  }
+  WorkoutUpdateOneRequiredWithoutPartecipantsInput: { // input type
+    connect?: NexusGenInputs['WorkoutWhereUniqueInput'] | null; // WorkoutWhereUniqueInput
+    create?: NexusGenInputs['WorkoutCreateWithoutPartecipantsInput'] | null; // WorkoutCreateWithoutPartecipantsInput
+    update?: NexusGenInputs['WorkoutUpdateWithoutPartecipantsDataInput'] | null; // WorkoutUpdateWithoutPartecipantsDataInput
+    upsert?: NexusGenInputs['WorkoutUpsertWithoutPartecipantsInput'] | null; // WorkoutUpsertWithoutPartecipantsInput
+  }
+  WorkoutUpdateWithWhereUniqueWithoutCordinatesInput: { // input type
+    data: NexusGenInputs['WorkoutUpdateWithoutCordinatesDataInput']; // WorkoutUpdateWithoutCordinatesDataInput!
+    where: NexusGenInputs['WorkoutWhereUniqueInput']; // WorkoutWhereUniqueInput!
+  }
+  WorkoutUpdateWithWhereUniqueWithoutTrainerInput: { // input type
+    data: NexusGenInputs['WorkoutUpdateWithoutTrainerDataInput']; // WorkoutUpdateWithoutTrainerDataInput!
+    where: NexusGenInputs['WorkoutWhereUniqueInput']; // WorkoutWhereUniqueInput!
+  }
+  WorkoutUpdateWithoutCordinatesDataInput: { // input type
+    createdAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+    date?: NexusGenInputs['NullableDateTimeFieldUpdateOperationsInput'] | null; // NullableDateTimeFieldUpdateOperationsInput
+    description?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    duration?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
+    partecipants?: NexusGenInputs['UsersOnWorkoutsUpdateManyWithoutWorkoutInput'] | null; // UsersOnWorkoutsUpdateManyWithoutWorkoutInput
+    spots?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
+    title?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    trainer?: NexusGenInputs['UserUpdateOneRequiredWithoutTrainInput'] | null; // UserUpdateOneRequiredWithoutTrainInput
+  }
+  WorkoutUpdateWithoutPartecipantsDataInput: { // input type
+    cordinates?: NexusGenInputs['CordinatesUpdateOneRequiredWithoutWorkoutInput'] | null; // CordinatesUpdateOneRequiredWithoutWorkoutInput
+    createdAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+    date?: NexusGenInputs['NullableDateTimeFieldUpdateOperationsInput'] | null; // NullableDateTimeFieldUpdateOperationsInput
+    description?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    duration?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
+    spots?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
+    title?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    trainer?: NexusGenInputs['UserUpdateOneRequiredWithoutTrainInput'] | null; // UserUpdateOneRequiredWithoutTrainInput
+  }
+  WorkoutUpdateWithoutTrainerDataInput: { // input type
+    cordinates?: NexusGenInputs['CordinatesUpdateOneRequiredWithoutWorkoutInput'] | null; // CordinatesUpdateOneRequiredWithoutWorkoutInput
+    createdAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+    date?: NexusGenInputs['NullableDateTimeFieldUpdateOperationsInput'] | null; // NullableDateTimeFieldUpdateOperationsInput
+    description?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    duration?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
+    partecipants?: NexusGenInputs['UsersOnWorkoutsUpdateManyWithoutWorkoutInput'] | null; // UsersOnWorkoutsUpdateManyWithoutWorkoutInput
+    spots?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
+    title?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+  }
+  WorkoutUpsertWithWhereUniqueWithoutCordinatesInput: { // input type
+    create: NexusGenInputs['WorkoutCreateWithoutCordinatesInput']; // WorkoutCreateWithoutCordinatesInput!
+    update: NexusGenInputs['WorkoutUpdateWithoutCordinatesDataInput']; // WorkoutUpdateWithoutCordinatesDataInput!
+    where: NexusGenInputs['WorkoutWhereUniqueInput']; // WorkoutWhereUniqueInput!
+  }
+  WorkoutUpsertWithWhereUniqueWithoutTrainerInput: { // input type
+    create: NexusGenInputs['WorkoutCreateWithoutTrainerInput']; // WorkoutCreateWithoutTrainerInput!
+    update: NexusGenInputs['WorkoutUpdateWithoutTrainerDataInput']; // WorkoutUpdateWithoutTrainerDataInput!
+    where: NexusGenInputs['WorkoutWhereUniqueInput']; // WorkoutWhereUniqueInput!
+  }
+  WorkoutUpsertWithoutPartecipantsInput: { // input type
+    create: NexusGenInputs['WorkoutCreateWithoutPartecipantsInput']; // WorkoutCreateWithoutPartecipantsInput!
+    update: NexusGenInputs['WorkoutUpdateWithoutPartecipantsDataInput']; // WorkoutUpdateWithoutPartecipantsDataInput!
+  }
+  WorkoutWhereInput: { // input type
+    AND?: NexusGenInputs['WorkoutWhereInput'][] | null; // [WorkoutWhereInput!]
+    cordinates?: NexusGenInputs['CordinatesWhereInput'] | null; // CordinatesWhereInput
+    cordinatesId?: NexusGenInputs['IntFilter'] | null; // IntFilter
+    createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    date?: NexusGenInputs['DateTimeNullableFilter'] | null; // DateTimeNullableFilter
+    description?: NexusGenInputs['StringNullableFilter'] | null; // StringNullableFilter
+    duration?: NexusGenInputs['IntFilter'] | null; // IntFilter
+    id?: NexusGenInputs['IntFilter'] | null; // IntFilter
+    NOT?: NexusGenInputs['WorkoutWhereInput'][] | null; // [WorkoutWhereInput!]
+    OR?: NexusGenInputs['WorkoutWhereInput'][] | null; // [WorkoutWhereInput!]
+    partecipants?: NexusGenInputs['UsersOnWorkoutsListRelationFilter'] | null; // UsersOnWorkoutsListRelationFilter
+    spots?: NexusGenInputs['IntFilter'] | null; // IntFilter
+    title?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    trainer?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
+    trainerId?: NexusGenInputs['IntFilter'] | null; // IntFilter
   }
   WorkoutWhereUniqueInput: { // input type
     id?: number | null; // Int
@@ -51,6 +919,7 @@ export interface NexusGenEnums {
   Gymler: "basic" | "early"
   Role: "admin" | "trainer" | "user"
   Sex: "female" | "male" | "unknown"
+  SortOrder: "asc" | "desc"
 }
 
 export interface NexusGenRootTypes {
@@ -99,6 +968,9 @@ export interface NexusGenRootTypes {
   }
   UsersOnWorkouts: { // root type
     attended: boolean; // Boolean!
+    createdAt: any; // DateTime!
+    userId: number; // Int!
+    workoutId: number; // Int!
   }
   Workout: { // root type
     date?: any | null; // DateTime
@@ -119,14 +991,124 @@ export interface NexusGenRootTypes {
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
+  BoolFieldUpdateOperationsInput: NexusGenInputs['BoolFieldUpdateOperationsInput'];
+  BoolFilter: NexusGenInputs['BoolFilter'];
+  CordinatesCreateInput: NexusGenInputs['CordinatesCreateInput'];
+  CordinatesCreateOneWithoutWorkoutInput: NexusGenInputs['CordinatesCreateOneWithoutWorkoutInput'];
+  CordinatesCreateWithoutWorkoutInput: NexusGenInputs['CordinatesCreateWithoutWorkoutInput'];
+  CordinatesUpdateInput: NexusGenInputs['CordinatesUpdateInput'];
+  CordinatesUpdateOneRequiredWithoutWorkoutInput: NexusGenInputs['CordinatesUpdateOneRequiredWithoutWorkoutInput'];
+  CordinatesUpdateWithoutWorkoutDataInput: NexusGenInputs['CordinatesUpdateWithoutWorkoutDataInput'];
+  CordinatesUpsertWithoutWorkoutInput: NexusGenInputs['CordinatesUpsertWithoutWorkoutInput'];
+  CordinatesWhereInput: NexusGenInputs['CordinatesWhereInput'];
+  CordinatesWhereUniqueInput: NexusGenInputs['CordinatesWhereUniqueInput'];
+  DateTimeFieldUpdateOperationsInput: NexusGenInputs['DateTimeFieldUpdateOperationsInput'];
+  DateTimeFilter: NexusGenInputs['DateTimeFilter'];
+  DateTimeNullableFilter: NexusGenInputs['DateTimeNullableFilter'];
+  FloatNullableFilter: NexusGenInputs['FloatNullableFilter'];
+  IntFieldUpdateOperationsInput: NexusGenInputs['IntFieldUpdateOperationsInput'];
+  IntFilter: NexusGenInputs['IntFilter'];
+  NestedBoolFilter: NexusGenInputs['NestedBoolFilter'];
+  NestedDateTimeFilter: NexusGenInputs['NestedDateTimeFilter'];
+  NestedDateTimeNullableFilter: NexusGenInputs['NestedDateTimeNullableFilter'];
+  NestedFloatNullableFilter: NexusGenInputs['NestedFloatNullableFilter'];
+  NestedIntFilter: NexusGenInputs['NestedIntFilter'];
+  NestedStringFilter: NexusGenInputs['NestedStringFilter'];
+  NestedStringNullableFilter: NexusGenInputs['NestedStringNullableFilter'];
+  NullableDateTimeFieldUpdateOperationsInput: NexusGenInputs['NullableDateTimeFieldUpdateOperationsInput'];
+  NullableFloatFieldUpdateOperationsInput: NexusGenInputs['NullableFloatFieldUpdateOperationsInput'];
+  NullableStringFieldUpdateOperationsInput: NexusGenInputs['NullableStringFieldUpdateOperationsInput'];
+  ReferralCreateManyWithoutReferredInput: NexusGenInputs['ReferralCreateManyWithoutReferredInput'];
+  ReferralCreateManyWithoutReferrerInput: NexusGenInputs['ReferralCreateManyWithoutReferrerInput'];
+  ReferralCreateWithoutReferredInput: NexusGenInputs['ReferralCreateWithoutReferredInput'];
+  ReferralCreateWithoutReferrerInput: NexusGenInputs['ReferralCreateWithoutReferrerInput'];
+  ReferralListRelationFilter: NexusGenInputs['ReferralListRelationFilter'];
+  ReferralScalarWhereInput: NexusGenInputs['ReferralScalarWhereInput'];
+  ReferralUpdateManyDataInput: NexusGenInputs['ReferralUpdateManyDataInput'];
+  ReferralUpdateManyWithWhereNestedInput: NexusGenInputs['ReferralUpdateManyWithWhereNestedInput'];
+  ReferralUpdateManyWithoutReferredInput: NexusGenInputs['ReferralUpdateManyWithoutReferredInput'];
+  ReferralUpdateManyWithoutReferrerInput: NexusGenInputs['ReferralUpdateManyWithoutReferrerInput'];
+  ReferralUpdateWithWhereUniqueWithoutReferredInput: NexusGenInputs['ReferralUpdateWithWhereUniqueWithoutReferredInput'];
+  ReferralUpdateWithWhereUniqueWithoutReferrerInput: NexusGenInputs['ReferralUpdateWithWhereUniqueWithoutReferrerInput'];
+  ReferralUpdateWithoutReferredDataInput: NexusGenInputs['ReferralUpdateWithoutReferredDataInput'];
+  ReferralUpdateWithoutReferrerDataInput: NexusGenInputs['ReferralUpdateWithoutReferrerDataInput'];
+  ReferralUpsertWithWhereUniqueWithoutReferredInput: NexusGenInputs['ReferralUpsertWithWhereUniqueWithoutReferredInput'];
+  ReferralUpsertWithWhereUniqueWithoutReferrerInput: NexusGenInputs['ReferralUpsertWithWhereUniqueWithoutReferrerInput'];
+  ReferralWhereInput: NexusGenInputs['ReferralWhereInput'];
   ReferralWhereUniqueInput: NexusGenInputs['ReferralWhereUniqueInput'];
+  StringFieldUpdateOperationsInput: NexusGenInputs['StringFieldUpdateOperationsInput'];
+  StringFilter: NexusGenInputs['StringFilter'];
+  StringNullableFilter: NexusGenInputs['StringNullableFilter'];
+  UserCreateOneWithoutReferralInput: NexusGenInputs['UserCreateOneWithoutReferralInput'];
+  UserCreateOneWithoutReferrerInput: NexusGenInputs['UserCreateOneWithoutReferrerInput'];
+  UserCreateOneWithoutTrainInput: NexusGenInputs['UserCreateOneWithoutTrainInput'];
+  UserCreateOneWithoutWorkoutsInput: NexusGenInputs['UserCreateOneWithoutWorkoutsInput'];
+  UserCreateWithoutReferralInput: NexusGenInputs['UserCreateWithoutReferralInput'];
+  UserCreateWithoutReferrerInput: NexusGenInputs['UserCreateWithoutReferrerInput'];
+  UserCreateWithoutTrainInput: NexusGenInputs['UserCreateWithoutTrainInput'];
+  UserCreateWithoutWorkoutsInput: NexusGenInputs['UserCreateWithoutWorkoutsInput'];
+  UserUpdateOneRequiredWithoutReferralInput: NexusGenInputs['UserUpdateOneRequiredWithoutReferralInput'];
+  UserUpdateOneRequiredWithoutReferrerInput: NexusGenInputs['UserUpdateOneRequiredWithoutReferrerInput'];
+  UserUpdateOneRequiredWithoutTrainInput: NexusGenInputs['UserUpdateOneRequiredWithoutTrainInput'];
+  UserUpdateOneRequiredWithoutWorkoutsInput: NexusGenInputs['UserUpdateOneRequiredWithoutWorkoutsInput'];
+  UserUpdateWithoutReferralDataInput: NexusGenInputs['UserUpdateWithoutReferralDataInput'];
+  UserUpdateWithoutReferrerDataInput: NexusGenInputs['UserUpdateWithoutReferrerDataInput'];
+  UserUpdateWithoutTrainDataInput: NexusGenInputs['UserUpdateWithoutTrainDataInput'];
+  UserUpdateWithoutWorkoutsDataInput: NexusGenInputs['UserUpdateWithoutWorkoutsDataInput'];
+  UserUpsertWithoutReferralInput: NexusGenInputs['UserUpsertWithoutReferralInput'];
+  UserUpsertWithoutReferrerInput: NexusGenInputs['UserUpsertWithoutReferrerInput'];
+  UserUpsertWithoutTrainInput: NexusGenInputs['UserUpsertWithoutTrainInput'];
+  UserUpsertWithoutWorkoutsInput: NexusGenInputs['UserUpsertWithoutWorkoutsInput'];
+  UserWhereInput: NexusGenInputs['UserWhereInput'];
   UserWhereUniqueInput: NexusGenInputs['UserWhereUniqueInput'];
+  UsersOnWorkoutsCreateManyWithoutUserInput: NexusGenInputs['UsersOnWorkoutsCreateManyWithoutUserInput'];
+  UsersOnWorkoutsCreateManyWithoutWorkoutInput: NexusGenInputs['UsersOnWorkoutsCreateManyWithoutWorkoutInput'];
+  UsersOnWorkoutsCreateWithoutUserInput: NexusGenInputs['UsersOnWorkoutsCreateWithoutUserInput'];
+  UsersOnWorkoutsCreateWithoutWorkoutInput: NexusGenInputs['UsersOnWorkoutsCreateWithoutWorkoutInput'];
+  UsersOnWorkoutsListRelationFilter: NexusGenInputs['UsersOnWorkoutsListRelationFilter'];
+  UsersOnWorkoutsScalarWhereInput: NexusGenInputs['UsersOnWorkoutsScalarWhereInput'];
+  UsersOnWorkoutsUpdateManyDataInput: NexusGenInputs['UsersOnWorkoutsUpdateManyDataInput'];
+  UsersOnWorkoutsUpdateManyWithWhereNestedInput: NexusGenInputs['UsersOnWorkoutsUpdateManyWithWhereNestedInput'];
+  UsersOnWorkoutsUpdateManyWithoutUserInput: NexusGenInputs['UsersOnWorkoutsUpdateManyWithoutUserInput'];
+  UsersOnWorkoutsUpdateManyWithoutWorkoutInput: NexusGenInputs['UsersOnWorkoutsUpdateManyWithoutWorkoutInput'];
+  UsersOnWorkoutsUpdateWithWhereUniqueWithoutUserInput: NexusGenInputs['UsersOnWorkoutsUpdateWithWhereUniqueWithoutUserInput'];
+  UsersOnWorkoutsUpdateWithWhereUniqueWithoutWorkoutInput: NexusGenInputs['UsersOnWorkoutsUpdateWithWhereUniqueWithoutWorkoutInput'];
+  UsersOnWorkoutsUpdateWithoutUserDataInput: NexusGenInputs['UsersOnWorkoutsUpdateWithoutUserDataInput'];
+  UsersOnWorkoutsUpdateWithoutWorkoutDataInput: NexusGenInputs['UsersOnWorkoutsUpdateWithoutWorkoutDataInput'];
+  UsersOnWorkoutsUpsertWithWhereUniqueWithoutUserInput: NexusGenInputs['UsersOnWorkoutsUpsertWithWhereUniqueWithoutUserInput'];
+  UsersOnWorkoutsUpsertWithWhereUniqueWithoutWorkoutInput: NexusGenInputs['UsersOnWorkoutsUpsertWithWhereUniqueWithoutWorkoutInput'];
+  UsersOnWorkoutsWhereInput: NexusGenInputs['UsersOnWorkoutsWhereInput'];
   UsersOnWorkoutsWhereUniqueInput: NexusGenInputs['UsersOnWorkoutsWhereUniqueInput'];
+  WorkoutCreateManyWithoutCordinatesInput: NexusGenInputs['WorkoutCreateManyWithoutCordinatesInput'];
+  WorkoutCreateManyWithoutTrainerInput: NexusGenInputs['WorkoutCreateManyWithoutTrainerInput'];
+  WorkoutCreateOneWithoutPartecipantsInput: NexusGenInputs['WorkoutCreateOneWithoutPartecipantsInput'];
+  WorkoutCreateWithoutCordinatesInput: NexusGenInputs['WorkoutCreateWithoutCordinatesInput'];
+  WorkoutCreateWithoutPartecipantsInput: NexusGenInputs['WorkoutCreateWithoutPartecipantsInput'];
+  WorkoutCreateWithoutTrainerInput: NexusGenInputs['WorkoutCreateWithoutTrainerInput'];
   WorkoutIdUserIdCompoundUniqueInput: NexusGenInputs['WorkoutIdUserIdCompoundUniqueInput'];
+  WorkoutListRelationFilter: NexusGenInputs['WorkoutListRelationFilter'];
+  WorkoutOrderByInput: NexusGenInputs['WorkoutOrderByInput'];
+  WorkoutScalarWhereInput: NexusGenInputs['WorkoutScalarWhereInput'];
+  WorkoutUpdateInput: NexusGenInputs['WorkoutUpdateInput'];
+  WorkoutUpdateManyDataInput: NexusGenInputs['WorkoutUpdateManyDataInput'];
+  WorkoutUpdateManyWithWhereNestedInput: NexusGenInputs['WorkoutUpdateManyWithWhereNestedInput'];
+  WorkoutUpdateManyWithoutCordinatesInput: NexusGenInputs['WorkoutUpdateManyWithoutCordinatesInput'];
+  WorkoutUpdateManyWithoutTrainerInput: NexusGenInputs['WorkoutUpdateManyWithoutTrainerInput'];
+  WorkoutUpdateOneRequiredWithoutPartecipantsInput: NexusGenInputs['WorkoutUpdateOneRequiredWithoutPartecipantsInput'];
+  WorkoutUpdateWithWhereUniqueWithoutCordinatesInput: NexusGenInputs['WorkoutUpdateWithWhereUniqueWithoutCordinatesInput'];
+  WorkoutUpdateWithWhereUniqueWithoutTrainerInput: NexusGenInputs['WorkoutUpdateWithWhereUniqueWithoutTrainerInput'];
+  WorkoutUpdateWithoutCordinatesDataInput: NexusGenInputs['WorkoutUpdateWithoutCordinatesDataInput'];
+  WorkoutUpdateWithoutPartecipantsDataInput: NexusGenInputs['WorkoutUpdateWithoutPartecipantsDataInput'];
+  WorkoutUpdateWithoutTrainerDataInput: NexusGenInputs['WorkoutUpdateWithoutTrainerDataInput'];
+  WorkoutUpsertWithWhereUniqueWithoutCordinatesInput: NexusGenInputs['WorkoutUpsertWithWhereUniqueWithoutCordinatesInput'];
+  WorkoutUpsertWithWhereUniqueWithoutTrainerInput: NexusGenInputs['WorkoutUpsertWithWhereUniqueWithoutTrainerInput'];
+  WorkoutUpsertWithoutPartecipantsInput: NexusGenInputs['WorkoutUpsertWithoutPartecipantsInput'];
+  WorkoutWhereInput: NexusGenInputs['WorkoutWhereInput'];
   WorkoutWhereUniqueInput: NexusGenInputs['WorkoutWhereUniqueInput'];
   Gymler: NexusGenEnums['Gymler'];
   Role: NexusGenEnums['Role'];
   Sex: NexusGenEnums['Sex'];
+  SortOrder: NexusGenEnums['SortOrder'];
 }
 
 export interface NexusGenFieldTypes {
@@ -149,8 +1131,11 @@ export interface NexusGenFieldTypes {
     bookClass: NexusGenRootTypes['Workout']; // Workout!
     changePassword: NexusGenRootTypes['User']; // User!
     confirmUser: boolean; // Boolean!
+    createOneCordinates: NexusGenRootTypes['Cordinates']; // Cordinates!
     createWorkout: NexusGenRootTypes['Workout']; // Workout!
     deleteBooking: NexusGenRootTypes['Workout']; // Workout!
+    deleteOneCordinates: NexusGenRootTypes['Cordinates'] | null; // Cordinates
+    deleteOneWorkout: NexusGenRootTypes['Workout'] | null; // Workout
     deleteUser: NexusGenRootTypes['User']; // User!
     detachPaymentMethod: any; // JSON!
     facebookConnect: NexusGenRootTypes['User']; // User!
@@ -159,11 +1144,14 @@ export interface NexusGenFieldTypes {
     forgotPassword: boolean; // Boolean!
     login: NexusGenRootTypes['AuthPayload']; // AuthPayload!
     paymentIntent: any; // JSON!
+    recordAttendance: boolean; // Boolean!
     sendHelpRequest: boolean; // Boolean!
     setupIntent: string; // String!
     signup: NexusGenRootTypes['AuthPayload']; // AuthPayload!
     trainerLogin: NexusGenRootTypes['AuthPayload']; // AuthPayload!
     updateAvatar: NexusGenRootTypes['User']; // User!
+    updateOneCordinates: NexusGenRootTypes['Cordinates'] | null; // Cordinates
+    updateOneWorkout: NexusGenRootTypes['Workout'] | null; // Workout
     updateUser: NexusGenRootTypes['User']; // User!
     updateUserClasses: NexusGenRootTypes['User']; // User!
     updateUserPassword: NexusGenRootTypes['User']; // User!
@@ -172,11 +1160,17 @@ export interface NexusGenFieldTypes {
     data: NexusGenRootTypes['Card'][]; // [Card!]!
   }
   Query: { // field return type
+    cordinates: NexusGenRootTypes['Cordinates'][]; // [Cordinates!]!
+    demolishedGymless: number; // Int!
     futureWorkouts: NexusGenRootTypes['Workout'][]; // [Workout!]!
     me: NexusGenRootTypes['User']; // User!
     pastWorkouts: NexusGenRootTypes['Workout'][]; // [Workout!]!
     paymentMethods: any; // JSON!
+    referral: NexusGenRootTypes['Referral'] | null; // Referral
+    referrals: NexusGenRootTypes['Referral'][]; // [Referral!]!
     userAvailableWorkouts: NexusGenRootTypes['Workout'][]; // [Workout!]!
+    workout: NexusGenRootTypes['Workout'] | null; // Workout
+    workouts: NexusGenRootTypes['Workout'][]; // [Workout!]!
     workoutsBooked: NexusGenRootTypes['Workout'][]; // [Workout!]!
   }
   Referral: { // field return type
@@ -199,7 +1193,6 @@ export interface NexusGenFieldTypes {
     email: string; // String!
     facebookId: string | null; // String
     gymlerType: NexusGenEnums['Gymler']; // Gymler!
-    gymless: NexusGenRootTypes['UsersOnWorkouts'][]; // [UsersOnWorkouts!]!
     id: number; // Int!
     lastLoggedIn: any | null; // DateTime
     name: string; // String!
@@ -209,10 +1202,15 @@ export interface NexusGenFieldTypes {
     sex: NexusGenEnums['Sex']; // Sex!
     stripeId: string | null; // String
     surname: string | null; // String
-    workouts: NexusGenRootTypes['Workout'][]; // [Workout!]!
+    workouts: NexusGenRootTypes['UsersOnWorkouts'][]; // [UsersOnWorkouts!]!
   }
   UsersOnWorkouts: { // field return type
     attended: boolean; // Boolean!
+    createdAt: any; // DateTime!
+    user: NexusGenRootTypes['User']; // User!
+    userId: number; // Int!
+    workout: NexusGenRootTypes['Workout']; // Workout!
+    workoutId: number; // Int!
   }
   Workout: { // field return type
     cordinates: NexusGenRootTypes['Cordinates']; // Cordinates!
@@ -220,11 +1218,10 @@ export interface NexusGenFieldTypes {
     description: string | null; // String
     duration: number; // Int!
     id: number; // Int!
-    partecipants: NexusGenRootTypes['User'][]; // [User!]!
+    partecipants: NexusGenRootTypes['UsersOnWorkouts'][]; // [UsersOnWorkouts!]!
     spots: number; // Int!
     title: string; // String!
     trainer: NexusGenRootTypes['User']; // User!
-    users: NexusGenRootTypes['UsersOnWorkouts'][]; // [UsersOnWorkouts!]!
   }
 }
 
@@ -248,6 +1245,9 @@ export interface NexusGenArgTypes {
     confirmUser: { // args
       token: string; // String!
     }
+    createOneCordinates: { // args
+      data: NexusGenInputs['CordinatesCreateInput']; // CordinatesCreateInput!
+    }
     createWorkout: { // args
       cordinatesId?: number | null; // Int
       date?: any | null; // DateTime
@@ -258,6 +1258,12 @@ export interface NexusGenArgTypes {
     }
     deleteBooking: { // args
       id?: string | null; // ID
+    }
+    deleteOneCordinates: { // args
+      where: NexusGenInputs['CordinatesWhereUniqueInput']; // CordinatesWhereUniqueInput!
+    }
+    deleteOneWorkout: { // args
+      where: NexusGenInputs['WorkoutWhereUniqueInput']; // WorkoutWhereUniqueInput!
     }
     detachPaymentMethod: { // args
       id: string; // String!
@@ -278,6 +1284,10 @@ export interface NexusGenArgTypes {
     paymentIntent: { // args
       amount: number; // Int!
     }
+    recordAttendance: { // args
+      userId: number; // Int!
+      workoutId: number; // Int!
+    }
     sendHelpRequest: { // args
       message?: string | null; // String
     }
@@ -296,6 +1306,14 @@ export interface NexusGenArgTypes {
     updateAvatar: { // args
       avatarId?: string | null; // String
     }
+    updateOneCordinates: { // args
+      data: NexusGenInputs['CordinatesUpdateInput']; // CordinatesUpdateInput!
+      where: NexusGenInputs['CordinatesWhereUniqueInput']; // CordinatesWhereUniqueInput!
+    }
+    updateOneWorkout: { // args
+      data: NexusGenInputs['WorkoutUpdateInput']; // WorkoutUpdateInput!
+      where: NexusGenInputs['WorkoutWhereUniqueInput']; // WorkoutWhereUniqueInput!
+    }
     updateUser: { // args
       birthDate?: any | null; // Date
       email?: string | null; // String
@@ -312,18 +1330,38 @@ export interface NexusGenArgTypes {
     }
   }
   Query: {
+    cordinates: { // args
+      after?: NexusGenInputs['CordinatesWhereUniqueInput'] | null; // CordinatesWhereUniqueInput
+      before?: NexusGenInputs['CordinatesWhereUniqueInput'] | null; // CordinatesWhereUniqueInput
+      first?: number | null; // Int
+      last?: number | null; // Int
+    }
+    referral: { // args
+      where: NexusGenInputs['ReferralWhereUniqueInput']; // ReferralWhereUniqueInput!
+    }
+    referrals: { // args
+      after?: NexusGenInputs['ReferralWhereUniqueInput'] | null; // ReferralWhereUniqueInput
+      before?: NexusGenInputs['ReferralWhereUniqueInput'] | null; // ReferralWhereUniqueInput
+      first?: number | null; // Int
+      last?: number | null; // Int
+    }
     userAvailableWorkouts: { // args
       endDate?: any | null; // DateTime
       startDate?: any | null; // DateTime
     }
-  }
-  User: {
-    gymless: { // args
-      after?: NexusGenInputs['UsersOnWorkoutsWhereUniqueInput'] | null; // UsersOnWorkoutsWhereUniqueInput
-      before?: NexusGenInputs['UsersOnWorkoutsWhereUniqueInput'] | null; // UsersOnWorkoutsWhereUniqueInput
+    workout: { // args
+      where: NexusGenInputs['WorkoutWhereUniqueInput']; // WorkoutWhereUniqueInput!
+    }
+    workouts: { // args
+      after?: NexusGenInputs['WorkoutWhereUniqueInput'] | null; // WorkoutWhereUniqueInput
+      before?: NexusGenInputs['WorkoutWhereUniqueInput'] | null; // WorkoutWhereUniqueInput
       first?: number | null; // Int
       last?: number | null; // Int
+      orderBy?: NexusGenInputs['WorkoutOrderByInput'][] | null; // [WorkoutOrderByInput!]
+      where?: NexusGenInputs['WorkoutWhereInput'] | null; // WorkoutWhereInput
     }
+  }
+  User: {
     referral: { // args
       after?: NexusGenInputs['ReferralWhereUniqueInput'] | null; // ReferralWhereUniqueInput
       before?: NexusGenInputs['ReferralWhereUniqueInput'] | null; // ReferralWhereUniqueInput
@@ -337,20 +1375,14 @@ export interface NexusGenArgTypes {
       last?: number | null; // Int
     }
     workouts: { // args
-      after?: NexusGenInputs['WorkoutWhereUniqueInput'] | null; // WorkoutWhereUniqueInput
-      before?: NexusGenInputs['WorkoutWhereUniqueInput'] | null; // WorkoutWhereUniqueInput
+      after?: NexusGenInputs['UsersOnWorkoutsWhereUniqueInput'] | null; // UsersOnWorkoutsWhereUniqueInput
+      before?: NexusGenInputs['UsersOnWorkoutsWhereUniqueInput'] | null; // UsersOnWorkoutsWhereUniqueInput
       first?: number | null; // Int
       last?: number | null; // Int
     }
   }
   Workout: {
     partecipants: { // args
-      after?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
-      before?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
-      first?: number | null; // Int
-      last?: number | null; // Int
-    }
-    users: { // args
       after?: NexusGenInputs['UsersOnWorkoutsWhereUniqueInput'] | null; // UsersOnWorkoutsWhereUniqueInput
       before?: NexusGenInputs['UsersOnWorkoutsWhereUniqueInput'] | null; // UsersOnWorkoutsWhereUniqueInput
       first?: number | null; // Int
@@ -366,9 +1398,9 @@ export interface NexusGenInheritedFields {}
 
 export type NexusGenObjectNames = "AuthPayload" | "Card" | "Cordinates" | "Mutation" | "PaymentMethods" | "Query" | "Referral" | "User" | "UsersOnWorkouts" | "Workout";
 
-export type NexusGenInputNames = "ReferralWhereUniqueInput" | "UserWhereUniqueInput" | "UsersOnWorkoutsWhereUniqueInput" | "WorkoutIdUserIdCompoundUniqueInput" | "WorkoutWhereUniqueInput";
+export type NexusGenInputNames = "BoolFieldUpdateOperationsInput" | "BoolFilter" | "CordinatesCreateInput" | "CordinatesCreateOneWithoutWorkoutInput" | "CordinatesCreateWithoutWorkoutInput" | "CordinatesUpdateInput" | "CordinatesUpdateOneRequiredWithoutWorkoutInput" | "CordinatesUpdateWithoutWorkoutDataInput" | "CordinatesUpsertWithoutWorkoutInput" | "CordinatesWhereInput" | "CordinatesWhereUniqueInput" | "DateTimeFieldUpdateOperationsInput" | "DateTimeFilter" | "DateTimeNullableFilter" | "FloatNullableFilter" | "IntFieldUpdateOperationsInput" | "IntFilter" | "NestedBoolFilter" | "NestedDateTimeFilter" | "NestedDateTimeNullableFilter" | "NestedFloatNullableFilter" | "NestedIntFilter" | "NestedStringFilter" | "NestedStringNullableFilter" | "NullableDateTimeFieldUpdateOperationsInput" | "NullableFloatFieldUpdateOperationsInput" | "NullableStringFieldUpdateOperationsInput" | "ReferralCreateManyWithoutReferredInput" | "ReferralCreateManyWithoutReferrerInput" | "ReferralCreateWithoutReferredInput" | "ReferralCreateWithoutReferrerInput" | "ReferralListRelationFilter" | "ReferralScalarWhereInput" | "ReferralUpdateManyDataInput" | "ReferralUpdateManyWithWhereNestedInput" | "ReferralUpdateManyWithoutReferredInput" | "ReferralUpdateManyWithoutReferrerInput" | "ReferralUpdateWithWhereUniqueWithoutReferredInput" | "ReferralUpdateWithWhereUniqueWithoutReferrerInput" | "ReferralUpdateWithoutReferredDataInput" | "ReferralUpdateWithoutReferrerDataInput" | "ReferralUpsertWithWhereUniqueWithoutReferredInput" | "ReferralUpsertWithWhereUniqueWithoutReferrerInput" | "ReferralWhereInput" | "ReferralWhereUniqueInput" | "StringFieldUpdateOperationsInput" | "StringFilter" | "StringNullableFilter" | "UserCreateOneWithoutReferralInput" | "UserCreateOneWithoutReferrerInput" | "UserCreateOneWithoutTrainInput" | "UserCreateOneWithoutWorkoutsInput" | "UserCreateWithoutReferralInput" | "UserCreateWithoutReferrerInput" | "UserCreateWithoutTrainInput" | "UserCreateWithoutWorkoutsInput" | "UserUpdateOneRequiredWithoutReferralInput" | "UserUpdateOneRequiredWithoutReferrerInput" | "UserUpdateOneRequiredWithoutTrainInput" | "UserUpdateOneRequiredWithoutWorkoutsInput" | "UserUpdateWithoutReferralDataInput" | "UserUpdateWithoutReferrerDataInput" | "UserUpdateWithoutTrainDataInput" | "UserUpdateWithoutWorkoutsDataInput" | "UserUpsertWithoutReferralInput" | "UserUpsertWithoutReferrerInput" | "UserUpsertWithoutTrainInput" | "UserUpsertWithoutWorkoutsInput" | "UserWhereInput" | "UserWhereUniqueInput" | "UsersOnWorkoutsCreateManyWithoutUserInput" | "UsersOnWorkoutsCreateManyWithoutWorkoutInput" | "UsersOnWorkoutsCreateWithoutUserInput" | "UsersOnWorkoutsCreateWithoutWorkoutInput" | "UsersOnWorkoutsListRelationFilter" | "UsersOnWorkoutsScalarWhereInput" | "UsersOnWorkoutsUpdateManyDataInput" | "UsersOnWorkoutsUpdateManyWithWhereNestedInput" | "UsersOnWorkoutsUpdateManyWithoutUserInput" | "UsersOnWorkoutsUpdateManyWithoutWorkoutInput" | "UsersOnWorkoutsUpdateWithWhereUniqueWithoutUserInput" | "UsersOnWorkoutsUpdateWithWhereUniqueWithoutWorkoutInput" | "UsersOnWorkoutsUpdateWithoutUserDataInput" | "UsersOnWorkoutsUpdateWithoutWorkoutDataInput" | "UsersOnWorkoutsUpsertWithWhereUniqueWithoutUserInput" | "UsersOnWorkoutsUpsertWithWhereUniqueWithoutWorkoutInput" | "UsersOnWorkoutsWhereInput" | "UsersOnWorkoutsWhereUniqueInput" | "WorkoutCreateManyWithoutCordinatesInput" | "WorkoutCreateManyWithoutTrainerInput" | "WorkoutCreateOneWithoutPartecipantsInput" | "WorkoutCreateWithoutCordinatesInput" | "WorkoutCreateWithoutPartecipantsInput" | "WorkoutCreateWithoutTrainerInput" | "WorkoutIdUserIdCompoundUniqueInput" | "WorkoutListRelationFilter" | "WorkoutOrderByInput" | "WorkoutScalarWhereInput" | "WorkoutUpdateInput" | "WorkoutUpdateManyDataInput" | "WorkoutUpdateManyWithWhereNestedInput" | "WorkoutUpdateManyWithoutCordinatesInput" | "WorkoutUpdateManyWithoutTrainerInput" | "WorkoutUpdateOneRequiredWithoutPartecipantsInput" | "WorkoutUpdateWithWhereUniqueWithoutCordinatesInput" | "WorkoutUpdateWithWhereUniqueWithoutTrainerInput" | "WorkoutUpdateWithoutCordinatesDataInput" | "WorkoutUpdateWithoutPartecipantsDataInput" | "WorkoutUpdateWithoutTrainerDataInput" | "WorkoutUpsertWithWhereUniqueWithoutCordinatesInput" | "WorkoutUpsertWithWhereUniqueWithoutTrainerInput" | "WorkoutUpsertWithoutPartecipantsInput" | "WorkoutWhereInput" | "WorkoutWhereUniqueInput";
 
-export type NexusGenEnumNames = "Gymler" | "Role" | "Sex";
+export type NexusGenEnumNames = "Gymler" | "Role" | "Sex" | "SortOrder";
 
 export type NexusGenInterfaceNames = never;
 

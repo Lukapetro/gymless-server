@@ -25,7 +25,7 @@ enum Sex {
 }
 
 model User {
-  id           Int               @default(autoincrement()) @id
+  id           Int               @id @default(autoincrement())
   name         String
   surname      String?
   email        String            @unique
@@ -50,7 +50,7 @@ model User {
 }
 
 model Workout {
-  id           Int               @default(autoincrement()) @id
+  id           Int               @id @default(autoincrement())
   title        String
   createdAt    DateTime          @default(now())
   description  String?
@@ -62,6 +62,7 @@ model Workout {
   cordinates   Cordinates        @relation(fields: [cordinatesId], references: [id])
   cordinatesId Int
   partecipants UsersOnWorkouts[]
+  isFree       Boolean           @default(false)
 }
 
 model Cordinates {
@@ -74,7 +75,7 @@ model Cordinates {
 }
 
 model Referral {
-  id         Int      @default(autoincrement()) @id
+  id         Int      @id @default(autoincrement())
   createdAt  DateTime @default(now())
   updatedAt  DateTime @default(now())
   completed  Boolean  @default(false)
@@ -91,6 +92,7 @@ model UsersOnWorkouts {
   userId    Int
   createdAt DateTime @default(now())
   attended  Boolean  @default(false)
+
   @@id([workoutId, userId])
 }
 

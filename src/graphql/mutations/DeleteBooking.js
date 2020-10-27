@@ -1,11 +1,12 @@
-import { mutationField, idArg } from '@nexus/schema'
+import { mutationField, idArg, booleanArg } from '@nexus/schema'
 
 export const deleteBooking = mutationField('deleteBooking', {
   type: 'Workout',
   args: {
     id: idArg(),
+    isFree: booleanArg({ required: false }),
   },
-  resolve: async (parent, { id }, ctx) => {
+  resolve: async (parent, { id, isFree }, ctx) => {
     var SIX_HOUR = 60 * 60 * 1000 * 6 /* ms */
     const sixHourFromNow = Date.now() + SIX_HOUR
 
@@ -46,6 +47,11 @@ export const deleteBooking = mutationField('deleteBooking', {
 
     if (!workout) {
       throw new Error(`Errore: classe non trovata`)
+    }
+
+    //Se la classe è gratuita disdico e basta
+    if(isFree){
+      return updateWorkout()
     }
 
     //Se la classe è passata non è possibile disdire
