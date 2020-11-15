@@ -16,9 +16,12 @@ var Workout = _nexus.schema.objectType({
     t.model.spots();
     t.model.duration();
     t.model.date();
+    t.model.isFree();
     t.model.trainer();
     t.model.partecipants();
     t.model.cordinates();
+    t.model.typology();
+    t.model.onlineWorkout();
   }
 });
 

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.tokenTypeReset = exports.tokenTypeConfirmation = exports.JSONScalar = exports.SexType = exports.GQLDate = exports.DateTime = exports.isDev = void 0;
+exports.tokenTypeReset = exports.tokenTypeConfirmation = exports.JSONScalar = exports.WorkoutType = exports.SexType = exports.GQLDate = exports.DateTime = exports.isDev = void 0;
 
 var _schema = require("@nexus/schema");
 
@@ -26,6 +26,12 @@ var SexType = (0, _schema.enumType)({
   members: ['male', 'female', 'unknown']
 });
 exports.SexType = SexType;
+var WorkoutType = (0, _schema.enumType)({
+  name: 'Typology',
+  description: 'The workout typology',
+  members: ['online', 'outdoor']
+});
+exports.WorkoutType = WorkoutType;
 var JSONScalar = new _graphql.GraphQLScalarType({
   name: 'JSON',
   serialize: function serialize(data) {

@@ -32,16 +32,18 @@ var workout = (0, _schema.extendType)({
           required: true
         }),
         cordinatesId: _nexus.schema.intArg(),
+        isFree: _nexus.schema.booleanArg(),
+        typology: _costants.WorkoutType,
         date: _costants.DateTime
       },
       resolve: function () {
         var _resolve = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_, _ref, ctx) {
-          var title, description, spots, date, cordinatesId, duration, user;
+          var title, description, spots, date, cordinatesId, duration, isFree, typology, user;
           return regeneratorRuntime.wrap(function _callee$(_context) {
             while (1) {
               switch (_context.prev = _context.next) {
                 case 0:
-                  title = _ref.title, description = _ref.description, spots = _ref.spots, date = _ref.date, cordinatesId = _ref.cordinatesId, duration = _ref.duration;
+                  title = _ref.title, description = _ref.description, spots = _ref.spots, date = _ref.date, cordinatesId = _ref.cordinatesId, duration = _ref.duration, isFree = _ref.isFree, typology = _ref.typology;
                   _context.next = 3;
                   return ctx.prisma.user.findOne({
                     where: {
@@ -65,8 +67,10 @@ var workout = (0, _schema.extendType)({
                       title: title,
                       description: description,
                       duration: duration,
+                      isFree: isFree,
                       spots: spots,
                       date: date,
+                      typology: typology,
                       trainer: {
                         connect: {
                           id: ctx.userId

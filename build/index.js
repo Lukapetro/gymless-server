@@ -56,7 +56,7 @@ var server = new ApolloServer({
   introspection: true,
   engine: {
     reportSchema: true
-  } //plugins: [myPlugin],
+  } // plugins: [myPlugin],
   //  tracing: isDev(),
   // introspection: true,
   // debug: isDev(),

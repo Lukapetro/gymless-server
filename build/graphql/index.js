@@ -23,5 +23,7 @@ var _Referral = require("./models/Referral");
 
 var _UsersOnWorkouts = require("./models/UsersOnWorkouts");
 
-var resolvers = [_queries.Query, _mutations.Mutation, _User.User, _AuthPayload.AuthPayload, _Cordinates.Cordinates, _PaymentMethods.PaymentMethods, _Workout.Workout, _Referral.Referral, _UsersOnWorkouts.UsersOnWorkouts];
+var _OnlineWorkout = require("./models/OnlineWorkout");
+
+var resolvers = [_queries.Query, _mutations.Mutation, _User.User, _AuthPayload.AuthPayload, _Cordinates.Cordinates, _PaymentMethods.PaymentMethods, _Workout.Workout, _Referral.Referral, _UsersOnWorkouts.UsersOnWorkouts, _OnlineWorkout.OnlineWorkout];
 exports.resolvers = resolvers;

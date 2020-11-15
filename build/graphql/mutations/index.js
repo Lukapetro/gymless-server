@@ -41,6 +41,8 @@ var _sendHelpRequest = require("./help/sendHelpRequest");
 
 var _RecordAttendance = require("./RecordAttendance");
 
+var _CreateOnlineWorkout = require("./workout/CreateOnlineWorkout");
+
 var Mutation = {
   signup: _Signup.signup,
   login: _Login.login,
@@ -59,6 +61,7 @@ var Mutation = {
   confirmUser: _ConfirmUser.confirmUser,
   changePassword: _ChangePassword.changePassword,
   sendHelpRequest: _sendHelpRequest.sendHelpRequest,
-  recordAttendance: _RecordAttendance.recordAttendance
+  recordAttendance: _RecordAttendance.recordAttendance,
+  createOnlineWorkout: _CreateOnlineWorkout.createOnlineWorkout
 };
 exports.Mutation = Mutation;

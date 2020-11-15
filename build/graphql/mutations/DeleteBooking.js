@@ -14,11 +14,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var deleteBooking = (0, _schema.mutationField)('deleteBooking', {
   type: 'Workout',
   args: {
-    id: (0, _schema.idArg)()
+    id: (0, _schema.idArg)(),
+    isFree: (0, _schema.booleanArg)({
+      required: false
+    })
   },
   resolve: function () {
     var _resolve = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(parent, _ref, ctx) {
-      var id, SIX_HOUR, sixHourFromNow, updateWorkout, _updateWorkout, user, workout;
+      var id, isFree, SIX_HOUR, sixHourFromNow, updateWorkout, _updateWorkout, user, workout;
 
       return regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
@@ -64,7 +67,7 @@ var deleteBooking = (0, _schema.mutationField)('deleteBooking', {
                 return _updateWorkout.apply(this, arguments);
               };
 
-              id = _ref.id;
+              id = _ref.id, isFree = _ref.isFree;
               SIX_HOUR = 60 * 60 * 1000 * 6;
               /* ms */
 
@@ -105,23 +108,31 @@ var deleteBooking = (0, _schema.mutationField)('deleteBooking', {
               throw new Error("Errore: classe non trovata");
 
             case 15:
-              if (!(workout.date < Date.now())) {
+              if (!isFree) {
                 _context2.next = 17;
-                break;
-              }
-
-              throw new Error("Operazione non consentita");
-
-            case 17:
-              if (!(workout.date < sixHourFromNow)) {
-                _context2.next = 21;
                 break;
               }
 
               return _context2.abrupt("return", updateWorkout());
 
-            case 21:
-              _context2.next = 23;
+            case 17:
+              if (!(workout.date < Date.now())) {
+                _context2.next = 19;
+                break;
+              }
+
+              throw new Error("Operazione non consentita");
+
+            case 19:
+              if (!(workout.date < sixHourFromNow)) {
+                _context2.next = 23;
+                break;
+              }
+
+              return _context2.abrupt("return", updateWorkout());
+
+            case 23:
+              _context2.next = 25;
               return ctx.prisma.user.update({
                 data: {
                   classes: user.classes + 1
@@ -131,10 +142,10 @@ var deleteBooking = (0, _schema.mutationField)('deleteBooking', {
                 }
               });
 
-            case 23:
+            case 25:
               return _context2.abrupt("return", updateWorkout());
 
-            case 24:
+            case 26:
             case "end":
               return _context2.stop();
           }
