@@ -60,6 +60,11 @@ export const createOnlineWorkout = mutationField('CreateOnlineWorkout', {
             passcode,
           },
         },
+        cordinates: {
+          connect: {
+            id: 0,
+          },
+        },
       },
     })
   },
