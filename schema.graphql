@@ -57,9 +57,11 @@ input CordinatesUpdateInput {
   workout: WorkoutUpdateManyWithoutCordinatesInput
 }
 
-input CordinatesUpdateOneRequiredWithoutWorkoutInput {
+input CordinatesUpdateOneWithoutWorkoutInput {
   connect: CordinatesWhereUniqueInput
   create: CordinatesCreateWithoutWorkoutInput
+  delete: Boolean
+  disconnect: Boolean
   update: CordinatesUpdateWithoutWorkoutDataInput
   upsert: CordinatesUpsertWithoutWorkoutInput
 }
@@ -159,6 +161,17 @@ input IntFilter {
   notIn: [Int!]
 }
 
+input IntNullableFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntNullableFilter
+  notIn: [Int!]
+}
+
 scalar JSON
 
 type Mutation {
@@ -166,7 +179,8 @@ type Mutation {
   changePassword(password: String!, token: String!): User!
   confirmUser(token: String!): Boolean!
   createOneCordinates(data: CordinatesCreateInput!): Cordinates!
-  createWorkout(cordinatesId: Int, date: DateTime, description: String, duration: Int!, isFree: Boolean, spots: Int!, title: String!): Workout!
+  CreateOnlineWorkout(date: DateTime, description: String, duration: Int!, isFree: Boolean, link: String!, passcode: String!, spots: Int!, title: String!, zoomId: String!): Workout!
+  createWorkout(cordinatesId: Int, date: DateTime, description: String, duration: Int!, isFree: Boolean, spots: Int!, title: String!, typology: Typology): Workout!
   deleteBooking(id: ID, isFree: Boolean): Workout!
   deleteOneCordinates(where: CordinatesWhereUniqueInput!): Cordinates
   deleteOneWorkout(where: WorkoutWhereUniqueInput!): Workout
@@ -240,6 +254,17 @@ input NestedIntFilter {
   notIn: [Int!]
 }
 
+input NestedIntNullableFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntNullableFilter
+  notIn: [Int!]
+}
+
 input NestedStringFilter {
   contains: String
   endsWith: String
@@ -278,6 +303,62 @@ input NullableFloatFieldUpdateOperationsInput {
 
 input NullableStringFieldUpdateOperationsInput {
   set: String
+}
+
+type OnlineWorkout {
+  id: Int!
+  link: String!
+  passcode: String!
+  workout: Workout!
+  workoutId: Int!
+  zoomId: String!
+}
+
+input OnlineWorkoutCreateOneWithoutWorkoutInput {
+  connect: OnlineWorkoutWhereUniqueInput
+  create: OnlineWorkoutCreateWithoutWorkoutInput
+}
+
+input OnlineWorkoutCreateWithoutWorkoutInput {
+  link: String!
+  passcode: String!
+  zoomId: String!
+}
+
+input OnlineWorkoutUpdateOneWithoutWorkoutInput {
+  connect: OnlineWorkoutWhereUniqueInput
+  create: OnlineWorkoutCreateWithoutWorkoutInput
+  delete: Boolean
+  disconnect: Boolean
+  update: OnlineWorkoutUpdateWithoutWorkoutDataInput
+  upsert: OnlineWorkoutUpsertWithoutWorkoutInput
+}
+
+input OnlineWorkoutUpdateWithoutWorkoutDataInput {
+  link: StringFieldUpdateOperationsInput
+  passcode: StringFieldUpdateOperationsInput
+  zoomId: StringFieldUpdateOperationsInput
+}
+
+input OnlineWorkoutUpsertWithoutWorkoutInput {
+  create: OnlineWorkoutCreateWithoutWorkoutInput!
+  update: OnlineWorkoutUpdateWithoutWorkoutDataInput!
+}
+
+input OnlineWorkoutWhereInput {
+  AND: [OnlineWorkoutWhereInput!]
+  id: IntFilter
+  link: StringFilter
+  NOT: [OnlineWorkoutWhereInput!]
+  OR: [OnlineWorkoutWhereInput!]
+  passcode: StringFilter
+  workout: WorkoutWhereInput
+  workoutId: IntFilter
+  zoomId: StringFilter
+}
+
+input OnlineWorkoutWhereUniqueInput {
+  id: Int
 }
 
 type PaymentMethods {
@@ -490,6 +571,12 @@ input StringNullableFilter {
   not: NestedStringNullableFilter
   notIn: [String!]
   startsWith: String
+}
+
+"""The workout typology"""
+enum Typology {
+  online
+  outdoor
 }
 
 type User {
@@ -922,16 +1009,18 @@ input UserWhereUniqueInput {
 }
 
 type Workout {
-  cordinates: Cordinates!
+  cordinates: Cordinates
   date: DateTime
   description: String
   duration: Int!
   id: Int!
   isFree: Boolean!
+  onlineWorkout: OnlineWorkout
   partecipants(after: UsersOnWorkoutsWhereUniqueInput, before: UsersOnWorkoutsWhereUniqueInput, first: Int, last: Int): [UsersOnWorkouts!]!
   spots: Int!
   title: String!
   trainer: User!
+  typology: Typology!
 }
 
 input WorkoutCreateManyWithoutCordinatesInput {
@@ -955,34 +1044,40 @@ input WorkoutCreateWithoutCordinatesInput {
   description: String
   duration: Int!
   isFree: Boolean
+  onlineWorkout: OnlineWorkoutCreateOneWithoutWorkoutInput
   partecipants: UsersOnWorkoutsCreateManyWithoutWorkoutInput
   spots: Int
   title: String!
   trainer: UserCreateOneWithoutTrainInput!
+  typology: Typology
 }
 
 input WorkoutCreateWithoutPartecipantsInput {
-  cordinates: CordinatesCreateOneWithoutWorkoutInput!
+  cordinates: CordinatesCreateOneWithoutWorkoutInput
   createdAt: DateTime
   date: DateTime
   description: String
   duration: Int!
   isFree: Boolean
+  onlineWorkout: OnlineWorkoutCreateOneWithoutWorkoutInput
   spots: Int
   title: String!
   trainer: UserCreateOneWithoutTrainInput!
+  typology: Typology
 }
 
 input WorkoutCreateWithoutTrainerInput {
-  cordinates: CordinatesCreateOneWithoutWorkoutInput!
+  cordinates: CordinatesCreateOneWithoutWorkoutInput
   createdAt: DateTime
   date: DateTime
   description: String
   duration: Int!
   isFree: Boolean
+  onlineWorkout: OnlineWorkoutCreateOneWithoutWorkoutInput
   partecipants: UsersOnWorkoutsCreateManyWithoutWorkoutInput
   spots: Int
   title: String!
+  typology: Typology
 }
 
 input WorkoutIdUserIdCompoundUniqueInput {
@@ -1007,11 +1102,12 @@ input WorkoutOrderByInput {
   spots: SortOrder
   title: SortOrder
   trainerId: SortOrder
+  typology: SortOrder
 }
 
 input WorkoutScalarWhereInput {
   AND: [WorkoutScalarWhereInput!]
-  cordinatesId: IntFilter
+  cordinatesId: IntNullableFilter
   createdAt: DateTimeFilter
   date: DateTimeNullableFilter
   description: StringNullableFilter
@@ -1023,19 +1119,22 @@ input WorkoutScalarWhereInput {
   spots: IntFilter
   title: StringFilter
   trainerId: IntFilter
+  typology: Typology
 }
 
 input WorkoutUpdateInput {
-  cordinates: CordinatesUpdateOneRequiredWithoutWorkoutInput
+  cordinates: CordinatesUpdateOneWithoutWorkoutInput
   createdAt: DateTimeFieldUpdateOperationsInput
   date: NullableDateTimeFieldUpdateOperationsInput
   description: NullableStringFieldUpdateOperationsInput
   duration: IntFieldUpdateOperationsInput
   isFree: BoolFieldUpdateOperationsInput
+  onlineWorkout: OnlineWorkoutUpdateOneWithoutWorkoutInput
   partecipants: UsersOnWorkoutsUpdateManyWithoutWorkoutInput
   spots: IntFieldUpdateOperationsInput
   title: StringFieldUpdateOperationsInput
   trainer: UserUpdateOneRequiredWithoutTrainInput
+  typology: Typology
 }
 
 input WorkoutUpdateManyDataInput {
@@ -1046,6 +1145,7 @@ input WorkoutUpdateManyDataInput {
   isFree: BoolFieldUpdateOperationsInput
   spots: IntFieldUpdateOperationsInput
   title: StringFieldUpdateOperationsInput
+  typology: Typology
 }
 
 input WorkoutUpdateManyWithoutCordinatesInput {
@@ -1090,34 +1190,40 @@ input WorkoutUpdateWithoutCordinatesDataInput {
   description: NullableStringFieldUpdateOperationsInput
   duration: IntFieldUpdateOperationsInput
   isFree: BoolFieldUpdateOperationsInput
+  onlineWorkout: OnlineWorkoutUpdateOneWithoutWorkoutInput
   partecipants: UsersOnWorkoutsUpdateManyWithoutWorkoutInput
   spots: IntFieldUpdateOperationsInput
   title: StringFieldUpdateOperationsInput
   trainer: UserUpdateOneRequiredWithoutTrainInput
+  typology: Typology
 }
 
 input WorkoutUpdateWithoutPartecipantsDataInput {
-  cordinates: CordinatesUpdateOneRequiredWithoutWorkoutInput
+  cordinates: CordinatesUpdateOneWithoutWorkoutInput
   createdAt: DateTimeFieldUpdateOperationsInput
   date: NullableDateTimeFieldUpdateOperationsInput
   description: NullableStringFieldUpdateOperationsInput
   duration: IntFieldUpdateOperationsInput
   isFree: BoolFieldUpdateOperationsInput
+  onlineWorkout: OnlineWorkoutUpdateOneWithoutWorkoutInput
   spots: IntFieldUpdateOperationsInput
   title: StringFieldUpdateOperationsInput
   trainer: UserUpdateOneRequiredWithoutTrainInput
+  typology: Typology
 }
 
 input WorkoutUpdateWithoutTrainerDataInput {
-  cordinates: CordinatesUpdateOneRequiredWithoutWorkoutInput
+  cordinates: CordinatesUpdateOneWithoutWorkoutInput
   createdAt: DateTimeFieldUpdateOperationsInput
   date: NullableDateTimeFieldUpdateOperationsInput
   description: NullableStringFieldUpdateOperationsInput
   duration: IntFieldUpdateOperationsInput
   isFree: BoolFieldUpdateOperationsInput
+  onlineWorkout: OnlineWorkoutUpdateOneWithoutWorkoutInput
   partecipants: UsersOnWorkoutsUpdateManyWithoutWorkoutInput
   spots: IntFieldUpdateOperationsInput
   title: StringFieldUpdateOperationsInput
+  typology: Typology
 }
 
 input WorkoutUpdateWithWhereUniqueWithoutCordinatesInput {
@@ -1150,7 +1256,7 @@ input WorkoutUpsertWithWhereUniqueWithoutTrainerInput {
 input WorkoutWhereInput {
   AND: [WorkoutWhereInput!]
   cordinates: CordinatesWhereInput
-  cordinatesId: IntFilter
+  cordinatesId: IntNullableFilter
   createdAt: DateTimeFilter
   date: DateTimeNullableFilter
   description: StringNullableFilter
@@ -1158,12 +1264,14 @@ input WorkoutWhereInput {
   id: IntFilter
   isFree: BoolFilter
   NOT: [WorkoutWhereInput!]
+  onlineWorkout: OnlineWorkoutWhereInput
   OR: [WorkoutWhereInput!]
   partecipants: UsersOnWorkoutsListRelationFilter
   spots: IntFilter
   title: StringFilter
   trainer: UserWhereInput
   trainerId: IntFilter
+  typology: Typology
 }
 
 input WorkoutWhereUniqueInput {

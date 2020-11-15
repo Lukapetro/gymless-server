@@ -15,6 +15,12 @@ export const SexType = enumType({
   members: ['male', 'female', 'unknown'],
 })
 
+export const WorkoutType = enumType({
+  name: 'Typology',
+  description: 'The workout typology',
+  members: ['online', 'outdoor'],
+})
+
 export const JSONScalar = new GraphQLScalarType({
   name: 'JSON',
   serialize: (data) => data,

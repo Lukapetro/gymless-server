@@ -16,6 +16,7 @@ import { forgotPassword } from './ForgotPassword'
 import { changePassword } from './user/ChangePassword'
 import { sendHelpRequest } from './help/sendHelpRequest'
 import { recordAttendance } from './RecordAttendance'
+import { createOnlineWorkout } from './workout/CreateOnlineWorkout'
 
 export const Mutation = {
   signup,
@@ -36,4 +37,5 @@ export const Mutation = {
   changePassword,
   sendHelpRequest,
   recordAttendance,
+  createOnlineWorkout,
 }

@@ -13,5 +13,7 @@ export const Workout = schema.objectType({
     t.model.trainer()
     t.model.partecipants()
     t.model.cordinates()
+    t.model.typology()
+    t.model.onlineWorkout()
   },
 })

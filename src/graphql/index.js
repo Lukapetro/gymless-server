@@ -7,6 +7,7 @@ import { Workout } from './models/Workout'
 import { PaymentMethods } from './models/PaymentMethods'
 import { Referral } from './models/Referral'
 import { UsersOnWorkouts } from './models/UsersOnWorkouts'
+import { OnlineWorkout } from './models/OnlineWorkout'
 
 export const resolvers = [
   Query,
@@ -18,4 +19,5 @@ export const resolvers = [
   Workout,
   Referral,
   UsersOnWorkouts,
+  OnlineWorkout,
 ]

@@ -1,7 +1,7 @@
 import { extendType } from '@nexus/schema'
 import { schema } from 'nexus'
 
-import { DateTime } from '../../utils/costants'
+import { DateTime, WorkoutType } from '../../utils/costants'
 
 export const workout = extendType({
   type: 'Mutation',
@@ -15,11 +15,21 @@ export const workout = extendType({
         spots: schema.intArg({ required: true }),
         cordinatesId: schema.intArg(),
         isFree: schema.booleanArg(),
+        typology: WorkoutType,
         date: DateTime,
       },
       resolve: async (
         _,
-        { title, description, spots, date, cordinatesId, duration, isFree },
+        {
+          title,
+          description,
+          spots,
+          date,
+          cordinatesId,
+          duration,
+          isFree,
+          typology,
+        },
         ctx,
       ) => {
         const user = await ctx.prisma.user.findOne({
@@ -40,6 +50,7 @@ export const workout = extendType({
             isFree,
             spots,
             date,
+            typology,
             trainer: {
               connect: {
                 id: ctx.userId,

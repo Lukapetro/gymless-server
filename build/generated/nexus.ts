@@ -731,10 +731,12 @@ export interface NexusGenInputs {
     date?: any | null; // DateTime
     description?: string | null; // String
     duration: number; // Int!
+    isFree?: boolean | null; // Boolean
     partecipants?: NexusGenInputs['UsersOnWorkoutsCreateManyWithoutWorkoutInput'] | null; // UsersOnWorkoutsCreateManyWithoutWorkoutInput
     spots?: number | null; // Int
     title: string; // String!
     trainer: NexusGenInputs['UserCreateOneWithoutTrainInput']; // UserCreateOneWithoutTrainInput!
+    typology?: NexusGenEnums['Typology'] | null; // Typology
   }
   WorkoutCreateWithoutPartecipantsInput: { // input type
     cordinates: NexusGenInputs['CordinatesCreateOneWithoutWorkoutInput']; // CordinatesCreateOneWithoutWorkoutInput!
@@ -742,9 +744,11 @@ export interface NexusGenInputs {
     date?: any | null; // DateTime
     description?: string | null; // String
     duration: number; // Int!
+    isFree?: boolean | null; // Boolean
     spots?: number | null; // Int
     title: string; // String!
     trainer: NexusGenInputs['UserCreateOneWithoutTrainInput']; // UserCreateOneWithoutTrainInput!
+    typology?: NexusGenEnums['Typology'] | null; // Typology
   }
   WorkoutCreateWithoutTrainerInput: { // input type
     cordinates: NexusGenInputs['CordinatesCreateOneWithoutWorkoutInput']; // CordinatesCreateOneWithoutWorkoutInput!
@@ -752,9 +756,11 @@ export interface NexusGenInputs {
     date?: any | null; // DateTime
     description?: string | null; // String
     duration: number; // Int!
+    isFree?: boolean | null; // Boolean
     partecipants?: NexusGenInputs['UsersOnWorkoutsCreateManyWithoutWorkoutInput'] | null; // UsersOnWorkoutsCreateManyWithoutWorkoutInput
     spots?: number | null; // Int
     title: string; // String!
+    typology?: NexusGenEnums['Typology'] | null; // Typology
   }
   WorkoutIdUserIdCompoundUniqueInput: { // input type
     userId: number; // Int!
@@ -772,9 +778,11 @@ export interface NexusGenInputs {
     description?: NexusGenEnums['SortOrder'] | null; // SortOrder
     duration?: NexusGenEnums['SortOrder'] | null; // SortOrder
     id?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    isFree?: NexusGenEnums['SortOrder'] | null; // SortOrder
     spots?: NexusGenEnums['SortOrder'] | null; // SortOrder
     title?: NexusGenEnums['SortOrder'] | null; // SortOrder
     trainerId?: NexusGenEnums['SortOrder'] | null; // SortOrder
+    typology?: NexusGenEnums['SortOrder'] | null; // SortOrder
   }
   WorkoutScalarWhereInput: { // input type
     AND?: NexusGenInputs['WorkoutScalarWhereInput'][] | null; // [WorkoutScalarWhereInput!]
@@ -784,11 +792,13 @@ export interface NexusGenInputs {
     description?: NexusGenInputs['StringNullableFilter'] | null; // StringNullableFilter
     duration?: NexusGenInputs['IntFilter'] | null; // IntFilter
     id?: NexusGenInputs['IntFilter'] | null; // IntFilter
+    isFree?: NexusGenInputs['BoolFilter'] | null; // BoolFilter
     NOT?: NexusGenInputs['WorkoutScalarWhereInput'][] | null; // [WorkoutScalarWhereInput!]
     OR?: NexusGenInputs['WorkoutScalarWhereInput'][] | null; // [WorkoutScalarWhereInput!]
     spots?: NexusGenInputs['IntFilter'] | null; // IntFilter
     title?: NexusGenInputs['StringFilter'] | null; // StringFilter
     trainerId?: NexusGenInputs['IntFilter'] | null; // IntFilter
+    typology?: NexusGenEnums['Typology'] | null; // Typology
   }
   WorkoutUpdateInput: { // input type
     cordinates?: NexusGenInputs['CordinatesUpdateOneRequiredWithoutWorkoutInput'] | null; // CordinatesUpdateOneRequiredWithoutWorkoutInput
@@ -796,18 +806,22 @@ export interface NexusGenInputs {
     date?: NexusGenInputs['NullableDateTimeFieldUpdateOperationsInput'] | null; // NullableDateTimeFieldUpdateOperationsInput
     description?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
     duration?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
+    isFree?: NexusGenInputs['BoolFieldUpdateOperationsInput'] | null; // BoolFieldUpdateOperationsInput
     partecipants?: NexusGenInputs['UsersOnWorkoutsUpdateManyWithoutWorkoutInput'] | null; // UsersOnWorkoutsUpdateManyWithoutWorkoutInput
     spots?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
     title?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     trainer?: NexusGenInputs['UserUpdateOneRequiredWithoutTrainInput'] | null; // UserUpdateOneRequiredWithoutTrainInput
+    typology?: NexusGenEnums['Typology'] | null; // Typology
   }
   WorkoutUpdateManyDataInput: { // input type
     createdAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
     date?: NexusGenInputs['NullableDateTimeFieldUpdateOperationsInput'] | null; // NullableDateTimeFieldUpdateOperationsInput
     description?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
     duration?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
+    isFree?: NexusGenInputs['BoolFieldUpdateOperationsInput'] | null; // BoolFieldUpdateOperationsInput
     spots?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
     title?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    typology?: NexusGenEnums['Typology'] | null; // Typology
   }
   WorkoutUpdateManyWithWhereNestedInput: { // input type
     data: NexusGenInputs['WorkoutUpdateManyDataInput']; // WorkoutUpdateManyDataInput!
@@ -854,10 +868,12 @@ export interface NexusGenInputs {
     date?: NexusGenInputs['NullableDateTimeFieldUpdateOperationsInput'] | null; // NullableDateTimeFieldUpdateOperationsInput
     description?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
     duration?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
+    isFree?: NexusGenInputs['BoolFieldUpdateOperationsInput'] | null; // BoolFieldUpdateOperationsInput
     partecipants?: NexusGenInputs['UsersOnWorkoutsUpdateManyWithoutWorkoutInput'] | null; // UsersOnWorkoutsUpdateManyWithoutWorkoutInput
     spots?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
     title?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     trainer?: NexusGenInputs['UserUpdateOneRequiredWithoutTrainInput'] | null; // UserUpdateOneRequiredWithoutTrainInput
+    typology?: NexusGenEnums['Typology'] | null; // Typology
   }
   WorkoutUpdateWithoutPartecipantsDataInput: { // input type
     cordinates?: NexusGenInputs['CordinatesUpdateOneRequiredWithoutWorkoutInput'] | null; // CordinatesUpdateOneRequiredWithoutWorkoutInput
@@ -865,9 +881,11 @@ export interface NexusGenInputs {
     date?: NexusGenInputs['NullableDateTimeFieldUpdateOperationsInput'] | null; // NullableDateTimeFieldUpdateOperationsInput
     description?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
     duration?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
+    isFree?: NexusGenInputs['BoolFieldUpdateOperationsInput'] | null; // BoolFieldUpdateOperationsInput
     spots?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
     title?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     trainer?: NexusGenInputs['UserUpdateOneRequiredWithoutTrainInput'] | null; // UserUpdateOneRequiredWithoutTrainInput
+    typology?: NexusGenEnums['Typology'] | null; // Typology
   }
   WorkoutUpdateWithoutTrainerDataInput: { // input type
     cordinates?: NexusGenInputs['CordinatesUpdateOneRequiredWithoutWorkoutInput'] | null; // CordinatesUpdateOneRequiredWithoutWorkoutInput
@@ -875,9 +893,11 @@ export interface NexusGenInputs {
     date?: NexusGenInputs['NullableDateTimeFieldUpdateOperationsInput'] | null; // NullableDateTimeFieldUpdateOperationsInput
     description?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
     duration?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
+    isFree?: NexusGenInputs['BoolFieldUpdateOperationsInput'] | null; // BoolFieldUpdateOperationsInput
     partecipants?: NexusGenInputs['UsersOnWorkoutsUpdateManyWithoutWorkoutInput'] | null; // UsersOnWorkoutsUpdateManyWithoutWorkoutInput
     spots?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
     title?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    typology?: NexusGenEnums['Typology'] | null; // Typology
   }
   WorkoutUpsertWithWhereUniqueWithoutCordinatesInput: { // input type
     create: NexusGenInputs['WorkoutCreateWithoutCordinatesInput']; // WorkoutCreateWithoutCordinatesInput!
@@ -902,6 +922,7 @@ export interface NexusGenInputs {
     description?: NexusGenInputs['StringNullableFilter'] | null; // StringNullableFilter
     duration?: NexusGenInputs['IntFilter'] | null; // IntFilter
     id?: NexusGenInputs['IntFilter'] | null; // IntFilter
+    isFree?: NexusGenInputs['BoolFilter'] | null; // BoolFilter
     NOT?: NexusGenInputs['WorkoutWhereInput'][] | null; // [WorkoutWhereInput!]
     OR?: NexusGenInputs['WorkoutWhereInput'][] | null; // [WorkoutWhereInput!]
     partecipants?: NexusGenInputs['UsersOnWorkoutsListRelationFilter'] | null; // UsersOnWorkoutsListRelationFilter
@@ -909,6 +930,7 @@ export interface NexusGenInputs {
     title?: NexusGenInputs['StringFilter'] | null; // StringFilter
     trainer?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
     trainerId?: NexusGenInputs['IntFilter'] | null; // IntFilter
+    typology?: NexusGenEnums['Typology'] | null; // Typology
   }
   WorkoutWhereUniqueInput: { // input type
     id?: number | null; // Int
@@ -920,6 +942,7 @@ export interface NexusGenEnums {
   Role: "admin" | "trainer" | "user"
   Sex: "female" | "male" | "unknown"
   SortOrder: "asc" | "desc"
+  Typology: "online" | "outdoor"
 }
 
 export interface NexusGenRootTypes {
@@ -1109,6 +1132,7 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   Role: NexusGenEnums['Role'];
   Sex: NexusGenEnums['Sex'];
   SortOrder: NexusGenEnums['SortOrder'];
+  Typology: NexusGenEnums['Typology'];
 }
 
 export interface NexusGenFieldTypes {
@@ -1400,7 +1424,7 @@ export type NexusGenObjectNames = "AuthPayload" | "Card" | "Cordinates" | "Mutat
 
 export type NexusGenInputNames = "BoolFieldUpdateOperationsInput" | "BoolFilter" | "CordinatesCreateInput" | "CordinatesCreateOneWithoutWorkoutInput" | "CordinatesCreateWithoutWorkoutInput" | "CordinatesUpdateInput" | "CordinatesUpdateOneRequiredWithoutWorkoutInput" | "CordinatesUpdateWithoutWorkoutDataInput" | "CordinatesUpsertWithoutWorkoutInput" | "CordinatesWhereInput" | "CordinatesWhereUniqueInput" | "DateTimeFieldUpdateOperationsInput" | "DateTimeFilter" | "DateTimeNullableFilter" | "FloatNullableFilter" | "IntFieldUpdateOperationsInput" | "IntFilter" | "NestedBoolFilter" | "NestedDateTimeFilter" | "NestedDateTimeNullableFilter" | "NestedFloatNullableFilter" | "NestedIntFilter" | "NestedStringFilter" | "NestedStringNullableFilter" | "NullableDateTimeFieldUpdateOperationsInput" | "NullableFloatFieldUpdateOperationsInput" | "NullableStringFieldUpdateOperationsInput" | "ReferralCreateManyWithoutReferredInput" | "ReferralCreateManyWithoutReferrerInput" | "ReferralCreateWithoutReferredInput" | "ReferralCreateWithoutReferrerInput" | "ReferralListRelationFilter" | "ReferralScalarWhereInput" | "ReferralUpdateManyDataInput" | "ReferralUpdateManyWithWhereNestedInput" | "ReferralUpdateManyWithoutReferredInput" | "ReferralUpdateManyWithoutReferrerInput" | "ReferralUpdateWithWhereUniqueWithoutReferredInput" | "ReferralUpdateWithWhereUniqueWithoutReferrerInput" | "ReferralUpdateWithoutReferredDataInput" | "ReferralUpdateWithoutReferrerDataInput" | "ReferralUpsertWithWhereUniqueWithoutReferredInput" | "ReferralUpsertWithWhereUniqueWithoutReferrerInput" | "ReferralWhereInput" | "ReferralWhereUniqueInput" | "StringFieldUpdateOperationsInput" | "StringFilter" | "StringNullableFilter" | "UserCreateOneWithoutReferralInput" | "UserCreateOneWithoutReferrerInput" | "UserCreateOneWithoutTrainInput" | "UserCreateOneWithoutWorkoutsInput" | "UserCreateWithoutReferralInput" | "UserCreateWithoutReferrerInput" | "UserCreateWithoutTrainInput" | "UserCreateWithoutWorkoutsInput" | "UserUpdateOneRequiredWithoutReferralInput" | "UserUpdateOneRequiredWithoutReferrerInput" | "UserUpdateOneRequiredWithoutTrainInput" | "UserUpdateOneRequiredWithoutWorkoutsInput" | "UserUpdateWithoutReferralDataInput" | "UserUpdateWithoutReferrerDataInput" | "UserUpdateWithoutTrainDataInput" | "UserUpdateWithoutWorkoutsDataInput" | "UserUpsertWithoutReferralInput" | "UserUpsertWithoutReferrerInput" | "UserUpsertWithoutTrainInput" | "UserUpsertWithoutWorkoutsInput" | "UserWhereInput" | "UserWhereUniqueInput" | "UsersOnWorkoutsCreateManyWithoutUserInput" | "UsersOnWorkoutsCreateManyWithoutWorkoutInput" | "UsersOnWorkoutsCreateWithoutUserInput" | "UsersOnWorkoutsCreateWithoutWorkoutInput" | "UsersOnWorkoutsListRelationFilter" | "UsersOnWorkoutsScalarWhereInput" | "UsersOnWorkoutsUpdateManyDataInput" | "UsersOnWorkoutsUpdateManyWithWhereNestedInput" | "UsersOnWorkoutsUpdateManyWithoutUserInput" | "UsersOnWorkoutsUpdateManyWithoutWorkoutInput" | "UsersOnWorkoutsUpdateWithWhereUniqueWithoutUserInput" | "UsersOnWorkoutsUpdateWithWhereUniqueWithoutWorkoutInput" | "UsersOnWorkoutsUpdateWithoutUserDataInput" | "UsersOnWorkoutsUpdateWithoutWorkoutDataInput" | "UsersOnWorkoutsUpsertWithWhereUniqueWithoutUserInput" | "UsersOnWorkoutsUpsertWithWhereUniqueWithoutWorkoutInput" | "UsersOnWorkoutsWhereInput" | "UsersOnWorkoutsWhereUniqueInput" | "WorkoutCreateManyWithoutCordinatesInput" | "WorkoutCreateManyWithoutTrainerInput" | "WorkoutCreateOneWithoutPartecipantsInput" | "WorkoutCreateWithoutCordinatesInput" | "WorkoutCreateWithoutPartecipantsInput" | "WorkoutCreateWithoutTrainerInput" | "WorkoutIdUserIdCompoundUniqueInput" | "WorkoutListRelationFilter" | "WorkoutOrderByInput" | "WorkoutScalarWhereInput" | "WorkoutUpdateInput" | "WorkoutUpdateManyDataInput" | "WorkoutUpdateManyWithWhereNestedInput" | "WorkoutUpdateManyWithoutCordinatesInput" | "WorkoutUpdateManyWithoutTrainerInput" | "WorkoutUpdateOneRequiredWithoutPartecipantsInput" | "WorkoutUpdateWithWhereUniqueWithoutCordinatesInput" | "WorkoutUpdateWithWhereUniqueWithoutTrainerInput" | "WorkoutUpdateWithoutCordinatesDataInput" | "WorkoutUpdateWithoutPartecipantsDataInput" | "WorkoutUpdateWithoutTrainerDataInput" | "WorkoutUpsertWithWhereUniqueWithoutCordinatesInput" | "WorkoutUpsertWithWhereUniqueWithoutTrainerInput" | "WorkoutUpsertWithoutPartecipantsInput" | "WorkoutWhereInput" | "WorkoutWhereUniqueInput";
 
-export type NexusGenEnumNames = "Gymler" | "Role" | "Sex" | "SortOrder";
+export type NexusGenEnumNames = "Gymler" | "Role" | "Sex" | "SortOrder" | "Typology";
 
 export type NexusGenInterfaceNames = never;
 

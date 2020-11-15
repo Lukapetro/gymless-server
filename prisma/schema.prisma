@@ -24,6 +24,11 @@ enum Sex {
   unknown
 }
 
+enum Typology {
+  online
+  outdoor
+}
+
 model User {
   id           Int               @id @default(autoincrement())
   name         String
@@ -59,11 +64,24 @@ model Workout {
   date         DateTime?
   trainerId    Int
   trainer      User              @relation("Train", fields: [trainerId], references: [id])
-  cordinates   Cordinates        @relation(fields: [cordinatesId], references: [id])
-  cordinatesId Int
+  cordinates   Cordinates?        @relation(fields: [cordinatesId], references: [id])
+  cordinatesId Int?
   partecipants UsersOnWorkouts[]
   isFree       Boolean           @default(false)
+  typology     Typology @default(outdoor)
+  onlineWorkout OnlineWorkout?
 }
+
+model OnlineWorkout {
+  id      Int    @id @default(autoincrement())
+  workout    Workout   @relation(fields: [workoutId], references: [id])
+  workoutId  Int   
+  link String
+  passcode String
+    zoomId String
+
+}
+
 
 model Cordinates {
   id        Int       @id @default(autoincrement())
