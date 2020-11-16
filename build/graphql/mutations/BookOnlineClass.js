@@ -23,7 +23,7 @@ var bookOnlineClass = (0, _schema.mutationField)('bookOnlineClass', {
   },
   resolve: function () {
     var _resolve = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(parent, _ref, ctx) {
-      var id, isFree, user, workout, referral, _yield$ctx$prisma$use, classes;
+      var id, isFree, user, workout, referral, _yield$ctx$prisma$use, onlineClasses;
 
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
@@ -141,7 +141,7 @@ var bookOnlineClass = (0, _schema.mutationField)('bookOnlineClass', {
 
             case 25:
               _yield$ctx$prisma$use = _context.sent;
-              classes = _yield$ctx$prisma$use.classes;
+              onlineClasses = _yield$ctx$prisma$use.onlineClasses;
               _context.t0 = ctx.prisma.referral;
               _context.t1 = {
                 data: {
@@ -154,7 +154,7 @@ var bookOnlineClass = (0, _schema.mutationField)('bookOnlineClass', {
               _context.next = 31;
               return ctx.prisma.user.update({
                 data: {
-                  classes: classes + 1
+                  onlineClasses: onlineClasses + 1
                 },
                 where: {
                   id: referral.referrerId

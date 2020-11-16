@@ -81,7 +81,7 @@ export const bookOnlineClass = mutationField('bookOnlineClass', {
 
     //Se è referenziato e non è completato
     if (referral && !referral.completed) {
-      const { classes } = await ctx.prisma.user.findOne({
+      const { onlineClasses } = await ctx.prisma.user.findOne({
         where: {
           id: referral.referrerId,
         },
@@ -98,7 +98,7 @@ export const bookOnlineClass = mutationField('bookOnlineClass', {
         },
         await ctx.prisma.user.update({
           data: {
-            classes: classes + 1,
+            onlineClasses: onlineClasses + 1,
           },
           where: {
             id: referral.referrerId,

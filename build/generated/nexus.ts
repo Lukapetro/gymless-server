@@ -446,6 +446,7 @@ export interface NexusGenInputs {
     gymlerType?: NexusGenEnums['Gymler'] | null; // Gymler
     lastLoggedIn?: any | null; // DateTime
     name: string; // String!
+    onlineClasses?: number | null; // Int
     password: string; // String!
     referrer?: NexusGenInputs['ReferralCreateManyWithoutReferrerInput'] | null; // ReferralCreateManyWithoutReferrerInput
     role?: NexusGenEnums['Role'] | null; // Role
@@ -467,6 +468,7 @@ export interface NexusGenInputs {
     gymlerType?: NexusGenEnums['Gymler'] | null; // Gymler
     lastLoggedIn?: any | null; // DateTime
     name: string; // String!
+    onlineClasses?: number | null; // Int
     password: string; // String!
     referral?: NexusGenInputs['ReferralCreateManyWithoutReferredInput'] | null; // ReferralCreateManyWithoutReferredInput
     role?: NexusGenEnums['Role'] | null; // Role
@@ -488,6 +490,7 @@ export interface NexusGenInputs {
     gymlerType?: NexusGenEnums['Gymler'] | null; // Gymler
     lastLoggedIn?: any | null; // DateTime
     name: string; // String!
+    onlineClasses?: number | null; // Int
     password: string; // String!
     referral?: NexusGenInputs['ReferralCreateManyWithoutReferredInput'] | null; // ReferralCreateManyWithoutReferredInput
     referrer?: NexusGenInputs['ReferralCreateManyWithoutReferrerInput'] | null; // ReferralCreateManyWithoutReferrerInput
@@ -509,6 +512,7 @@ export interface NexusGenInputs {
     gymlerType?: NexusGenEnums['Gymler'] | null; // Gymler
     lastLoggedIn?: any | null; // DateTime
     name: string; // String!
+    onlineClasses?: number | null; // Int
     password: string; // String!
     referral?: NexusGenInputs['ReferralCreateManyWithoutReferredInput'] | null; // ReferralCreateManyWithoutReferredInput
     referrer?: NexusGenInputs['ReferralCreateManyWithoutReferrerInput'] | null; // ReferralCreateManyWithoutReferrerInput
@@ -554,6 +558,7 @@ export interface NexusGenInputs {
     gymlerType?: NexusGenEnums['Gymler'] | null; // Gymler
     lastLoggedIn?: NexusGenInputs['NullableDateTimeFieldUpdateOperationsInput'] | null; // NullableDateTimeFieldUpdateOperationsInput
     name?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    onlineClasses?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
     password?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     referrer?: NexusGenInputs['ReferralUpdateManyWithoutReferrerInput'] | null; // ReferralUpdateManyWithoutReferrerInput
     role?: NexusGenEnums['Role'] | null; // Role
@@ -575,6 +580,7 @@ export interface NexusGenInputs {
     gymlerType?: NexusGenEnums['Gymler'] | null; // Gymler
     lastLoggedIn?: NexusGenInputs['NullableDateTimeFieldUpdateOperationsInput'] | null; // NullableDateTimeFieldUpdateOperationsInput
     name?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    onlineClasses?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
     password?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     referral?: NexusGenInputs['ReferralUpdateManyWithoutReferredInput'] | null; // ReferralUpdateManyWithoutReferredInput
     role?: NexusGenEnums['Role'] | null; // Role
@@ -596,6 +602,7 @@ export interface NexusGenInputs {
     gymlerType?: NexusGenEnums['Gymler'] | null; // Gymler
     lastLoggedIn?: NexusGenInputs['NullableDateTimeFieldUpdateOperationsInput'] | null; // NullableDateTimeFieldUpdateOperationsInput
     name?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    onlineClasses?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
     password?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     referral?: NexusGenInputs['ReferralUpdateManyWithoutReferredInput'] | null; // ReferralUpdateManyWithoutReferredInput
     referrer?: NexusGenInputs['ReferralUpdateManyWithoutReferrerInput'] | null; // ReferralUpdateManyWithoutReferrerInput
@@ -617,6 +624,7 @@ export interface NexusGenInputs {
     gymlerType?: NexusGenEnums['Gymler'] | null; // Gymler
     lastLoggedIn?: NexusGenInputs['NullableDateTimeFieldUpdateOperationsInput'] | null; // NullableDateTimeFieldUpdateOperationsInput
     name?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    onlineClasses?: NexusGenInputs['IntFieldUpdateOperationsInput'] | null; // IntFieldUpdateOperationsInput
     password?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     referral?: NexusGenInputs['ReferralUpdateManyWithoutReferredInput'] | null; // ReferralUpdateManyWithoutReferredInput
     referrer?: NexusGenInputs['ReferralUpdateManyWithoutReferrerInput'] | null; // ReferralUpdateManyWithoutReferrerInput
@@ -657,6 +665,7 @@ export interface NexusGenInputs {
     lastLoggedIn?: NexusGenInputs['DateTimeNullableFilter'] | null; // DateTimeNullableFilter
     name?: NexusGenInputs['StringFilter'] | null; // StringFilter
     NOT?: NexusGenInputs['UserWhereInput'][] | null; // [UserWhereInput!]
+    onlineClasses?: NexusGenInputs['IntFilter'] | null; // IntFilter
     OR?: NexusGenInputs['UserWhereInput'][] | null; // [UserWhereInput!]
     password?: NexusGenInputs['StringFilter'] | null; // StringFilter
     referral?: NexusGenInputs['ReferralListRelationFilter'] | null; // ReferralListRelationFilter
@@ -1061,6 +1070,7 @@ export interface NexusGenRootTypes {
     id: number; // Int!
     lastLoggedIn?: any | null; // DateTime
     name: string; // String!
+    onlineClasses: number; // Int!
     role: NexusGenEnums['Role']; // Role!
     sex: NexusGenEnums['Sex']; // Sex!
     stripeId?: string | null; // String
@@ -1241,6 +1251,7 @@ export interface NexusGenFieldTypes {
   }
   Mutation: { // field return type
     bookClass: NexusGenRootTypes['Workout']; // Workout!
+    bookOnlineClass: NexusGenRootTypes['Workout']; // Workout!
     changePassword: NexusGenRootTypes['User']; // User!
     confirmUser: boolean; // Boolean!
     createOneCordinates: NexusGenRootTypes['Cordinates']; // Cordinates!
@@ -1249,6 +1260,7 @@ export interface NexusGenFieldTypes {
     deleteBooking: NexusGenRootTypes['Workout']; // Workout!
     deleteOneCordinates: NexusGenRootTypes['Cordinates'] | null; // Cordinates
     deleteOneWorkout: NexusGenRootTypes['Workout'] | null; // Workout
+    deleteOnlineBooking: NexusGenRootTypes['Workout']; // Workout!
     deleteUser: NexusGenRootTypes['User']; // User!
     detachPaymentMethod: any; // JSON!
     facebookConnect: NexusGenRootTypes['User']; // User!
@@ -1267,6 +1279,7 @@ export interface NexusGenFieldTypes {
     updateOneWorkout: NexusGenRootTypes['Workout'] | null; // Workout
     updateUser: NexusGenRootTypes['User']; // User!
     updateUserClasses: NexusGenRootTypes['User']; // User!
+    updateUserOnlineClasses: NexusGenRootTypes['User']; // User!
     updateUserPassword: NexusGenRootTypes['User']; // User!
   }
   OnlineWorkout: { // field return type
@@ -1317,6 +1330,7 @@ export interface NexusGenFieldTypes {
     id: number; // Int!
     lastLoggedIn: any | null; // DateTime
     name: string; // String!
+    onlineClasses: number; // Int!
     referral: NexusGenRootTypes['Referral'][]; // [Referral!]!
     referrer: NexusGenRootTypes['Referral'][]; // [Referral!]!
     role: NexusGenEnums['Role']; // Role!
@@ -1363,6 +1377,10 @@ export interface NexusGenArgTypes {
       id: number; // Int!
       isFree?: boolean | null; // Boolean
     }
+    bookOnlineClass: { // args
+      id: number; // Int!
+      isFree?: boolean | null; // Boolean
+    }
     changePassword: { // args
       password: string; // String!
       token: string; // String!
@@ -1403,6 +1421,10 @@ export interface NexusGenArgTypes {
     }
     deleteOneWorkout: { // args
       where: NexusGenInputs['WorkoutWhereUniqueInput']; // WorkoutWhereUniqueInput!
+    }
+    deleteOnlineBooking: { // args
+      id?: string | null; // ID
+      isFree?: boolean | null; // Boolean
     }
     detachPaymentMethod: { // args
       id: string; // String!
@@ -1462,6 +1484,9 @@ export interface NexusGenArgTypes {
     }
     updateUserClasses: { // args
       classes: number; // Int!
+    }
+    updateUserOnlineClasses: { // args
+      onlineClasses: number; // Int!
     }
     updateUserPassword: { // args
       newPassword?: string | null; // String
