@@ -116,6 +116,40 @@ export const user = extendType({
       },
     })
 
+    t.field('updateUserOnlineClasses', {
+      type: 'User',
+      args: {
+        onlineClasses: intArg({ required: true }),
+      },
+      resolve: async (parent, { onlineClasses }, ctx) => {
+        //Pesco l'utente
+        const user = await ctx.prisma.user.findOne({
+          where: {
+            id: ctx.userId,
+          },
+        })
+
+        if (!user) {
+          throw new Error(`Non autorizzato`)
+        }
+
+        //Controllo se dispone di classi per prenotare
+        if (onlineClasses < 0 && user.onlineClasses === 0) {
+          throw new Error('Classi non sufficienti')
+        }
+
+        //Aggiorno le classi dell'utente
+        return ctx.prisma.user.update({
+          data: {
+            onlineClasses: user.onlineClasses + onlineClasses,
+          },
+          where: {
+            id: ctx.userId,
+          },
+        })
+      },
+    })
+
     t.field('deleteUser', {
       type: 'User',
       resolve: (parent, args, ctx) => {

@@ -5,7 +5,10 @@ import { facebookLogin } from './FacebookLogin'
 import { cordinates } from './Cordinates'
 import { workout } from './Workout'
 import { bookClass } from './BookClass'
+import { bookOnlineClass } from './BookOnlineClass'
 import { deleteBooking } from './DeleteBooking'
+import { deleteOnlineBooking } from './DeleteOnlineBooking'
+
 import { paymentIntent } from './PaymentIntet'
 import { user } from './User'
 import { socialLinking } from './SocialLinking'
@@ -27,7 +30,9 @@ export const Mutation = {
   cordinates,
   workout,
   bookClass,
+  bookOnlineClass,
   deleteBooking,
+  deleteOnlineBooking,
   paymentIntent,
   socialLinking,
   setupIntent,

@@ -47,6 +47,7 @@ model User {
   avatarId     String?
   lastLoggedIn DateTime?
   classes      Int               @default(0)
+ onlineClasses      Int               @default(0)
   referrer     Referral[]        @relation("Referrer")
   referral     Referral[]        @relation("Referred")
   gymlerType   Gymler            @default(basic)

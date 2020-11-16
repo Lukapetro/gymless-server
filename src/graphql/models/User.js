@@ -22,6 +22,7 @@ export const User = schema.objectType({
     t.model.birthDate()
     t.model.avatarId()
     t.model.classes()
+    t.model.onlineClasses()
     t.model.gymlerType()
   },
 })

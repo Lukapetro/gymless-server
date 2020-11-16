@@ -176,6 +176,7 @@ scalar JSON
 
 type Mutation {
   bookClass(id: Int!, isFree: Boolean): Workout!
+  bookOnlineClass(id: Int!, isFree: Boolean): Workout!
   changePassword(password: String!, token: String!): User!
   confirmUser(token: String!): Boolean!
   createOneCordinates(data: CordinatesCreateInput!): Cordinates!
@@ -184,6 +185,7 @@ type Mutation {
   deleteBooking(id: ID, isFree: Boolean): Workout!
   deleteOneCordinates(where: CordinatesWhereUniqueInput!): Cordinates
   deleteOneWorkout(where: WorkoutWhereUniqueInput!): Workout
+  deleteOnlineBooking(id: ID, isFree: Boolean): Workout!
   deleteUser: User!
   detachPaymentMethod(id: String!): JSON!
   facebookConnect(fbToken: String!): User!
@@ -202,6 +204,7 @@ type Mutation {
   updateOneWorkout(data: WorkoutUpdateInput!, where: WorkoutWhereUniqueInput!): Workout
   updateUser(birthDate: Date, email: String, name: String, sex: Sex, surname: String): User!
   updateUserClasses(classes: Int!): User!
+  updateUserOnlineClasses(onlineClasses: Int!): User!
   updateUserPassword(newPassword: String, oldPassword: String): User!
 }
 
@@ -592,6 +595,7 @@ type User {
   id: Int!
   lastLoggedIn: DateTime
   name: String!
+  onlineClasses: Int!
   referral(after: ReferralWhereUniqueInput, before: ReferralWhereUniqueInput, first: Int, last: Int): [Referral!]!
   referrer(after: ReferralWhereUniqueInput, before: ReferralWhereUniqueInput, first: Int, last: Int): [Referral!]!
   role: Role!
@@ -633,6 +637,7 @@ input UserCreateWithoutReferralInput {
   gymlerType: Gymler
   lastLoggedIn: DateTime
   name: String!
+  onlineClasses: Int
   password: String!
   referrer: ReferralCreateManyWithoutReferrerInput
   role: Role
@@ -655,6 +660,7 @@ input UserCreateWithoutReferrerInput {
   gymlerType: Gymler
   lastLoggedIn: DateTime
   name: String!
+  onlineClasses: Int
   password: String!
   referral: ReferralCreateManyWithoutReferredInput
   role: Role
@@ -677,6 +683,7 @@ input UserCreateWithoutTrainInput {
   gymlerType: Gymler
   lastLoggedIn: DateTime
   name: String!
+  onlineClasses: Int
   password: String!
   referral: ReferralCreateManyWithoutReferredInput
   referrer: ReferralCreateManyWithoutReferrerInput
@@ -699,6 +706,7 @@ input UserCreateWithoutWorkoutsInput {
   gymlerType: Gymler
   lastLoggedIn: DateTime
   name: String!
+  onlineClasses: Int
   password: String!
   referral: ReferralCreateManyWithoutReferredInput
   referrer: ReferralCreateManyWithoutReferrerInput
@@ -880,6 +888,7 @@ input UserUpdateWithoutReferralDataInput {
   gymlerType: Gymler
   lastLoggedIn: NullableDateTimeFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
+  onlineClasses: IntFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
   referrer: ReferralUpdateManyWithoutReferrerInput
   role: Role
@@ -902,6 +911,7 @@ input UserUpdateWithoutReferrerDataInput {
   gymlerType: Gymler
   lastLoggedIn: NullableDateTimeFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
+  onlineClasses: IntFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
   referral: ReferralUpdateManyWithoutReferredInput
   role: Role
@@ -924,6 +934,7 @@ input UserUpdateWithoutTrainDataInput {
   gymlerType: Gymler
   lastLoggedIn: NullableDateTimeFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
+  onlineClasses: IntFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
   referral: ReferralUpdateManyWithoutReferredInput
   referrer: ReferralUpdateManyWithoutReferrerInput
@@ -946,6 +957,7 @@ input UserUpdateWithoutWorkoutsDataInput {
   gymlerType: Gymler
   lastLoggedIn: NullableDateTimeFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
+  onlineClasses: IntFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
   referral: ReferralUpdateManyWithoutReferredInput
   referrer: ReferralUpdateManyWithoutReferrerInput
@@ -991,6 +1003,7 @@ input UserWhereInput {
   lastLoggedIn: DateTimeNullableFilter
   name: StringFilter
   NOT: [UserWhereInput!]
+  onlineClasses: IntFilter
   OR: [UserWhereInput!]
   password: StringFilter
   referral: ReferralListRelationFilter

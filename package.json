@@ -3,8 +3,8 @@
   "scripts": {
     "dev": "nodemon --exec babel-node src/index.js",
     "build": "babel src --out-dir build",
-    "start2": "node build/index.js",
-    "start": "nodemon --exec babel-node src/index.js"
+    "start": "node build/index.js",
+    "start2": "nodemon --exec babel-node src/index.js"
   },
   "dependencies": {
     "@babel/cli": "^7.10.5",
