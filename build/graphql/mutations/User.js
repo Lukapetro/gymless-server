@@ -199,6 +199,71 @@ var user = (0, _schema.extendType)({
         return resolve;
       }()
     });
+    t.field('updateUserOnlineClasses', {
+      type: 'User',
+      args: {
+        onlineClasses: (0, _schema.intArg)({
+          required: true
+        })
+      },
+      resolve: function () {
+        var _resolve3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(parent, _ref4, ctx) {
+          var onlineClasses, user;
+          return regeneratorRuntime.wrap(function _callee3$(_context3) {
+            while (1) {
+              switch (_context3.prev = _context3.next) {
+                case 0:
+                  onlineClasses = _ref4.onlineClasses;
+                  _context3.next = 3;
+                  return ctx.prisma.user.findOne({
+                    where: {
+                      id: ctx.userId
+                    }
+                  });
+
+                case 3:
+                  user = _context3.sent;
+
+                  if (user) {
+                    _context3.next = 6;
+                    break;
+                  }
+
+                  throw new Error("Non autorizzato");
+
+                case 6:
+                  if (!(onlineClasses < 0 && user.onlineClasses === 0)) {
+                    _context3.next = 8;
+                    break;
+                  }
+
+                  throw new Error('Classi non sufficienti');
+
+                case 8:
+                  return _context3.abrupt("return", ctx.prisma.user.update({
+                    data: {
+                      onlineClasses: user.onlineClasses + onlineClasses
+                    },
+                    where: {
+                      id: ctx.userId
+                    }
+                  }));
+
+                case 9:
+                case "end":
+                  return _context3.stop();
+              }
+            }
+          }, _callee3);
+        }));
+
+        function resolve(_x7, _x8, _x9) {
+          return _resolve3.apply(this, arguments);
+        }
+
+        return resolve;
+      }()
+    });
     t.field('deleteUser', {
       type: 'User',
       resolve: function resolve(parent, args, ctx) {
@@ -219,23 +284,23 @@ var user = (0, _schema.extendType)({
         avatarId: (0, _schema.stringArg)()
       },
       resolve: function () {
-        var _resolve3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(parent, _ref4, ctx) {
+        var _resolve4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(parent, _ref5, ctx) {
           var avatarId;
-          return regeneratorRuntime.wrap(function _callee3$(_context3) {
+          return regeneratorRuntime.wrap(function _callee4$(_context4) {
             while (1) {
-              switch (_context3.prev = _context3.next) {
+              switch (_context4.prev = _context4.next) {
                 case 0:
-                  avatarId = _ref4.avatarId;
+                  avatarId = _ref5.avatarId;
 
                   if (ctx.userId) {
-                    _context3.next = 3;
+                    _context4.next = 3;
                     break;
                   }
 
                   throw new Error('Not athenticated');
 
                 case 3:
-                  return _context3.abrupt("return", ctx.prisma.user.update({
+                  return _context4.abrupt("return", ctx.prisma.user.update({
                     data: {
                       avatarId: avatarId
                     },
@@ -246,14 +311,14 @@ var user = (0, _schema.extendType)({
 
                 case 4:
                 case "end":
-                  return _context3.stop();
+                  return _context4.stop();
               }
             }
-          }, _callee3);
+          }, _callee4);
         }));
 
-        function resolve(_x7, _x8, _x9) {
-          return _resolve3.apply(this, arguments);
+        function resolve(_x10, _x11, _x12) {
+          return _resolve4.apply(this, arguments);
         }
 
         return resolve;

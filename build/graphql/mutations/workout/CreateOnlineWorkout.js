@@ -84,6 +84,11 @@ var createOnlineWorkout = (0, _schema.mutationField)('CreateOnlineWorkout', {
                       zoomId: zoomId,
                       passcode: passcode
                     }
+                  },
+                  cordinates: {
+                    connect: {
+                      id: 0
+                    }
                   }
                 }
               }));

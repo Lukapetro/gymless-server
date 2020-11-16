@@ -19,7 +19,11 @@ var _Workout = require("./Workout");
 
 var _BookClass = require("./BookClass");
 
+var _BookOnlineClass = require("./BookOnlineClass");
+
 var _DeleteBooking = require("./DeleteBooking");
+
+var _DeleteOnlineBooking = require("./DeleteOnlineBooking");
 
 var _PaymentIntet = require("./PaymentIntet");
 
@@ -52,7 +56,9 @@ var Mutation = {
   cordinates: _Cordinates.cordinates,
   workout: _Workout.workout,
   bookClass: _BookClass.bookClass,
+  bookOnlineClass: _BookOnlineClass.bookOnlineClass,
   deleteBooking: _DeleteBooking.deleteBooking,
+  deleteOnlineBooking: _DeleteOnlineBooking.deleteOnlineBooking,
   paymentIntent: _PaymentIntet.paymentIntent,
   socialLinking: _SocialLinking.socialLinking,
   setupIntent: _SetupIntent.setupIntent,
