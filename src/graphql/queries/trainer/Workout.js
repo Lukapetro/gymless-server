@@ -16,6 +16,9 @@ export const trainerWorkout = extendType({
               trainerId: ctx.userId,
             },
           },
+          orderBy: {
+            date: 'asc',
+          },
         })
       },
     })
