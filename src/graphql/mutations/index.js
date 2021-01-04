@@ -20,6 +20,8 @@ import { changePassword } from './user/ChangePassword'
 import { sendHelpRequest } from './help/sendHelpRequest'
 import { recordAttendance } from './RecordAttendance'
 import { createOnlineWorkout } from './workout/CreateOnlineWorkout'
+import { updateOnlineWorkout } from './workout/UpdateOnlineWorkout'
+import { updateOutdoorWorkout } from './workout/UpdateOutdoorWorkout'
 
 export const Mutation = {
   signup,
@@ -43,4 +45,6 @@ export const Mutation = {
   sendHelpRequest,
   recordAttendance,
   createOnlineWorkout,
+  updateOnlineWorkout,
+  updateOutdoorWorkout,
 }

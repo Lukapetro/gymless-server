@@ -202,6 +202,8 @@ type Mutation {
   updateAvatar(avatarId: String): User!
   updateOneCordinates(data: CordinatesUpdateInput!, where: CordinatesWhereUniqueInput!): Cordinates
   updateOneWorkout(data: WorkoutUpdateInput!, where: WorkoutWhereUniqueInput!): Workout
+  updateOnlineWorkout(date: DateTime, description: String, duration: Int, id: Int!, isFree: Boolean, link: String, passcode: String, spots: Int, title: String, zoomId: String): Workout!
+  updateOutdoorWorkout(date: DateTime, description: String, duration: Int, id: Int!, isFree: Boolean, spots: Int, title: String): Workout!
   updateUser(birthDate: Date, email: String, name: String, sex: Sex, surname: String): User!
   updateUserClasses(classes: Int!): User!
   updateUserOnlineClasses(onlineClasses: Int!): User!
